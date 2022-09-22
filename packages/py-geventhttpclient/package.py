@@ -22,6 +22,7 @@
 
 from spack import *
 
+
 class PyGeventhttpclient(PythonPackage):
     "A high performance, concurrent HTTP client library for python using gevent."
 

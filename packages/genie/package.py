@@ -3,11 +3,15 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
-from spack import *
+import glob
+import inspect
+import os
 import sys
+
 from llnl.util import filesystem
 
-import os,glob,inspect
+from spack import *
+
 
 class Genie(AutotoolsPackage):
     """GENIE is an international collaboration of scientists that plays the 

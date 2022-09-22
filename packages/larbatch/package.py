@@ -3,9 +3,11 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
-from spack import *
 import os
 import sys
+
+from spack import *
+
 
 class Larbatch(Package):
     """package for batch job submission featuring project.py """

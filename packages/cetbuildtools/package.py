@@ -20,11 +20,13 @@
 # See the Spack documentation for more information on packaging.
 # ----------------------------------------------------------------------------
 
-from spack import *
-from llnl.util import tty
-import sys
 import os
+import sys
+
+from llnl.util import tty
+
 import spack.util.spack_json as sjson
+from spack import *
 
 
 class Cetbuildtools(CMakePackage):

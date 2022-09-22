@@ -6,6 +6,7 @@
 
 from spack import *
 
+
 class Crc32c(CMakePackage):
     """
         This project collects a few CRC32C implementations under an umbrella 

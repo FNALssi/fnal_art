@@ -3,10 +3,13 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
-from spack import *
-import sys
 import os
+import sys
+
 import llnl.util.tty as tty
+
+from spack import *
+
 
 class Ifdhc(MakefilePackage):
     """Data handling client code for intensity frontier experiments"""

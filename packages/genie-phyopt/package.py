@@ -4,9 +4,11 @@
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
 
-import sys
-from spack import *
 import os
+import sys
+
+from spack import *
+
 
 class GeniePhyopt(Package):
     """Phyopt files used by genie."""

@@ -6,6 +6,7 @@
 
 from spack import *
 
+
 class PyMatplotlylib(PythonPackage):
     """Package to render matplotlib figures in plotly."""
 

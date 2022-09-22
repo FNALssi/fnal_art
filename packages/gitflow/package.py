@@ -5,6 +5,7 @@
 
 from spack import *
 
+
 class Gitflow(Package):
     """FIXME: Put a proper description of your package here."""
 

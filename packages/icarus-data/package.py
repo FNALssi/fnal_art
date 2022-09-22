@@ -1,7 +1,9 @@
 
-from spack import *
-import os
 import glob
+import os
+
+from spack import *
+
 
 class IcarusData(Package):
     """Bundle of data files for icarus"""

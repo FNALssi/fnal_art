@@ -6,6 +6,7 @@
 
 import os
 import sys
+
 from spack import *
 
 libdir="%s/var/spack/repos/fnal_art/lib" % os.environ["SPACK_ROOT"]

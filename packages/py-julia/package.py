@@ -6,6 +6,7 @@
 
 from spack import *
 
+
 class PyJulia(PythonPackage):
     """Julia/Python bridge with IPython support"""
 

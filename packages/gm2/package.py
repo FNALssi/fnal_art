@@ -6,6 +6,7 @@
 
 from spack import *
 
+
 class Gm2(Package):
     """Wrapper for packages for gm2 experiment"""
 

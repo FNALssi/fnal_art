@@ -5,6 +5,7 @@
 
 from spack import *
 
+
 class Gm2analyses(CMakePackage):
     """FIXME: Put a proper description of your package here."""
 

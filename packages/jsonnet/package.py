@@ -3,9 +3,11 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
-from spack import *
 import os
 import sys
+
+from spack import *
+
 
 class Jsonnet(Package):
     "A data templating language looking like JSON that produces JSON."

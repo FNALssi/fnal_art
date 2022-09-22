@@ -3,9 +3,11 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
-from spack import *
-import sys
 import os
+import sys
+
+from spack import *
+
 
 class Libwda(MakefilePackage):
     """Fermilab Web Data Access library"""

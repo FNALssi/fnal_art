@@ -3,9 +3,11 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
-from spack import *
-import sys
 import os
+import sys
+
+from spack import *
+
 
 class Tensorflow(Package):
     """ An Open Source Machine Learning Framework for Everyone  """

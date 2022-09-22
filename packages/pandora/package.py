@@ -3,10 +3,12 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
-from spack import *
+import glob
 import os
 import sys
-import glob
+
+from spack import *
+
 
 class Pandora(CMakePackage):
     """PandoraPFA Multi-algorithm pattern recognition"""

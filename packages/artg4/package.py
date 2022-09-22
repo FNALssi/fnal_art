@@ -5,6 +5,7 @@
 
 from spack import *
 
+
 class Artg4(CMakePackage):
     """Generic geant4 infrastructure for Art"""
 

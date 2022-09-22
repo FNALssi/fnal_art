@@ -5,6 +5,7 @@
 
 from spack import *
 
+
 class PyDash(PythonPackage):
     """A Python framework for building reactive web-apps"""
 

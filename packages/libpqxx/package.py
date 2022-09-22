@@ -6,6 +6,7 @@
 
 from spack import *
 
+
 class Libpqxx(CMakePackage):
     """libpqxx, the C++ API to the PostgreSQL database management system."""
 

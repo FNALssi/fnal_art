@@ -3,10 +3,12 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
-from spack import *
 import os
-import sys
 import re
+import sys
+
+from spack import *
+
 
 class H5cpp(Package):
     """Hierarchical Data Format C++ templates for Serial and Paralell HDF5"""

@@ -6,6 +6,7 @@
 
 from spack import *
 
+
 class Gm2pip(Package):
     """Wrapper for python packages for gm2"""
 

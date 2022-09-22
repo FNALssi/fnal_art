@@ -20,8 +20,9 @@
 # See the Spack documentation for more information on packaging.
 # ----------------------------------------------------------------------------
 
-from spack import *
 import os
+
+from spack import *
 
 
 class StanMath(Package):

@@ -5,6 +5,7 @@
 
 from spack import *
 
+
 class Cadmesh(CMakePackage):
     """Load triangular mesh based CAD files into Geant4 quickly and easily."""
 

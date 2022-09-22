@@ -4,9 +4,12 @@
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
 
+import glob
+import os
 import sys
+
 from spack import *
-import os, glob
+
 
 class Log4cpp(AutotoolsPackage):
     """A library of C++ classes for flexible logging to files (rolling),

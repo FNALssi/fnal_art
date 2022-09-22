@@ -5,6 +5,7 @@
 
 from spack import *
 
+
 class ArtCppDbInterfaces(Package):
     """Header only library of C++ interfaces to 
        Scientific Computing Division storage services."""

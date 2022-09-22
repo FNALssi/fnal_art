@@ -6,6 +6,7 @@
 
 from spack import *
 
+
 class Libb64(MakefilePackage):
     """A fast base-64 encoder/decoder in C++"""
 

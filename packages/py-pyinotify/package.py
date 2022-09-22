@@ -5,6 +5,7 @@
 
 from spack import *
 
+
 class PyPyinotify(PythonPackage):
     """Linux filesystem events monitoring """
 
