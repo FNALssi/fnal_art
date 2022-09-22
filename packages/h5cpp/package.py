@@ -3,9 +3,7 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
-import os
 import re
-import sys
 
 from spack import *
 
@@ -21,7 +19,7 @@ class H5cpp(Package):
 
     def url_for_version(self, version):
         return "https://github.com/steven-varga/h5cpp/archive/refs/tags/v{0}.tar.gz".format(
-            re.sub("\.([0-9])$", "-\\1", str(version))
+            re.sub(r"\.([0-9])$", r"-\1", str(version))
         )
 
     def install(self, spec, prefix):

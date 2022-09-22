@@ -3,9 +3,6 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
-import os
-import sys
-
 from spack import *
 
 
@@ -44,7 +41,6 @@ class Dk2nudata(CMakePackage):
     root_cmakelists_dir = "dk2nu"
 
     def cmake_args(self):
-        prefix = self.spec.prefix
         args = ["-DWITH_GENIE=OFF", "-DTBB_LIBRARY=%s/libtbb.so" % self.spec["tbb"].prefix.lib]
         return args
 

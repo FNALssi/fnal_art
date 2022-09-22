@@ -41,7 +41,7 @@ class Gm2pip(Package):
     depends_on("py-matplotlylib", type=("build", "run"))  # ?
     depends_on("py-julia", type=("build", "run"))  # ?
 
-    # packages no commented out in old requirements file:
+    # packages now commented out in old requirements file:
     #   IPython-Dashboard
     #   ipython-animated-array
     #   ipyext
@@ -58,7 +58,9 @@ class Gm2pip(Package):
     #   fileupload (0.1.5) - IPython file upload widget
     #   calysto (1.0.6) - Libraries and Languages for Python and IPython
     #   colorlover (0.2.1) - Color scales for IPython notebook
-    #   failed to install: hdf5widget #(0.1.0) - This is hdf5widget, a widget for viewing the contents of a HDF5-file in Jupyter Notebooks using ipywidgets.
+    #   failed to install: hdf5widget #(0.1.0)
+    #   - This is hdf5widget, a widget for viewing the contents of a HDF5-file
+    #     in Jupyter Notebooks using ipywidgets.
     #   ipython-memory-usage
     #   ipython-cluster-helper
     #   ipcluster_tools
@@ -70,22 +72,32 @@ class Gm2pip(Package):
     #   jupyter-themer (0.4.0) - Custom CSS themer for jupyter notebooks
     #   jupyter-hdfscontents (0.2) - Jupyter content manager that uses the HDFS filesystem
     #   jupyter-parser (0.0a2) - a command line tool for parsing jupyter notebooks
-    #   jupyter-progressbar (0.1.6) - Wrap a generator or iterator with a progress bar in Jupyter Notebooks.
+    #   jupyter-progressbar (0.1.6)
+    #   - Wrap a generator or iterator with a progress bar in Jupyter Notebooks.
     #   jupyter-tools (0.1.0) - Some tools to make working in jupyter notebooks easier
     #   jupyter-wysiwyg (0.1.8) - WYSIWYG editing functionality for markdown/HTML cells in Jupyter
-    #   jupyter-repo2docker (0.6.0) - Repo2docker: Turn code repositories into Jupyter enabled Docker Images
-    #   nbindex-jupyter (0.2.25) - Javascript based Jupyter Notebook additions (Table of Content, hide code, Figure numbers, ...)
-    #   jupyter-conf-search (0.4.4) - Utility for searching through jupyter configuration files, using jupyter's path definitions to find their locations dynamically.
-    #   failed to install: jupyter-plotly-dash #(0.0.11) - Interactive Jupyter use of plotly dash apps
+    #   jupyter-repo2docker (0.6.0)
+    #   - Repo2docker: Turn code repositories into Jupyter enabled Docker Images
+    #   nbindex-jupyter (0.2.25)
+    #   - Javascript based Jupyter Notebook additions (Table of Content, hide code,
+    #     Figure numbers, ...)
+    #   jupyter-conf-search (0.4.4)
+    #   - Utility for searching through jupyter configuration files, using
+    #     jupyter's path definitions to find their locations dynamically.
+    #   failed to install: jupyter-plotly-dash #(0.0.11)
+    #   - Interactive Jupyter use of plotly dash apps
     #   jupyter-docx-bundler (0.1.3) - Jupyter bundler extension to export notebook as a docx file
     #   jupyter-js-widgets-nbextension (0.0.2.dev0)  - IPython HTML widgets for Jupyter
-    #   jupyter-cjk-xelatex (0.2) - Handle the encoding error for jupyter nbconvert to convert notebook to pdf document
-    #   indico-plugin-previewer-jupyter (1.0) - Jupyter notebook rendering for attachments in Indico
+    #   jupyter-cjk-xelatex (0.2)
+    #   - Handle the encoding error for jupyter nbconvert to convert notebook to pdf document
+    #   indico-plugin-previewer-jupyter (1.0)
+    #   - Jupyter notebook rendering for attachments in Indico
     #   jupyter-config (0.7.0) -
     #   qtconsole (4.4.2) - Jupyter Qt console
     #   nbrmd (0.6.0) - Jupyter notebooks as markdown documents, Python or R scripts
     #   jupyterlab-server #(0.2.0) - JupyterLab Server
-    #   jupyterlab-latex #(0.4.1) - A Jupyter Notebook server extension which acts as an endpoint for LaTeX.
+    #   jupyterlab-latex #(0.4.1)
+    #   - A Jupyter Notebook server extension which acts as an endpoint for LaTeX.
     #   plotly-unbrand (1.0.1) - A small package to remove the branding from plotly plots
     #   bashplotlib (0.6.5) - plotting in the terminal
     #   terminalplot (0.2.6) - Plot points in terminal

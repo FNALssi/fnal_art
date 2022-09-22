@@ -3,15 +3,15 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
-import os
-
 from spack.package import *
 
 
 class PyJltheme(PythonPackage):
     """Change Matplotlib rcParams to match the current JupyterLab theme.
 
-    Adjusts Matplotlib axis labels, edge, face, and tick colors based upon which JupyterLab theme is in use."""
+    Adjusts Matplotlib axis labels, edge, face, and tick colors based
+    upon which JupyterLab theme is in use.
+    """
 
     homepage = "https://github.com/CGCFAD/jltheme"
     pypi = "jltheme/jltheme-0.1.2.tar.gz"

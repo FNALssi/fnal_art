@@ -27,7 +27,7 @@ class Artg4(CMakePackage):
             "PROJECT({0} VERSION {1} LANGUAGES CXX C)".format(self.name, self.version),
             "CMakeLists.txt",
         )
-        filter_file(r"add_subdirectory\(ups\)", "if(WANT_UPS)\n\&\nendif()", "CMakeLists.txt")
+        filter_file(r"add_subdirectory\(ups\)", "if(WANT_UPS)\n\nendif()", "CMakeLists.txt")
 
     def url_for_version(self, version):
 

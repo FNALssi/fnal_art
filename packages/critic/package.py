@@ -5,9 +5,6 @@
 
 
 import os
-import sys
-
-from llnl.util import tty
 
 import spack.util.spack_json as sjson
 from spack import *

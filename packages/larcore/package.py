@@ -4,9 +4,6 @@
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
 import os
-import sys
-
-from llnl.util import tty
 
 import spack.util.spack_json as sjson
 from spack import *
@@ -100,7 +97,9 @@ class Larcore(CMakePackage):
     def fix_static_boost(self):
         print("fixing filesysem.a references..")
         os.system(
-            "set -x; find %s/test/Geometry/CMakeFiles %s/larcore/Geometry/CMakeFiles -type f -print  | tee /tmp/fixlist | xargs perl -pi -e 's/libboost_filesystem.a/libboost_filesystem.so/go;'"
+            "set -x; find %s/test/Geometry/CMakeFiles %s/larcore/Geometry/CMakeFiles "
+            "-type f -print  | tee /tmp/fixlist | "
+            "xargs perl -pi -e 's/libboost_filesystem.a/libboost_filesystem.so/go;'"
             % (self.build_directory, self.build_directory)
         )
         print("done fixing filesysem.a references..")

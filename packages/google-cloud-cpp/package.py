@@ -8,7 +8,8 @@ from spack import *
 
 
 class GoogleCloudCpp(CMakePackage):
-    """This repository contains idiomatic C++ client libraries for the following Google Cloud Platform services.
+    """This repository contains idiomatic C++ client libraries for the
+    following Google Cloud Platform services.
 
     Google Cloud Bigtable [quickstart]
     Google Cloud Spanner [quickstart]

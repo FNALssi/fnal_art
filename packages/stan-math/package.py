@@ -43,10 +43,13 @@ class StanMath(Package):
     version("3.3.0", sha256="fb96629fd3e5e06f0ad4c03a774e54b045cc1dcfde5ff65b6f78f0f05772770a")
 
     def install(self, spec, prefix):
-        # NOTE: there are some tests that require building, but these are mostly targeted at Stan developers.
-        # we're just going to unwind the tarball and install the headers, which are all users need
+        # NOTE: there are some tests that require building, but these are mostly
+        #       targeted at Stan developers.
+        #       We're just going to unwind the tarball and install the headers,
+        #       which are all users need
 
-        # lib contains a bunch of library dependencies that we're obtaining via Spack instead
+        # lib contains a bunch of library dependencies that we're
+        # obtaining via Spack instead
         os.system("rm -rf lib")
         install_tree(self.stage.source_path, prefix)
 

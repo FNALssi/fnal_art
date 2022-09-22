@@ -3,9 +3,6 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
-import re
-
-import spack.util.spack_json as sjson
 from spack.package import *
 
 

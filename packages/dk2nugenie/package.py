@@ -10,7 +10,7 @@ import sys
 from spack import *
 
 libdir = "%s/var/spack/repos/fnal_art/lib" % os.environ["SPACK_ROOT"]
-if not libdir in sys.path:
+if libdir not in sys.path:
     sys.path.append(libdir)
 
 
@@ -54,8 +54,8 @@ class Dk2nugenie(CMakePackage):
     def patch(self):
         patch("dk2nu.patch", when="^genie@3.00.00:", working_dir="v{0}".format(self.version))
         cmakelists = FileFilter("{0}/dk2nu/genie/CMakeLists.txt".format(self.stage.source_path))
-        cmakelists.filter("\$\{GENIE\}/src", "${GENIE}/include/GENIE")
-        cmakelists.filter("\$ENV", "$")
+        cmakelists.filter(r"\$\{GENIE\}/src", "${GENIE}/include/GENIE")
+        cmakelists.filter(r"\$ENV", "$")
         cmakelists.filter("execute_process", "#execute_process")
 
     root_cmakelists_dir = "dk2nu"

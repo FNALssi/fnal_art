@@ -3,11 +3,6 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
-import os
-import sys
-
-from llnl.util import tty
-
 import spack.util.spack_json as sjson
 from spack import *
 

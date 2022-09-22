@@ -14,7 +14,7 @@ def tryagain(f):
     def double_f(*args, **kwargs):
         try:
             f(*args, **kwargs)
-        except:
+        except Exception:
             f(*args, **kwargs)
 
     return double_f
@@ -90,12 +90,6 @@ class Triton(CMakePackage):
             r".*\.\./\.\./\.\./(protobuf|grpc)/.*", "", "src/clients/c++/library/CMakeLists.txt"
         )
 
-    def flag_handler(self, name, flags):
-        if name == "cxxflags" and self.spec.compiler.name == "gcc":
-            flags.append("-Wno-error=deprecated-declarations")
-            flags.append("-Wno-error=class-memaccess")
-        return (flags, None, None)
-
     def cmake_args(self):
         args = [
             "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
@@ -136,7 +130,8 @@ class Triton(CMakePackage):
         return fixed
 
     #
-    # also push our cmake/modules on the environment CMAKE_PREFIX_PATH for  ExternalPackage calls...
+    # also push our cmake/modules on the environment CMAKE_PREFIX_PATH for
+    # ExternalPackage calls...
     #
     def setup_build_environment(self, env):
         env.prepend_path("CMAKE_PREFIX_PATH", self.stage.source_path + "/cmake/modules")

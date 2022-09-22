@@ -3,8 +3,6 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
-import os
-
 from spack import *
 
 
@@ -13,7 +11,7 @@ def tryagain(f):
     def double_f(*args, **kwargs):
         try:
             f(*args, **kwargs)
-        except:
+        except Exception:
             f(*args, **kwargs)
 
     return double_f
@@ -108,7 +106,8 @@ class TrtisClients(CMakePackage):
         return fixed
 
     #
-    # also push our cmake/modules on the environment CMAKE_PREFIX_PATH for  ExternalPackage calls...
+    # also push our cmake/modules on the environment CMAKE_PREFIX_PATH for
+    # ExternalPackage calls...
     #
     def setup_build_environment(self, env):
         env.prepend_path("CMAKE_PREFIX_PATH", self.stage.source_path + "/cmake/modules")
@@ -129,55 +128,24 @@ class TrtisClients(CMakePackage):
     # trying doubled build...
     build = tryagain(CMakePackage.build)
 
-    def cmake_args(self):
-        args = [
-            "-DCMAKE_BUILD_TYPE=Release",
-            "-DCMAKE_C_COMPILER=cc",
-            "-DCMAKE_CXX_COMPILER=c++",
-            "-DTRITON_CURL_WITHOUT_CONFIG:BOOL=ON",
-            "-DTRITON_ENABLE_AZURE_STORAGE:BOOL=OFF",
-            "-DTRITON_ENABLE_S3:BOOL=OFF",
-            "-DTRITON_ENABLE_GCS:BOOL=OFF",
-            "-DCMAKE_CXX_STANDARD={0}".format(self.spec.variants["cxxstd"].value),
-        ]
 
-        if "+cuda" in self.spec:
-            args.append("-DTRITON_ENABLE_GPU:BOOL=ON")
-            args.append("-DTRITON_ENABLE_METRICS_GPU:BOOL=ON")
-        else:
-            args.append("-DTRITON_ENABLE_GPU:BOOL=OFF")
-            args.append("-DTRITON_ENABLE_METRICS_GPU:BOOL=OFF")
-
-        return args
-
-    #
-    # we want our cmake/modules directory in the CMAKE_PREFIX_PATH
-    # but its built in _std_args(), and we want all that plus ours...
-    #
-    @property
-    def std_cmake_args(self):
-        std_cmake_args = CMakePackage._std_args(self)
-        fixed = []
-        for arg in std_cmake_args:
-            if arg.startswith("-DCMAKE_PREFIX_PATH:STRING="):
-                fixed.append(arg + ";" + self.stage.source_path + "/cmake/modules")
-            else:
-                fixed.append(arg)
-        return fixed
-
-    #
-    # also push our cmake/modules on the environment CMAKE_PREFIX_PATH for  ExternalPackage calls...
-    #
-    def setup_build_environment(self, env):
-        env.prepend_path("CMAKE_PREFIX_PATH", self.stage.source_path + "/cmake/modules")
-        pass
-
-    def flag_handler(self, name, flags):
-        if name == "cxxflags" and self.spec.compiler.name == "gcc":
-            flags.append("-Wno-error=deprecated-declarations")
-            flags.append("-Wno-error=class-memaccess")
-        return (flags, None, None)
-
-    def install(self, spec, prefix):
-        with working_dir(self.build_directory + "/client"):
-            make("install")
+#    def cmake_args(self):
+#        args = [
+#            "-DCMAKE_BUILD_TYPE=Release",
+#            "-DCMAKE_C_COMPILER=cc",
+#            "-DCMAKE_CXX_COMPILER=c++",
+#            "-DTRITON_CURL_WITHOUT_CONFIG:BOOL=ON",
+#            "-DTRITON_ENABLE_AZURE_STORAGE:BOOL=OFF",
+#            "-DTRITON_ENABLE_S3:BOOL=OFF",
+#            "-DTRITON_ENABLE_GCS:BOOL=OFF",
+#            "-DCMAKE_CXX_STANDARD={0}".format(self.spec.variants["cxxstd"].value),
+#        ]
+#
+#        if "+cuda" in self.spec:
+#            args.append("-DTRITON_ENABLE_GPU:BOOL=ON")
+#            args.append("-DTRITON_ENABLE_METRICS_GPU:BOOL=ON")
+#        else:
+#            args.append("-DTRITON_ENABLE_GPU:BOOL=OFF")
+#            args.append("-DTRITON_ENABLE_METRICS_GPU:BOOL=OFF")
+#
+#        return args

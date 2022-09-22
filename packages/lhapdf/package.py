@@ -5,7 +5,6 @@
 
 import glob
 import os
-import sys
 
 from spack import *
 

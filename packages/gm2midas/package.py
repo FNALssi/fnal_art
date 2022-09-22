@@ -27,7 +27,7 @@ def subdir_decorator(f):
                     self.build_subdir = d
                     try:
                         f(self, *args)
-                    except:
+                    except Exception:
                         f(self, *args)
         self.build_subdir = None
 

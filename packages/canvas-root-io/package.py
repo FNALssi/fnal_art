@@ -4,9 +4,6 @@
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
 import os
-import sys
-
-from llnl.util import tty
 
 import spack.util.spack_json as sjson
 from spack import *
@@ -104,13 +101,13 @@ class CanvasRootIo(CMakePackage):
             if self.generator == "Unix Makefiles":
                 try:
                     make(*self.build_targets)
-                except:
+                except Exception:
                     make(*self.build_targets)
             elif self.generator == "Ninja":
                 self.build_targets.append("-v")
                 try:
                     ninja(*self.build_targets)
-                except:
+                except Exception:
                     ninja(*self.build_targets)
 
     def cmake_args(self):

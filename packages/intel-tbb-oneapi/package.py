@@ -3,11 +3,6 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
-import glob
-import inspect
-import platform
-import sys
-
 from spack import *
 
 
@@ -52,8 +47,6 @@ class IntelTbbOneapi(CMakePackage):
 
     def cmake_args(self):
         spec = self.spec
-        define = self.define
-        define_from_variant = self.define_from_variant
         options = []
         options.append("-DCMAKE_HWLOC_2_INCLUDE_PATH={}".format(spec["hwloc"].prefix.include))
         options.append("-DCMAKE_HWLOC_2_LIBRARY_PATH={}".format(spec["hwloc"].libs))
