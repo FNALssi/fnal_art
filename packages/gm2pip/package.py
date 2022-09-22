@@ -11,36 +11,36 @@ class Gm2pip(Package):
     """Wrapper for python packages for gm2"""
 
     homepage = "https://cdcvs.fnal.gov/redmine/projects/gm2"
-    url      = "https://cdcvs.fnal.gov/redmine/projects/gm2"
+    url = "https://cdcvs.fnal.gov/redmine/projects/gm2"
 
-    maintainers = ['marcmengel']
+    maintainers = ["marcmengel"]
 
-    version('1.1.0')
+    version("1.1.0")
 
-    depends_on("py-numpy", type=("build","run"))
-    depends_on("py-scipy", type=("build","run"))
-    depends_on("py-pyinotify", type=("build","run"))
-    depends_on("py-python-dateutil", type=("build","run"))
-    depends_on("py-pandas", type=("build","run"))
-    depends_on("py-ipython", type=("build","run"))
-    depends_on("py-ipykernel", type=("build","run"))
-    depends_on("py-widgetsnbextension", type=("build","run"))
-    depends_on("py-ipywidgets", type=("build","run"))
-    depends_on("py-ipywe", type=("build","run"))
-    depends_on("py-jupyter", type=("build","run"))
-    depends_on("py-jupyterlab", type=("build","run")) 
-    depends_on("py-jupyterlab-server", type=("build","run")) 
-    depends_on("py-jupyterlab-launcher", type=("build","run")) 
-    depends_on("py-jupyterlab-widgets", type=("build","run")) 
-    depends_on("py-jupyterlab-templates", type=("build","run")) 
-    depends_on("py-plotly", type=("build","run"))
-    depends_on("py-jupyter-full-width", type=("build","run")) # ? 
-    depends_on("py-jltheme", type=("build","run")) # ?
-    depends_on("py-plotly-scientific-plots", type=("build","run")) # ?
-    depends_on("py-rplotmaker", type=("build","run")) # ?
-    depends_on("py-matplotlylib", type=("build","run")) # ?
-    depends_on("py-julia", type=("build","run")) # ?
-   
+    depends_on("py-numpy", type=("build", "run"))
+    depends_on("py-scipy", type=("build", "run"))
+    depends_on("py-pyinotify", type=("build", "run"))
+    depends_on("py-python-dateutil", type=("build", "run"))
+    depends_on("py-pandas", type=("build", "run"))
+    depends_on("py-ipython", type=("build", "run"))
+    depends_on("py-ipykernel", type=("build", "run"))
+    depends_on("py-widgetsnbextension", type=("build", "run"))
+    depends_on("py-ipywidgets", type=("build", "run"))
+    depends_on("py-ipywe", type=("build", "run"))
+    depends_on("py-jupyter", type=("build", "run"))
+    depends_on("py-jupyterlab", type=("build", "run"))
+    depends_on("py-jupyterlab-server", type=("build", "run"))
+    depends_on("py-jupyterlab-launcher", type=("build", "run"))
+    depends_on("py-jupyterlab-widgets", type=("build", "run"))
+    depends_on("py-jupyterlab-templates", type=("build", "run"))
+    depends_on("py-plotly", type=("build", "run"))
+    depends_on("py-jupyter-full-width", type=("build", "run"))  # ?
+    depends_on("py-jltheme", type=("build", "run"))  # ?
+    depends_on("py-plotly-scientific-plots", type=("build", "run"))  # ?
+    depends_on("py-rplotmaker", type=("build", "run"))  # ?
+    depends_on("py-matplotlylib", type=("build", "run"))  # ?
+    depends_on("py-julia", type=("build", "run"))  # ?
+
     # packages no commented out in old requirements file:
     #   IPython-Dashboard
     #   ipython-animated-array
@@ -81,7 +81,7 @@ class Gm2pip(Package):
     #   jupyter-js-widgets-nbextension (0.0.2.dev0)  - IPython HTML widgets for Jupyter
     #   jupyter-cjk-xelatex (0.2) - Handle the encoding error for jupyter nbconvert to convert notebook to pdf document
     #   indico-plugin-previewer-jupyter (1.0) - Jupyter notebook rendering for attachments in Indico
-    #   jupyter-config (0.7.0) - 
+    #   jupyter-config (0.7.0) -
     #   qtconsole (4.4.2) - Jupyter Qt console
     #   nbrmd (0.6.0) - Jupyter notebooks as markdown documents, Python or R scripts
     #   jupyterlab-server #(0.2.0) - JupyterLab Server
@@ -101,4 +101,3 @@ class Gm2pip(Package):
         f = open(prefix + "README.gm2pip", "w")
         f.write("gm2pip -- wrapper product for gm2 python dependencies\n")
         f.close()
-
