@@ -68,6 +68,10 @@ class Wirecell(Package):
     patch("boost_spline.patch", when="@0.14.0")
 
     def install(self, spec, prefix):
+        cxxstd = self.spec.variants["cxxstd"].value
+        cxxstdflag = (
+            "" if cxxstd == "default" else getattr(self.compiler, "cxx{0}_flag".format(cxxstd))
+        )
 
         cfg = "wcb"
         cfg += " --prefix=%s" % prefix
@@ -84,7 +88,8 @@ class Wirecell(Package):
         #        cfg += " --with-tbb=%s" % spec["tbb"].prefix
         cfg += " --with-tbb=false"  # for now
         cfg += " --with-fftw=%s" % spec["fftw"].prefix
-        cfg += " --build-debug=-std=c++17"
+        if cxxstdflag:
+            cfg += " --build-debug=" + cxxstdflag
 
         cfg += " configure"
         python(*cfg.split())

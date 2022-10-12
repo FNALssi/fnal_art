@@ -3,6 +3,8 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
+import os
+
 from spack.package import *
 
 
@@ -26,6 +28,7 @@ class Cetmodules(CMakePackage):
     variant("docs", default=False, when="~versioned-docs", description="build documentation")
 
     depends_on("cmake@3.21:", type="build")
+
     docs_deps = (
         "git@2.22:",
         "py-sphinxcontrib-moderncmakedomain",
@@ -53,6 +56,11 @@ class Cetmodules(CMakePackage):
 
     conflicts("@:3.19.01", when="^cmake@3.24.0:")
 
+    if "SPACK_CMAKE_GENERATOR" in os.environ:
+        generator = os.environ["SPACK_CMAKE_GENERATOR"]
+        if generator.endswith("Ninja"):
+            depends_on("ninja@1.10:", type="build")
+
     @run_before("cmake")
     def fix_fix_man(self):
         filter_file(r"exit \$status", "exit 0", "%s/libexec/fix-man-dirs" % self.stage.source_path)
@@ -78,6 +86,3 @@ class Cetmodules(CMakePackage):
                 ),
             ]
         return options
-
-    def setup_run_environment(self, run_env):
-        run_env.prepend_path("CMAKE_PREFIX_PATH", "{0}/Modules".format(self.prefix))

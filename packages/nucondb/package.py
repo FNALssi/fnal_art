@@ -43,15 +43,13 @@ class Nucondb(MakefilePackage):
         cxxstdflag = (
             "" if cxxstd == "default" else getattr(self.compiler, "cxx{0}_flag".format(cxxstd))
         )
-        tlist = [
+        return [
             "LIBWDA_FQ_DIR=" + self.spec["libwda"].prefix,
             "LIBWDA_LIB=" + self.spec["libwda"].prefix.lib,
             "IFDHC_FQ_DIR=" + self.spec["ifdhc"].prefix,
             "IFDHC_LIB=" + self.spec["ifdhc"].prefix.lib,
             "ARCH=" + cxxstdflag,
         ]
-
-        return tlist
 
     @property
     def install_targets(self):
