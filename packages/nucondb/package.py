@@ -31,7 +31,13 @@ class Nucondb(MakefilePackage):
     )
 
     depends_on("ifdhc")
+    depends_on("ifbeam")
     depends_on("libwda")
+
+    def patch(self):
+        filter_file(
+            r"catch \(WebAPIException we\)", "catch (WebAPIException &we)", "src/nucondb.cc"
+        )
 
     def url_for_version(self, version):
         url = "https://cdcvs.fnal.gov/cgi-bin/git_archive.cgi/cvs/projects/{0}.v{1}.tbz2"
@@ -47,6 +53,7 @@ class Nucondb(MakefilePackage):
             "LIBWDA_FQ_DIR=" + self.spec["libwda"].prefix,
             "LIBWDA_LIB=" + self.spec["libwda"].prefix.lib,
             "IFDHC_FQ_DIR=" + self.spec["ifdhc"].prefix,
+            "IFBEAM_FQ_DIR=" + self.spec["ifbeam"].prefix,
             "IFDHC_LIB=" + self.spec["ifdhc"].prefix.lib,
             "ARCH=" + cxxstdflag,
         ]

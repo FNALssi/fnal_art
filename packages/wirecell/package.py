@@ -93,6 +93,7 @@ class Wirecell(Package):
 
         cfg += " configure"
         python(*cfg.split())
+        filter_file(r"-std=c\+\+11", cxxstdflag, "build/c4che/_cache.py")
         python("wcb", "-vv")
         python("wcb", "install")
         return
