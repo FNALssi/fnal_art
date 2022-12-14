@@ -9,53 +9,71 @@ import sys
 
 from spack import *
 
-libdir = "%s/var/spack/repos/fnal_art/lib" % os.environ["SPACK_ROOT"]
-if libdir not in sys.path:
-    sys.path.append(libdir)
-
-
-def patcher(x):
-    cetmodules_20_migrator(".", "artg4tk", "9.07.01")
-
+def sanitize_environments(env, *vars):
+    for var in vars:
+        env.prune_duplicate_paths(var)
+        env.deprioritize_system_paths(var)
 
 class Trace(CMakePackage):
     """TRACE is yet another logging (time stamp) tool, but it allows
     fast and/or slow logging - dynamically (you choose)."""
 
-    homepage = "https://cdcvs.fnal.gov/redmine/projects/trace/wiki"
-    git_base = "https://cdcvs.fnal.gov/projects/trace-git/"
+    homepage = "https://github.com/art-daq/trace"
+    git = "https://github.com/art-daq/trace.git"
+    url = "https://github.com/art-daq/trace/archive/refs/tags/v3_17_06.tar.gz"
 
     parallel = False
 
     depends_on("cetmodules", type="build")
-    depends_on("cetpkgsupport", type="build")
 
-    patch("trace-3.15.05.patch", when="@3.15.05")
-    patch("trace-3.16.00.patch", when="@3.16.00")
-    patch("trace-3.15.07.patch", when="@3.15.07")
+    version("develop", branch="develop", get_full_repo=True)
 
-    version("3.17.01", sha256="396c56edceba545db4ab2a40080b56236a816ab39ce06fd057ca2794dc276e66")
+    if "SPACK_CMAKE_GENERATOR" in os.environ:
+        generator = os.environ["SPACK_CMAKE_GENERATOR"]
+        if generator.endswith("Ninja"):
+            depends_on("ninja@1.10:", type="build")
 
-    def url_for_version(self, version):
-        url = "https://cdcvs.fnal.gov/cgi-bin/git_archive.cgi/cvs/projects/{0}.v{1}.tbz2"
-        return url.format(self.name + "-git", version.underscored)
+        
+    def setup_build_environment(self, env):
+        prefix = self.build_directory
+        # Binaries.
+        env.prepend_path("PATH", os.path.join(prefix, "bin"))
+        # Ensure we can find plugin libraries.
+        env.prepend_path("CET_PLUGIN_PATH", os.path.join(prefix, "lib"))
+        # Perl modules.
+        env.prepend_path("PERL5LIB", os.path.join(prefix, "perllib"))
+        # Cleaup.
+        sanitize_environments(env, "PATH", "CET_PLUGIN_PATH", "PERL5LIB")
 
-    def cmake_args(self):
-        args = [
-            "-Dproduct=trace",
-            "-Dtrace_include_dir={0}".format(self.spec.prefix.include),
-        ]
-        return args
+    def setup_run_environment(self, env):
+        prefix = self.prefix
+        # Binaries.
+        env.prepend_path("PATH", os.path.join(prefix, "bin"))
+        # Ensure we can find plugin libraries.
+        env.prepend_path("CET_PLUGIN_PATH", os.path.join(prefix, "lib"))
+        # Perl modules.
+        env.prepend_path("PERL5LIB", os.path.join(prefix, "perllib"))
+        # Cleaup.
+        sanitize_environments(env, "PATH", "CET_PLUGIN_PATH", "PERL5LIB")
 
-    @run_after("install")
-    def rename_README(self):
-        import os
+    def setup_dependent_build_environment(self, env, dependent_spec):
+        prefix = self.prefix
+        # Binaries.
+        env.prepend_path("PATH", os.path.join(prefix, "bin"))
+        # Ensure we can find plugin libraries.
+        env.prepend_path("CET_PLUGIN_PATH", os.path.join(prefix, "lib"))
+        # Perl modules.
+        env.prepend_path("PERL5LIB", os.path.join(prefix, "perllib"))
+        # Cleaup.
+        sanitize_environments(env, "PATH", "CET_PLUGIN_PATH", "PERL5LIB")
 
-        if os.path.exists(join_path(self.spec.prefix, "README")):
-            os.rename(
-                join_path(self.spec.prefix, "README"),
-                join_path(self.spec.prefix, "README_%s" % self.spec.name),
-            )
-
-    def setup_dependent_build_environment(self, spack_env, dspec):
-        spack_env.set("TRACE_INC", self.spec.prefix.include)
+    def setup_dependent_run_environment(self, env, dependent_spec):
+        prefix = self.prefix
+        # Binaries.
+        env.prepend_path("PATH", os.path.join(prefix, "bin"))
+        # Ensure we can find plugin libraries.
+        env.prepend_path("CET_PLUGIN_PATH", os.path.join(prefix, "lib"))
+        # Perl modules.
+        env.prepend_path("PERL5LIB", os.path.join(prefix, "perllib"))
+        # Cleaup.
+        sanitize_environments(env, "PATH", "CET_PLUGIN_PATH", "PERL5LIB")
