@@ -51,8 +51,8 @@ class Cetmodules(CMakePackage):
         "perl-task-perl-critic": ("build", "test"),
     }
 
-    for pkg, types in perl_deps.items():
-        depends_on(pkg, type=types)
+#    for pkg, types in perl_deps.items():
+#        depends_on(pkg, type=types)
 
     conflicts("@:3.19.01", when="^cmake@3.24.0:")
 
