@@ -26,14 +26,23 @@ class Trace(CMakePackage):
 
     depends_on("cetmodules", type="build")
 
-    version("develop", branch="develop", get_full_repo=True)
+    version("develop", branch="eflumerf/Spack", get_full_repo=True)
 
     if "SPACK_CMAKE_GENERATOR" in os.environ:
         generator = os.environ["SPACK_CMAKE_GENERATOR"]
         if generator.endswith("Ninja"):
             depends_on("ninja@1.10:", type="build")
 
-        
+    variant("kmod", default=True, description="Create Linux kernel module")
+    variant("mf", default=False, description="Compile MessageFacility library")
+
+    depends_on("messagefacility", when="+mf")
+
+    def cmake_args(self):
+        args = ["-DWANT_KMOD={0}".format("TRUE" if "+kmod" in self.spec else "FALSE"),"-DWANT_MF={0}".format("TRUE" if "+mf" in self.spec else "FALSE")]
+        return args
+
+       
     def setup_build_environment(self, env):
         prefix = self.build_directory
         # Binaries.

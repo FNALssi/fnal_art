@@ -9,7 +9,7 @@ import sys
 from spack import *
 
 
-class ArtdaqUtilities(CMakePackage):
+class ArtdaqMu2e(CMakePackage):
     """The toolkit currently provides functionality for data transfer,
     event building, event reconstruction and analysis (using the art analysis
     framework), process management, system and process state behavior, control
@@ -17,9 +17,9 @@ class ArtdaqUtilities(CMakePackage):
     and art module configuration, and the writing of event data to disk in ROOT
     format."""
 
-    homepage = "https://cdcvs.fnal.gov/redmine/projects/artdaq/wiki"
-    url = "https://github.com/art-daq/artdaq_utilities/archive/refs/tags/v3_09_03.tar.gz"
-    git = "https://github.com/art-daq/artdaq_utilities.git"
+    homepage = "https://github.com/Mu2e/artdaq_mu2e"
+    url = "https://github.com/Mu2e/artdaq_mu2e.git"
+    git = "https://github.com/Mu2e/artdaq_mu2e.git"
 
     version("develop", branch="develop", get_full_repo=True)
 
@@ -30,7 +30,7 @@ class ArtdaqUtilities(CMakePackage):
         multi=False,
         description="Use the specified C++ standard when building.",
     )
-
+    
+    depends_on("artdaq")
+    depends_on("artdaq-core-mu2e")
     depends_on("cetmodules", type="build")
-    depends_on("messagefacility")
-    depends_on("trace+mf")

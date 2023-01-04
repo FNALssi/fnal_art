@@ -9,7 +9,7 @@ import sys
 from spack import *
 
 
-class ArtdaqUtilities(CMakePackage):
+class Mu2ePcieUtils(CMakePackage):
     """The toolkit currently provides functionality for data transfer,
     event building, event reconstruction and analysis (using the art analysis
     framework), process management, system and process state behavior, control
@@ -17,11 +17,11 @@ class ArtdaqUtilities(CMakePackage):
     and art module configuration, and the writing of event data to disk in ROOT
     format."""
 
-    homepage = "https://cdcvs.fnal.gov/redmine/projects/artdaq/wiki"
-    url = "https://github.com/art-daq/artdaq_utilities/archive/refs/tags/v3_09_03.tar.gz"
-    git = "https://github.com/art-daq/artdaq_utilities.git"
+    homepage = "https://github.com/Mu2e/pcie_linux_kernel_module/"
+    url = "https://github.com/Mu2e/pcie_linux_kernel_module.git"
+    git = "https://github.com/Mu2e/pcie_linux_kernel_module.git"
 
-    version("develop", branch="develop", get_full_repo=True)
+    version("develop", branch="eflumerf/Spack", get_full_repo=True)
 
     variant(
         "cxxstd",
@@ -33,4 +33,4 @@ class ArtdaqUtilities(CMakePackage):
 
     depends_on("cetmodules", type="build")
     depends_on("messagefacility")
-    depends_on("trace+mf")
+    depends_on("trace")

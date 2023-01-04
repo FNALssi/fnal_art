@@ -34,4 +34,4 @@ class ArtdaqMfextensions(CMakePackage):
     depends_on("cetmodules", type="build")
     depends_on("messagefacility")
     depends_on("qt")
-    depends_on("trace")
+    depends_on("trace+mf")

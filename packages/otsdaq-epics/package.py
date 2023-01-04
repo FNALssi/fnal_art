@@ -34,5 +34,5 @@ class OtsdaqEpics(CMakePackage):
     depends_on("otsdaq")
     depends_on("otsdaq-utilities")
     depends_on("epics")
-    depends_on("pqxx")
+    depends_on("libpqxx")
     depends_on("cetmodules", type="build")

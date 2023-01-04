@@ -39,4 +39,4 @@ class Artdaq(CMakePackage):
     depends_on("swig")
     depends_on("node-js")
     depends_on("artdaq-mfextensions")
-    depends_on("trace")
+    depends_on("trace+mf")

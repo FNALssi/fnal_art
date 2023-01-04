@@ -48,4 +48,4 @@ class ArtdaqCore(CMakePackage):
     depends_on("root")
     depends_on("sqlite")
     depends_on("tbb")
-    depends_on("trace")
+    depends_on("trace+mf")
