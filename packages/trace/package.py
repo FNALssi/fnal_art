@@ -26,7 +26,7 @@ class Trace(CMakePackage):
 
     depends_on("cetmodules", type="build")
 
-    version("develop", branch="eflumerf/Spack", get_full_repo=True)
+    version("develop", branch="develop", get_full_repo=True)
 
     if "SPACK_CMAKE_GENERATOR" in os.environ:
         generator = os.environ["SPACK_CMAKE_GENERATOR"]

@@ -21,7 +21,7 @@ class ArtdaqDatabase(CMakePackage):
     url = "https://github.com/art-daq/artdaq_database/archive/refs/tags/v3_09_03.tar.gz"
     git = "https://github.com/art-daq/artdaq_database.git"
 
-    version("develop", branch="eflumerf/Spack", get_full_repo=True)
+    version("develop", branch="develop", get_full_repo=True)
 
     variant(
         "cxxstd",

@@ -21,7 +21,7 @@ class Mu2ePcieUtils(CMakePackage):
     url = "https://github.com/Mu2e/pcie_linux_kernel_module.git"
     git = "https://github.com/Mu2e/pcie_linux_kernel_module.git"
 
-    version("develop", branch="eflumerf/Spack", get_full_repo=True)
+    version("develop", branch="develop", get_full_repo=True)
 
     variant(
         "cxxstd",
