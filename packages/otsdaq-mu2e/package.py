@@ -37,10 +37,13 @@ class OtsdaqMu2e(CMakePackage):
     variant(
         "s",
         default="0",
-        values=("0", "112", "118"),
+        values=("0", "112", "117", "118"),
         multi=False,
         description="Art suite version to use",
     )
+    depends_on("art-suite@s118", when="s=118")
+    depends_on("art-suite@s117", when="s=117")
+    depends_on("art-suite@s112", when="s=112")
 
     depends_on("cetmodules", type="build")
 
@@ -50,29 +53,10 @@ class OtsdaqMu2e(CMakePackage):
         depends_on("otsdaq-components")
         depends_on("otsdaq-epics")
         depends_on("artdaq-mu2e")
-    with when('@v2_06_08'):
+    with when('@v1_02_02'):
         depends_on("otsdaq@v2_06_08")
         depends_on("otsdaq-utilities@v2_06_08")
         depends_on("otsdaq-components@v2_06_08")
         depends_on("otsdaq-epics@v2_06_08")
         depends_on("artdaq-mu2e@v1_05_02")
 
-    depends_on('otsdaq s=0', when="s=0")
-    depends_on('otsdaq s=118', when="s=118")
-    depends_on('otsdaq s=112', when="s=112")
-
-    depends_on('otsdaq-utilities s=0', when="s=0")
-    depends_on('otsdaq-utilities s=118', when="s=118")
-    depends_on('otsdaq-utilities s=112', when="s=112")
-
-    depends_on('otsdaq-components s=0', when="s=0")
-    depends_on('otsdaq-components s=118', when="s=118")
-    depends_on('otsdaq-components s=112', when="s=112")
-
-    depends_on('otsdaq-epics s=0', when="s=0")
-    depends_on('otsdaq-epics s=118', when="s=118")
-    depends_on('otsdaq-epics s=112', when="s=112")
-
-    depends_on('artdaq-mu2e s=0', when="s=0")
-    depends_on('artdaq-mu2e s=118', when="s=118")
-    depends_on('artdaq-mu2e s=112', when="s=112")

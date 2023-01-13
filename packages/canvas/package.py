@@ -48,7 +48,7 @@ class Canvas(CMakePackage):
     depends_on("fhicl-cpp")
     depends_on("hep-concurrency", type="test")
     depends_on("messagefacility")
-    depends_on("range-v3@0.12:")
+    depends_on("range-v3@0.11:")
 
     if "SPACK_CMAKE_GENERATOR" in os.environ:
         generator = os.environ["SPACK_CMAKE_GENERATOR"]

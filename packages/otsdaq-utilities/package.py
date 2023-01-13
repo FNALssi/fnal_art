@@ -35,10 +35,13 @@ class OtsdaqUtilities(CMakePackage):
     variant(
         "s",
         default="0",
-        values=("0", "112", "118"),
+        values=("0", "112", "117", "118"),
         multi=False,
         description="Art suite version to use",
     )
+    depends_on("art-suite@s118", when="s=118")
+    depends_on("art-suite@s117", when="s=117")
+    depends_on("art-suite@s112", when="s=112")
 
     depends_on("cetmodules", type="build")
 
@@ -46,7 +49,3 @@ class OtsdaqUtilities(CMakePackage):
         depends_on("otsdaq")
     with when('@v2_06_08'):
         depends_on("otsdaq@v2_06_08")
-
-    depends_on('otsdaq s=0', when="s=0")
-    depends_on('otsdaq s=118', when="s=118")
-    depends_on('otsdaq s=112', when="s=112")

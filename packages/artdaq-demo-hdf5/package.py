@@ -39,6 +39,9 @@ class ArtdaqDemoHdf5(CMakePackage):
         multi=False,
         description="Art suite version to use",
     )
+    depends_on("art-suite@s118", when="s=118")
+    depends_on("art-suite@s117", when="s=117")
+    depends_on("art-suite@s112", when="s=112")
 
     depends_on("cetmodules", type="build")
     depends_on("hdf5")
@@ -48,6 +51,3 @@ class ArtdaqDemoHdf5(CMakePackage):
     with when('@v1_04_02'):
         depends_on("artdaq@v3_12_02")
 
-    depends_on('artdaq s=0', when="s=0")
-    depends_on('artdaq s=118', when="s=118")
-    depends_on('artdaq s=112', when="s=112")

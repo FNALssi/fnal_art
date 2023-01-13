@@ -39,11 +39,11 @@ class Artdaq(CMakePackage):
         multi=False,
         description="Art suite version to use",
     )
+    depends_on("art-suite@s118", when="s=118")
+    depends_on("art-suite@s117", when="s=117")
+    depends_on("art-suite@s112", when="s=112")
 
-    depends_on("art-root-io", when="s=0")
-    depends_on("art-root-io@1.11.00", when="s=118")
-    depends_on("art-root-io@1.08.05", when="s=117")
-    depends_on("art-root-io@1.08.03", when="s=112")
+    depends_on("art-root-io")
     
     depends_on("cetmodules", type="build")
     depends_on("xmlrpc-c+curl")
@@ -62,18 +62,4 @@ class Artdaq(CMakePackage):
         depends_on("artdaq-utilities@v1_08_02")
         depends_on("artdaq-mfextensions@v1_08_02")
 
-    depends_on('artdaq-core s=0', when="s=0")
-    depends_on('artdaq-core s=118', when="s=118")
-    depends_on('artdaq-core s=117', when="s=117")
-    depends_on('artdaq-core s=112', when="s=112")
-
-    depends_on('artdaq-utilities s=0', when="s=0")
-    depends_on('artdaq-utilities s=118', when="s=118")
-    depends_on('artdaq-utilities s=117', when="s=117")
-    depends_on('artdaq-utilities s=112', when="s=112")
-
-    depends_on('artdaq-mfextensions s=0', when="s=0")
-    depends_on('artdaq-mfextensions s=118', when="s=118")
-    depends_on('artdaq-mfextensions s=117', when="s=117")
-    depends_on('artdaq-mfextensions s=112', when="s=112")
     

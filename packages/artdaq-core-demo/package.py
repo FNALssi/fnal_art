@@ -40,6 +40,9 @@ class ArtdaqCoreDemo(CMakePackage):
         multi=False,
         description="Art suite version to use",
     )
+    depends_on("art-suite@s118", when="s=118")
+    depends_on("art-suite@s117", when="s=117")
+    depends_on("art-suite@s112", when="s=112")
 
     depends_on("cetmodules", type="build")
 
@@ -47,8 +50,3 @@ class ArtdaqCoreDemo(CMakePackage):
         depends_on("artdaq-core")
     with when('@v1_10_02'):
         depends_on("artdaq-core@v3_09_04")
-
-    depends_on('artdaq-core s=0', when="s=0")
-    depends_on('artdaq-core s=118', when="s=118")
-    depends_on('artdaq-core s=117', when="s=117")
-    depends_on('artdaq-core s=112', when="s=112")

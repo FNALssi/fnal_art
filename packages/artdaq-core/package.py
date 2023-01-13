@@ -33,6 +33,7 @@ class ArtdaqCore(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
 
+
     variant(
         "s",
         default="0",
@@ -40,11 +41,11 @@ class ArtdaqCore(CMakePackage):
         multi=False,
         description="Art suite version to use",
     )
+    depends_on("art-suite@s118", when="s=118")
+    depends_on("art-suite@s117", when="s=117")
+    depends_on("art-suite@s112", when="s=112")
 
-    depends_on("canvas-root-io", when="s=0")
-    depends_on("canvas-root-io@1.09.04", when="s=112")
-    depends_on("canvas-root-io@1.09.05", when="s=117")
-    depends_on("canvas-root-io@1.11.00", when="s=118")
+    depends_on("canvas-root-io")
     depends_on("cetmodules", type="build")
 
     with when('@develop'):

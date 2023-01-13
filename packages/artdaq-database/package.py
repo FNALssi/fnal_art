@@ -40,6 +40,9 @@ class ArtdaqDatabase(CMakePackage):
         multi=False,
         description="Art suite version to use",
     )
+    depends_on("art-suite@s118", when="s=118")
+    depends_on("art-suite@s117", when="s=117")
+    depends_on("art-suite@s112", when="s=112")
 
     depends_on("curl")
     depends_on("boost+filesystem+program_options")
@@ -49,11 +52,7 @@ class ArtdaqDatabase(CMakePackage):
 
     depends_on("cetmodules", type="build")
 
-    with when("~builtin_fhicl"):
-        depends_on("cetlib", when="s=0")
-        depends_on("cetlib@3.16.00", when="s=118")
-        depends_on("cetlib@3.13.04", when="s=117")
-        depends_on("cetlib@3.13.04", when="s=112")
+    depends_on("cetlib", when="~builtin_fhicl")
 
     with when('@develop'):
         depends_on("trace+mf")

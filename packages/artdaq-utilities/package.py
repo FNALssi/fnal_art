@@ -39,15 +39,15 @@ class ArtdaqUtilities(CMakePackage):
         multi=False,
         description="Art suite version to use",
     )
+    depends_on("art-suite@s118", when="s=118")
+    depends_on("art-suite@s117", when="s=117")
+    depends_on("art-suite@s112", when="s=112")
 
     depends_on("cetmodules", type="build")
+    depends_on("messagefacility")
 
     with when('@develop'):
         depends_on("trace+mf")
     with when('@v1_08_02'):
         depends_on("trace+mf@v3_17_07")
 
-    depends_on("messagefacility", when="s=0")
-    depends_on("messagefacility@2.09.00", when="s=118")
-    depends_on("messagefacility@2.08.04", when="s=117")
-    depends_on("messagefacility@2.08.04", when="s=112")

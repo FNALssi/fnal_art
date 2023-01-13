@@ -35,10 +35,13 @@ class Otsdaq(CMakePackage):
     variant(
         "s",
         default="0",
-        values=("0", "112", "118"),
+        values=("0", "112", "117", "118"),
         multi=False,
         description="Art suite version to use",
     )
+    depends_on("art-suite@s118", when="s=118")
+    depends_on("art-suite@s117", when="s=117")
+    depends_on("art-suite@s112", when="s=112")
 
     depends_on("cetmodules", type="build")
     depends_on("xdaq")
@@ -51,11 +54,3 @@ class Otsdaq(CMakePackage):
         depends_on("artdaq@v3_12_02")
         depends_on("artdaq-database~builtin_fhicl@v1_07_02")
         depends_on("artdaq-daqinterface@v3_12_02")
-
-    depends_on('artdaq s=0', when="s=0")
-    depends_on('artdaq s=118', when="s=118")
-    depends_on('artdaq s=112', when="s=112")
-
-    depends_on('artdaq-database s=0', when="s=0")
-    depends_on('artdaq-database s=118', when="s=118")
-    depends_on('artdaq-database s=112', when="s=112")
