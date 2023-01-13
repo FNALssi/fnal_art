@@ -18,10 +18,11 @@ class ArtdaqUtilities(CMakePackage):
     format."""
 
     homepage = "https://cdcvs.fnal.gov/redmine/projects/artdaq/wiki"
-    url = "https://github.com/art-daq/artdaq_utilities/archive/refs/tags/v3_09_03.tar.gz"
+    url = "https://github.com/art-daq/artdaq_utilities/archive/refs/tags/v1_08_02.tar.gz"
     git = "https://github.com/art-daq/artdaq_utilities.git"
 
     version("develop", branch="develop", get_full_repo=True)
+    version("v1_08_02", sha256="019a09d1f55d269066e0e5049bad6b0999883c6f6c455c178001bbd9d3b68722")
 
     variant(
         "cxxstd",
@@ -31,6 +32,22 @@ class ArtdaqUtilities(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
 
+    variant(
+        "s",
+        default="0",
+        values=("0", "112", "117", "118"),
+        multi=False,
+        description="Art suite version to use",
+    )
+
     depends_on("cetmodules", type="build")
-    depends_on("messagefacility")
-    depends_on("trace+mf")
+
+    with when('@develop'):
+        depends_on("trace+mf")
+    with when('@v1_08_02'):
+        depends_on("trace+mf@v3_17_07")
+
+    depends_on("messagefacility", when="s=0")
+    depends_on("messagefacility@v2_09_00", when="s=118")
+    depends_on("messagefacility@v2_08_04", when="s=117")
+    depends_on("messagefacility@v2_08_04", when="s=112")

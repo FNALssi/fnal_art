@@ -19,14 +19,18 @@ class Trace(CMakePackage):
     fast and/or slow logging - dynamically (you choose)."""
 
     homepage = "https://github.com/art-daq/trace"
+    url = "https://github.com/art-daq/trace/archive/refs/tags/v3_17_07.tar.gz"
     git = "https://github.com/art-daq/trace.git"
-    url = "https://github.com/art-daq/trace/archive/refs/tags/v3_17_06.tar.gz"
 
     parallel = False
 
     depends_on("cetmodules", type="build")
 
     version("develop", branch="develop", get_full_repo=True)
+    version("v3_17_06", sha256="1fffcb4450b543469d811a05bc00a3beca46e5a1b90954d1d47796e1e9334032")
+    version("v3_17_07", sha256="75d703464d8031320aff972d91d8cc197fcbd553477923569c51f60daa6b27eb")
+
+
 
     if "SPACK_CMAKE_GENERATOR" in os.environ:
         generator = os.environ["SPACK_CMAKE_GENERATOR"]

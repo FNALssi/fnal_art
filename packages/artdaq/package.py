@@ -18,10 +18,11 @@ class Artdaq(CMakePackage):
     format."""
 
     homepage = "https://cdcvs.fnal.gov/redmine/projects/artdaq/wiki"
-    url = "https://github.com/art-daq/artdaq/archive/refs/tags/v3_09_03.tar.gz"
+    url = "https://github.com/art-daq/artdaq/archive/refs/tags/v3_12_02.tar.gz"
     git = "https://github.com/art-daq/artdaq.git"
 
-    version("develop", branch="develop", get_full_repo=True)
+    version("develop", branch="develop", get_full_repo=True)    
+    version("v3_12_02", sha256="98baad840c49be9b16d8dc819a708505fa8601fcb42844c17c1013f9d75b728e")
 
     variant(
         "cxxstd",
@@ -31,12 +32,48 @@ class Artdaq(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
 
-    depends_on("artdaq-core")
-    depends_on("artdaq-utilities")
-    depends_on("xmlrpc-c+curl")
-    depends_on("art-root-io")
+    variant(
+        "s",
+        default="0",
+        values=("0", "112", "117", "118"),
+        multi=False,
+        description="Art suite version to use",
+    )
+
+    depends_on("art-root-io", when="s=0")
+    depends_on("art-root-io@v1_11_00", when="s=118")
+    depends_on("art-root-io@v1_08_05", when="s=117")
+    depends_on("art-root-io@v1_08_03", when="s=112")
+    
     depends_on("cetmodules", type="build")
-    depends_on("swig")
-    depends_on("node-js")
-    depends_on("artdaq-mfextensions")
-    depends_on("trace+mf")
+    depends_on("xmlrpc-c+curl")
+    depends_on("swig", type="build")
+    depends_on("node-js", type="build")
+
+    # Any version of dependencies when using develop
+    with when('@develop'):
+        depends_on("artdaq-core")
+        depends_on("artdaq-utilities")
+        depends_on("artdaq-mfextensions")
+
+    # Use a certain version for tag
+    with when('@v3_12_02'):
+        depends_on("artdaq-core@v3_09_04")
+        depends_on("artdaq-utilities@v1_08_02")
+        depends_on("artdaq-mfextensions@v1_08_02")
+
+    depends_on('artdaq-core s=0', when="s=0")
+    depends_on('artdaq-core s=118', when="s=118")
+    depends_on('artdaq-core s=117', when="s=117")
+    depends_on('artdaq-core s=112', when="s=112")
+
+    depends_on('artdaq-utilities s=0', when="s=0")
+    depends_on('artdaq-utilities s=118', when="s=118")
+    depends_on('artdaq-utilities s=117', when="s=117")
+    depends_on('artdaq-utilities s=112', when="s=112")
+
+    depends_on('artdaq-mfextensions s=0', when="s=0")
+    depends_on('artdaq-mfextensions s=118', when="s=118")
+    depends_on('artdaq-mfextensions s=117', when="s=117")
+    depends_on('artdaq-mfextensions s=112', when="s=112")
+    

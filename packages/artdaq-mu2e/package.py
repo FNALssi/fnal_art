@@ -18,10 +18,12 @@ class ArtdaqMu2e(CMakePackage):
     format."""
 
     homepage = "https://github.com/Mu2e/artdaq_mu2e"
-    url = "https://github.com/Mu2e/artdaq_mu2e.git"
+    url = "https://github.com/Mu2e/artdaq_mu2e/archive/refs/tags/v1_05_02.tar.gz"
     git = "https://github.com/Mu2e/artdaq_mu2e.git"
 
     version("develop", branch="develop", get_full_repo=True)
+    version("v1_05_02", sha256="480fcd8580a11e08de55dbc0e71a16482e0de0ba23a4ac633ff2e2353877d3be")
+
 
     variant(
         "cxxstd",
@@ -30,7 +32,28 @@ class ArtdaqMu2e(CMakePackage):
         multi=False,
         description="Use the specified C++ standard when building.",
     )
-    
-    depends_on("artdaq")
-    depends_on("artdaq-core-mu2e")
+
+    variant(
+        "s",
+        default="0",
+        values=("0", "112", "118"),
+        multi=False,
+        description="Art suite version to use",
+    )
+
     depends_on("cetmodules", type="build")
+
+    with when('@develop'):
+        depends_on("artdaq")
+        depends_on("artdaq-core-mu2e")
+    with when('@v1_05_02'):
+        depends_on("artdaq@v3_12_02")
+        depends_on("artdaq-core-mu2e@v1_08_04")
+
+    depends_on('artdaq s=0', when="s=0")
+    depends_on('artdaq s=118', when="s=118")
+    depends_on('artdaq s=112', when="s=112")
+
+    depends_on('artdaq-core-mu2e s=0', when="s=0")
+    depends_on('artdaq-core-mu2e s=118', when="s=118")
+    depends_on('artdaq-core-mu2e s=112', when="s=112")

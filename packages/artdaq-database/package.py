@@ -18,10 +18,11 @@ class ArtdaqDatabase(CMakePackage):
     format."""
 
     homepage = "https://cdcvs.fnal.gov/redmine/projects/artdaq/wiki"
-    url = "https://github.com/art-daq/artdaq_database/archive/refs/tags/v3_09_03.tar.gz"
+    url = "https://github.com/art-daq/artdaq_database/archive/refs/tags/v1_07_02.tar.gz"
     git = "https://github.com/art-daq/artdaq_database.git"
 
     version("develop", branch="develop", get_full_repo=True)
+    version("v1_07_02", sha256="8cb937967d16f25b59ee8e7104cd968956d892dbe24b29e393c5db982969e432")
 
     variant(
         "cxxstd",
@@ -32,14 +33,32 @@ class ArtdaqDatabase(CMakePackage):
     )
     variant("builtin_fhicl", default=True, description="Use built-in FHiCL-cpp with database fixes")
 
-    depends_on("swig", type="build")
-    depends_on("cetmodules", type="build")
-    depends_on("trace")
+    variant(
+        "s",
+        default="0",
+        values=("0", "112", "117", "118"),
+        multi=False,
+        description="Art suite version to use",
+    )
+
     depends_on("curl")
     depends_on("boost+filesystem+program_options")
-    depends_on("cetlib", when="~builtin_fhicl")
-    depends_on("cetlib-except", when="~builtin_fhicl")
-    depends_on("fhicl-cpp", when="~builtin_fhicl")
+    depends_on("swig", type="build")
+    depends_on("node-js", type="build")
+    depends_on("python", type="build")
+
+    depends_on("cetmodules", type="build")
+
+    with when("~builtin_fhicl"):
+        depends_on("cetlib", when="s=0")
+        depends_on("cetlib@v3_16_00", when="s=118")
+        depends_on("cetlib@v3_13_04", when="s=117")
+        depends_on("cetlib@v3_13_04", when="s=112")
+
+    with when('@develop'):
+        depends_on("trace+mf")
+    with when('@v1_07_02'):
+        depends_on("trace+mf@v3_17_07")
 
     def cmake_args(self):
         args = [self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd"),

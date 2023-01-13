@@ -18,10 +18,11 @@ class ArtdaqDemo(CMakePackage):
     format."""
 
     homepage = "https://cdcvs.fnal.gov/redmine/projects/artdaq/wiki"
-    url = "https://github.com/art-daq/artdaq_demo/archive/refs/tags/v3_09_03.tar.gz"
+    url = "https://github.com/art-daq/artdaq_demo/archive/refs/tags/v3_12_02.tar.gz"
     git = "https://github.com/art-daq/artdaq_demo.git"
 
     version("develop", branch="develop", get_full_repo=True)
+    version("v3_12_02", sha256="3044f14e28f2c54318d06a64c22685839d4dba1a85a30d92ebaa9fe2e8f86055")
 
     variant(
         "cxxstd",
@@ -31,6 +32,27 @@ class ArtdaqDemo(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
 
-    depends_on("artdaq")
-    depends_on("artdaq-core-demo")
+    variant(
+        "s",
+        default="0",
+        values=("0", "112", "117", "118"),
+        multi=False,
+        description="Art suite version to use",
+    )
+
     depends_on("cetmodules", type="build")
+
+    with when('@develop'):
+        depends_on("artdaq")
+        depends_on("artdaq-core-mu2e")
+    with when('@v1_05_02'):
+        depends_on("artdaq@v3_12_02")
+        depends_on("artdaq-core-demo@v1_10_02")
+
+    depends_on('artdaq s=0', when="s=0")
+    depends_on('artdaq s=118', when="s=118")
+    depends_on('artdaq s=112', when="s=112")
+
+    depends_on('artdaq-core-demo s=0', when="s=0")
+    depends_on('artdaq-core-demo s=118', when="s=118")
+    depends_on('artdaq-core-demo s=112', when="s=112")

@@ -18,15 +18,12 @@ class ArtdaqCore(CMakePackage):
     format."""
 
     homepage = "https://cdcvs.fnal.gov/redmine/projects/artdaq/wiki"
-    url = "https://github.com/art-daq/artdaq_core/archive/refs/tags/v3_09_03.tar.gz"
+    url = "https://github.com/art-daq/artdaq_core/archive/refs/tags/v3_09_04.tar.gz"
     git = "https://github.com/art-daq/artdaq_core.git"
 
-    version(
-        "artdaq-v3_12_01",
-        commit="49e62b4aeaaf4e459def6f74363760bb57c6201e",
-        git_full_repo=True,
-    )
     version("develop", branch="develop", get_full_repo=True)
+    version("v3_09_04", sha256="8d4315e0ebe7b663d171352d8e08dd87393d34319f672837eb8c93ea83b8ba63")
+
 
     variant(
         "cxxstd",
@@ -36,16 +33,21 @@ class ArtdaqCore(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
 
-    depends_on("art")
-    depends_on("boost")
-    depends_on("canvas")
-    depends_on("canvas-root-io")
-    depends_on("art-root-io")
+    variant(
+        "s",
+        default="0",
+        values=("0", "112", "117", "118"),
+        multi=False,
+        description="Art suite version to use",
+    )
+
+    depends_on("canvas-root-io", when="s=0")
+    depends_on("canvas-root-io@v1_09_04", when="s=112")
+    depends_on("canvas-root-io@v1_09_05", when="s=117")
+    depends_on("canvas-root-io@v1_11_00", when="s=118")
     depends_on("cetmodules", type="build")
-    depends_on("clhep")
-    depends_on("fhicl-cpp")
-    depends_on("messagefacility")
-    depends_on("root")
-    depends_on("sqlite")
-    depends_on("tbb")
-    depends_on("trace+mf")
+
+    with when('@develop'):
+        depends_on("trace+mf")
+    with when('@v3_09_04'):
+        depends_on("trace@v3_17_07 +mf")
