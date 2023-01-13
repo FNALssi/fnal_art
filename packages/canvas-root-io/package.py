@@ -22,7 +22,7 @@ class CanvasRootIo(CMakePackage):
     url = "https://github.com/art-framework-suite/canvas-root-io/archive/refs/tags/v1_11_00.tar.gz"
 
     version("develop", branch="develop", get_full_repo=True)
-    version("v1_11_00", sha256="950ccf0277f7315d396ae49f6421fd613a7bb34cf7cba68c1c2dfb062b990b6c")
+    version("1.11.00", sha256="950ccf0277f7315d396ae49f6421fd613a7bb34cf7cba68c1c2dfb062b990b6c")
 
 
     variant(

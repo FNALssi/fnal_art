@@ -51,9 +51,9 @@ class ArtdaqDatabase(CMakePackage):
 
     with when("~builtin_fhicl"):
         depends_on("cetlib", when="s=0")
-        depends_on("cetlib@v3_16_00", when="s=118")
-        depends_on("cetlib@v3_13_04", when="s=117")
-        depends_on("cetlib@v3_13_04", when="s=112")
+        depends_on("cetlib@3.16.00", when="s=118")
+        depends_on("cetlib@3.13.04", when="s=117")
+        depends_on("cetlib@3.13.04", when="s=112")
 
     with when('@develop'):
         depends_on("trace+mf")

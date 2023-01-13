@@ -42,9 +42,9 @@ class ArtdaqCore(CMakePackage):
     )
 
     depends_on("canvas-root-io", when="s=0")
-    depends_on("canvas-root-io@v1_09_04", when="s=112")
-    depends_on("canvas-root-io@v1_09_05", when="s=117")
-    depends_on("canvas-root-io@v1_11_00", when="s=118")
+    depends_on("canvas-root-io@1.09.04", when="s=112")
+    depends_on("canvas-root-io@1.09.05", when="s=117")
+    depends_on("canvas-root-io@1.11.00", when="s=118")
     depends_on("cetmodules", type="build")
 
     with when('@develop'):

@@ -41,9 +41,9 @@ class Artdaq(CMakePackage):
     )
 
     depends_on("art-root-io", when="s=0")
-    depends_on("art-root-io@v1_11_00", when="s=118")
-    depends_on("art-root-io@v1_08_05", when="s=117")
-    depends_on("art-root-io@v1_08_03", when="s=112")
+    depends_on("art-root-io@1.11.00", when="s=118")
+    depends_on("art-root-io@1.08.05", when="s=117")
+    depends_on("art-root-io@1.08.03", when="s=112")
     
     depends_on("cetmodules", type="build")
     depends_on("xmlrpc-c+curl")

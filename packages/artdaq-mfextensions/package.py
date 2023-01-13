@@ -49,7 +49,7 @@ class ArtdaqMfextensions(CMakePackage):
         depends_on("trace+mf@v3_17_07")
 
     depends_on("messagefacility", when="s=0")
-    depends_on("messagefacility@v2_09_00", when="s=118")
-    depends_on("messagefacility@v2_08_04", when="s=117")
-    depends_on("messagefacility@v2_08_04", when="s=112")
+    depends_on("messagefacility@2.09.00", when="s=118")
+    depends_on("messagefacility@2.08.04", when="s=117")
+    depends_on("messagefacility@2.08.04", when="s=112")
 
