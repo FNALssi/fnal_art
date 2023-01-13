@@ -23,6 +23,7 @@ class CanvasRootIo(CMakePackage):
 
     version("develop", branch="develop", get_full_repo=True)
     version("1.11.00", sha256="950ccf0277f7315d396ae49f6421fd613a7bb34cf7cba68c1c2dfb062b990b6c")
+    version("1.09.04", sha256="cb854b4fdc72be24856886d985f96ceb3b0049729df0b4a11fb501ff7c48847b")
 
 
     variant(
@@ -44,7 +45,8 @@ class CanvasRootIo(CMakePackage):
     depends_on("fhicl-cpp")
     depends_on("hep-concurrency")
     depends_on("messagefacility")
-    depends_on("root@6.26:+python")
+    depends_on("root@6.26:+python", when="@1.11:")
+    depends_on("root@6.22:+python", when="@1.09:")
 
     if "SPACK_CMAKE_GENERATOR" in os.environ:
         generator = os.environ["SPACK_CMAKE_GENERATOR"]
