@@ -19,10 +19,12 @@ class OtsdaqMu2e(CMakePackage):
     format."""
 
     homepage = "https://github.com/Mu2e/otsdaq_mu2e"
-    url = "https://github.com/Mu2e/otsdaq_mu2e.git"
+    url = "https://github.com/Mu2e/otsdaq_mu2e/archive/refs/tags/v1_02_02.tar.gz"
     git = "https://github.com/Mu2e/otsdaq_mu2e.git"
 
     version("develop", branch="develop", get_full_repo=True)
+    version("v1_02_02", sha256="19334074df56fed7c81e01d8689a50a8ab456e58e01f8ae83fb2461a32ad316a")
+
 
     variant(
         "cxxstd",
@@ -32,9 +34,45 @@ class OtsdaqMu2e(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
 
-    depends_on("otsdaq")
-    depends_on("otsdaq-utilities")
-    depends_on("otsdaq-components")
-    depends_on("otsdaq-epics")
-    depends_on("artdaq-mu2e")
+    variant(
+        "s",
+        default="0",
+        values=("0", "112", "118"),
+        multi=False,
+        description="Art suite version to use",
+    )
+
     depends_on("cetmodules", type="build")
+
+    with when('@develop'):
+        depends_on("otsdaq")
+        depends_on("otsdaq-utilities")
+        depends_on("otsdaq-components")
+        depends_on("otsdaq-epics")
+        depends_on("artdaq-mu2e")
+    with when('@v2_06_08'):
+        depends_on("otsdaq@v2_06_08")
+        depends_on("otsdaq-utilities@v2_06_08")
+        depends_on("otsdaq-components@v2_06_08")
+        depends_on("otsdaq-epics@v2_06_08")
+        depends_on("artdaq-mu2e@v1_05_02")
+
+    depends_on('otsdaq s=0', when="s=0")
+    depends_on('otsdaq s=118', when="s=118")
+    depends_on('otsdaq s=112', when="s=112")
+
+    depends_on('otsdaq-utilities s=0', when="s=0")
+    depends_on('otsdaq-utilities s=118', when="s=118")
+    depends_on('otsdaq-utilities s=112', when="s=112")
+
+    depends_on('otsdaq-components s=0', when="s=0")
+    depends_on('otsdaq-components s=118', when="s=118")
+    depends_on('otsdaq-components s=112', when="s=112")
+
+    depends_on('otsdaq-epics s=0', when="s=0")
+    depends_on('otsdaq-epics s=118', when="s=118")
+    depends_on('otsdaq-epics s=112', when="s=112")
+
+    depends_on('artdaq-mu2e s=0', when="s=0")
+    depends_on('artdaq-mu2e s=118', when="s=118")
+    depends_on('artdaq-mu2e s=112', when="s=112")

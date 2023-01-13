@@ -18,10 +18,11 @@ class OtsdaqUtilities(CMakePackage):
     format."""
 
     homepage = "https://cdcvs.fnal.gov/redmine/projects/artdaq/wiki"
-    url = "https://github.com/art-daq/otsdaq_utilities/archive/refs/tags/v3_09_03.tar.gz"
+    url = "https://github.com/art-daq/otsdaq_utilities/archive/refs/tags/v2_06_08.tar.gz"
     git = "https://github.com/art-daq/otsdaq_utilities.git"
 
     version("develop", branch="develop", get_full_repo=True)
+    version("v2_06_08", sha256="cb024d6b7d98b343b74b9837d1a1161cc9d0bd92f027fffe56ae6d156e952a64")
 
     variant(
         "cxxstd",
@@ -31,5 +32,21 @@ class OtsdaqUtilities(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
 
-    depends_on("otsdaq")
+    variant(
+        "s",
+        default="0",
+        values=("0", "112", "118"),
+        multi=False,
+        description="Art suite version to use",
+    )
+
     depends_on("cetmodules", type="build")
+
+    with when('@develop'):
+        depends_on("otsdaq")
+    with when('@v2_06_08'):
+        depends_on("otsdaq@v2_06_08")
+
+    depends_on('otsdaq s=0', when="s=0")
+    depends_on('otsdaq s=118', when="s=118")
+    depends_on('otsdaq s=112', when="s=112")

@@ -18,10 +18,11 @@ class OtsdaqComponents(CMakePackage):
     format."""
 
     homepage = "https://cdcvs.fnal.gov/redmine/projects/artdaq/wiki"
-    url = "https://github.com/art-daq/otsdaq_components/archive/refs/tags/v3_09_03.tar.gz"
+    url = "https://github.com/art-daq/otsdaq_components/archive/refs/tags/v2_06_08.tar.gz"
     git = "https://github.com/art-daq/otsdaq_components.git"
 
     version("develop", branch="develop", get_full_repo=True)
+    version("v2_06_08", sha256="59bdb4fd6aab1fc97072890824530cf8c9db7e57bd9d9647faf8f32aaaada4a5")
 
     variant(
         "cxxstd",
@@ -31,6 +32,27 @@ class OtsdaqComponents(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
 
-    depends_on("otsdaq")
-    depends_on("otsdaq-utilities")
+    variant(
+        "s",
+        default="0",
+        values=("0", "112", "118"),
+        multi=False,
+        description="Art suite version to use",
+    )
+
     depends_on("cetmodules", type="build")
+
+    with when('@develop'):
+        depends_on("otsdaq")
+        depends_on("otsdaq-utilities")
+    with when('@v2_06_08'):
+        depends_on("otsdaq@v2_06_08")
+        depends_on("otsdaq-utilities@v2_06_08")
+
+    depends_on('otsdaq s=0', when="s=0")
+    depends_on('otsdaq s=118', when="s=118")
+    depends_on('otsdaq s=112', when="s=112")
+
+    depends_on('otsdaq-utilities s=0', when="s=0")
+    depends_on('otsdaq-utilities s=118', when="s=118")
+    depends_on('otsdaq-utilities s=112', when="s=112")

@@ -18,10 +18,11 @@ class Otsdaq(CMakePackage):
     format."""
 
     homepage = "https://cdcvs.fnal.gov/redmine/projects/artdaq/wiki"
-    url = "https://github.com/art-daq/otsdaq/archive/refs/tags/v3_09_03.tar.gz"
+    url = "https://github.com/art-daq/otsdaq/archive/refs/tags/v2_06_08.tar.gz"
     git = "https://github.com/art-daq/otsdaq.git"
 
     version("develop", branch="develop", get_full_repo=True)
+    version("v2_06_08", sha256="cf377646249f018e3a19890000a82d2513c7ebe853244b6b23bc82a5379c2500")
 
     variant(
         "cxxstd",
@@ -31,8 +32,30 @@ class Otsdaq(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
 
-    depends_on("artdaq")
-    depends_on("xdaq")
-    depends_on("artdaq-database~builtin_fhicl")
-    depends_on("artdaq-daqinterface")
+    variant(
+        "s",
+        default="0",
+        values=("0", "112", "118"),
+        multi=False,
+        description="Art suite version to use",
+    )
+
     depends_on("cetmodules", type="build")
+    depends_on("xdaq")
+
+    with when('@develop'):
+        depends_on("artdaq")
+        depends_on("artdaq-database~builtin_fhicl")
+        depends_on("artdaq-daqinterface")
+    with when('@v2_06_08'):
+        depends_on("artdaq@v3_12_02")
+        depends_on("artdaq-database~builtin_fhicl@v1_07_02")
+        depends_on("artdaq-daqinterface@v3_12_02")
+
+    depends_on('artdaq s=0', when="s=0")
+    depends_on('artdaq s=118', when="s=118")
+    depends_on('artdaq s=112', when="s=112")
+
+    depends_on('artdaq-database s=0', when="s=0")
+    depends_on('artdaq-database s=118', when="s=118")
+    depends_on('artdaq-database s=112', when="s=112")

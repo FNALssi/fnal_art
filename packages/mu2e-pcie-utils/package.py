@@ -18,10 +18,11 @@ class Mu2ePcieUtils(CMakePackage):
     format."""
 
     homepage = "https://github.com/Mu2e/pcie_linux_kernel_module/"
-    url = "https://github.com/Mu2e/pcie_linux_kernel_module.git"
-    git = "https://github.com/Mu2e/pcie_linux_kernel_module.git"
+    url = "https://github.com/Mu2e/mu2e_pcie_utils/archive/refs/tags/v2_08_00.tar.gz"
+    git = "https://github.com/Mu2e/mu2e_pcie_utils.git"
 
     version("develop", branch="develop", get_full_repo=True)
+    version("v2_08_00", sha256="75e70eddf2fbceaeb5e2bf0f0db8194fe2050b95a3b73fdcbe0d3b2b324732a2")
 
     variant(
         "cxxstd",
@@ -31,6 +32,21 @@ class Mu2ePcieUtils(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
 
+    variant(
+        "s",
+        default="0",
+        values=("0", "112", "118"),
+        multi=False,
+        description="Art suite version to use",
+    )
+
     depends_on("cetmodules", type="build")
-    depends_on("messagefacility")
-    depends_on("trace")
+
+    with when('@develop'):
+        depends_on("trace+mf")
+    with when('@v1_08_02'):
+        depends_on("trace+mf@v3_17_07")
+
+    depends_on("messagefacility", when="s=0")
+    depends_on("messagefacility@v2_09_00", when="s=118")
+    depends_on("messagefacility@v2_08_04", when="s=112")
