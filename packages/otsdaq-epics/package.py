@@ -22,7 +22,7 @@ class OtsdaqEpics(CMakePackage):
     git = "https://github.com/art-daq/otsdaq_epics.git"
 
     version("develop", branch="develop", get_full_repo=True)
-    version("v2_06_08", sha256="5f24df325f4e27dfbd5a30892a80ba75a3eef642d60a759d1580f846f2e22813")
+    version("v2_06_08", commit="32bdbcd")
 
 
     variant(

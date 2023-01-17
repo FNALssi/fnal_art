@@ -22,7 +22,7 @@ class ArtdaqDemoHdf5(CMakePackage):
     git = "https://github.com/art-daq/artdaq_demo_hdf5.git"
 
     version("develop", branch="develop", get_full_repo=True)
-    version("v1_04_02", sha256="5eb2439158e07d0449c501596e89d7fae61d738ecab177c1da2f4bc16b8f3753")
+    version("v1_04_02", commit="f0d9008")
 
     variant(
         "cxxstd",

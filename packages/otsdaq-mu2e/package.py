@@ -23,7 +23,7 @@ class OtsdaqMu2e(CMakePackage):
     git = "https://github.com/Mu2e/otsdaq_mu2e.git"
 
     version("develop", branch="develop", get_full_repo=True)
-    version("v1_02_02", sha256="19334074df56fed7c81e01d8689a50a8ab456e58e01f8ae83fb2461a32ad316a")
+    version("v1_02_02", commit="92aa08f")
 
 
     variant(

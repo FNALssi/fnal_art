@@ -22,7 +22,7 @@ class ArtdaqPcpMmvPlugin(CMakePackage):
     git = "https://github.com/art-daq/artdaq_pcp_mmv_plugin.git"
 
     version("develop", branch="develop", get_full_repo=True)
-    version("v1_03_02", sha256="c758895726c01b72f8937ef9a1a3f30c5e1e4c94557bf8f043bd9694790a6bfe")
+    version("v1_03_02", commit="a09b0f3")
 
     variant(
         "cxxstd",

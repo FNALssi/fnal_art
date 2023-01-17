@@ -22,7 +22,7 @@ class Artdaq(CMakePackage):
     git = "https://github.com/art-daq/artdaq.git"
 
     version("develop", branch="develop", get_full_repo=True)    
-    version("v3_12_02", sha256="98baad840c49be9b16d8dc819a708505fa8601fcb42844c17c1013f9d75b728e")
+    version("v3_12_02", commit="81c48f5")
 
     variant(
         "cxxstd",

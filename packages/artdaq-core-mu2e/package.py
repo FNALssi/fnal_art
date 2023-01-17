@@ -22,7 +22,7 @@ class ArtdaqCoreMu2e(CMakePackage):
     git = "https://github.com/Mu2e/artdaq_core_mu2e.git"
 
     version("develop", branch="develop", get_full_repo=True)
-    version("v1_08_04", sha256="a145f195ebc93a2a20e08bcbc227325b03852c5fe0702cfca3ba92ffd91fb398")
+    version("v1_08_04", commit="17ff9a2")
 
     variant(
         "cxxstd",
