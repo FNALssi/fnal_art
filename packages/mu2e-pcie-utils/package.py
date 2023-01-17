@@ -22,7 +22,7 @@ class Mu2ePcieUtils(CMakePackage):
     git = "https://github.com/Mu2e/mu2e_pcie_utils.git"
 
     version("develop", branch="develop", get_full_repo=True)
-    version("2_08_00", sha256="75e70eddf2fbceaeb5e2bf0f0db8194fe2050b95a3b73fdcbe0d3b2b324732a2")
+    version("v2_08_00", commit="32899a1")
 
     variant(
         "cxxstd",
@@ -48,7 +48,7 @@ class Mu2ePcieUtils(CMakePackage):
 
     with when('@develop'):
         depends_on("trace+kmod")
-    with when('@2_08_00'):
-        depends_on("trace+kmod@3_17_07")
+    with when('@v2_08_00'):
+        depends_on("trace+kmod@v3_17_07")
 
     
