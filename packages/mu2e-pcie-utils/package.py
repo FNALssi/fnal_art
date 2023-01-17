@@ -47,8 +47,8 @@ class Mu2ePcieUtils(CMakePackage):
     depends_on("messagefacility")
 
     with when('@develop'):
-        depends_on("trace+mf")
+        depends_on("trace+kmod")
     with when('@v2_08_00'):
-        depends_on("trace+mf@v3_17_07")
+        depends_on("trace+kmod@v3_17_07")
 
     
