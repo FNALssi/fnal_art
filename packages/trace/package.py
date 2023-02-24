@@ -6,6 +6,8 @@
 
 import os
 import sys
+from spack.util.environment import EnvironmentModifications
+from llnl.util.filesystem import join_path
 
 from spack import *
 
@@ -46,7 +48,6 @@ class Trace(CMakePackage):
         args = ["-DWANT_KMOD={0}".format("TRUE" if "+kmod" in self.spec else "FALSE"),"-DWANT_MF={0}".format("TRUE" if "+mf" in self.spec else "FALSE")]
         return args
 
-       
     def setup_build_environment(self, env):
         prefix = self.build_directory
         # Binaries.
@@ -59,7 +60,12 @@ class Trace(CMakePackage):
         sanitize_environments(env, "PATH", "CET_PLUGIN_PATH", "PERL5LIB")
 
     def setup_run_environment(self, env):
-        prefix = self.prefix
+        prefix = self.prefix 
+
+        # Source the functions
+        file_to_source = self.prefix.join("bin/trace_functions.sh")
+        print(f'source {file_to_source}')
+        
         # Binaries.
         env.prepend_path("PATH", os.path.join(prefix, "bin"))
         # Ensure we can find plugin libraries.
@@ -82,6 +88,11 @@ class Trace(CMakePackage):
 
     def setup_dependent_run_environment(self, env, dependent_spec):
         prefix = self.prefix
+
+        # Source the functions
+        file_to_source = self.prefix.join("bin/trace_functions.sh")
+        print(f'source {file_to_source}')
+             
         # Binaries.
         env.prepend_path("PATH", os.path.join(prefix, "bin"))
         # Ensure we can find plugin libraries.
