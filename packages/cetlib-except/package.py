@@ -39,8 +39,8 @@ class CetlibExcept(CMakePackage):
     depends_on("cmake@3.21:", type="build")
     depends_on("cetmodules@3.19.02:", type="build")
 #    depends_on("cetpkgsupport", type=("build", "run"))
-#    depends_on("catch2@:2.99", type="build")
-    depends_on("catch2@:3.0.1", type="build")
+    depends_on("catch2@:2.99", type="build", when="cetmodules@:3.20.01")
+    depends_on("catch2", type="build")
 
 
     if "SPACK_CMAKE_GENERATOR" in os.environ:
