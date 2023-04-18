@@ -13,19 +13,17 @@ class ArtdaqSuite(BundlePackage):
 
     version("v3_12_03")
     version("v3_12_02")
-    
+   
+    squals = ("112", "117", "118", "122", "123")
     variant(
         "s",
         default="0",
-        values=("0", "112", "117", "118", "122", "123"),
+        values=("0",) + squals,
         multi=False,
         description="Art suite version to use",
     )
-    depends_on("art-suite@s123+root", when="s=123")
-    depends_on("art-suite@s122+root", when="s=122")
-    depends_on("art-suite@s118+root", when="s=118")
-    depends_on("art-suite@s117+root", when="s=117")
-    depends_on("art-suite@s112+root", when="s=112")
+    for squal in squals:
+        depends_on(f"art-suite@s{squal}+root", when=f"s={squal}")
     depends_on("art-suite+root", when="s=0")
 
     variant("demo", default=False, description="Also install artdaq_demo components")
