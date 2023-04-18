@@ -25,6 +25,10 @@ class ArtdaqEpicsPlugin(CMakePackage):
     version("v1_05_03", sha256="68937458d87d53ac20607b9e62ac13616c143f3f074675b047897a0b10cf20f0")
     version("v1_05_02", sha256="8a8d12f29a357c2426c16c3aef1a745b6bf3308ede38aae2300584eff582a3cf")
 
+    def url_for_version(self, version):
+        url = "https://github.com/art-daq/artdaq_epics_plugin/archive/refs/tags/{0}.tar.gz"
+        return url.format(version)
+
     variant(
         "cxxstd",
         default="17",

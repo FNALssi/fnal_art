@@ -25,6 +25,9 @@ class OtsdaqMu2e(CMakePackage):
     version("develop", branch="develop", get_full_repo=True)
     version("v1_02_02", commit="92aa08f")
 
+    def url_for_version(self, version):
+        url = "https://github.com/Mu2e/otsdaq_mu2e/archive/refs/tags/{0}.tar.gz"
+        return url.format(version)
 
     variant(
         "cxxstd",

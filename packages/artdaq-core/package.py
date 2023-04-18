@@ -25,6 +25,9 @@ class ArtdaqCore(CMakePackage):
     version("v3_09_08", sha256="5689cdf8384276835be9dfd50489917d3729242833f9f2da115445d9245978b2")
     version("v3_09_04", sha256="8d4315e0ebe7b663d171352d8e08dd87393d34319f672837eb8c93ea83b8ba63")
 
+    def url_for_version(self, version):
+        url = "https://github.com/art-daq/artdaq_core/archive/refs/tags/{0}.tar.gz"
+        return url.format(version)
 
     variant(
         "cxxstd",

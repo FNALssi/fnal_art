@@ -25,6 +25,10 @@ class ArtdaqDemoHdf5(CMakePackage):
     version("v1_04_03", sha256="68c2bad6f57ac540accafc7f77247e4fbca23d9f78cfb7ee581d2a2043d27365")
     version("v1_04_02", sha256="5eb2439158e07d0449c501596e89d7fae61d738ecab177c1da2f4bc16b8f3753")
 
+    def url_for_version(self, version):
+        url = "https://github.com/art-daq/artdaq_demo_hdf5/archive/refs/tags/{0}.tar.gz"
+        return url.format(version)
+
     variant(
         "cxxstd",
         default="17",

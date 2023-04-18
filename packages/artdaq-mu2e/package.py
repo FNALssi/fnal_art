@@ -24,6 +24,9 @@ class ArtdaqMu2e(CMakePackage):
     version("develop", branch="develop", get_full_repo=True)
     version("v1_05_02", commit="a66151c")
 
+    def url_for_version(self, version):
+        url = "https://github.com/Mu2e/artdaq_mu2e/archive/refs/tags/{0}.tar.gz"
+        return url.format(version)
 
     variant(
         "cxxstd",

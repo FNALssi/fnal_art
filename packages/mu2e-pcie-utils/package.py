@@ -24,6 +24,10 @@ class Mu2ePcieUtils(CMakePackage):
     version("develop", branch="develop", get_full_repo=True)
     version("v2_08_00", commit="32899a1")
 
+    def url_for_version(self, version):
+        url = "https://github.com/Mu2e/mu2e_pcie_utils/archive/refs/tags/{0}.tar.gz"
+        return url.format(version)
+
     variant(
         "cxxstd",
         default="17",

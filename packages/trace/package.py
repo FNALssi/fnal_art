@@ -36,6 +36,9 @@ class Trace(CMakePackage):
     version("v3_17_05", sha256="6d22f37eca399e8c34ad0b79f29a8d95772279cbd2d47a3d1fd38496913bdcef")
 
 
+    def url_for_version(self, version):
+        url = "https://github.com/art-daq/trace/archive/refs/tags/{0}.tar.gz"
+        return url.format(version)
 
     if "SPACK_CMAKE_GENERATOR" in os.environ:
         generator = os.environ["SPACK_CMAKE_GENERATOR"]

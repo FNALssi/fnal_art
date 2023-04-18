@@ -25,6 +25,10 @@ class OtsdaqComponents(CMakePackage):
     version("v2_06_09", sha256="425a6dcc78394f2fa46a70cac1cd9f627846a024c71e9335ff69518be6d5482e")
     version("v2_06_08", sha256="59bdb4fd6aab1fc97072890824530cf8c9db7e57bd9d9647faf8f32aaaada4a5")
 
+    def url_for_version(self, version):
+        url = "https://github.com/art-daq/otsdaq_components/archive/refs/tags/{0}.tar.gz"
+        return url.format(version)
+
     variant(
         "cxxstd",
         default="17",

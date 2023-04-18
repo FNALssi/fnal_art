@@ -25,6 +25,10 @@ class ArtdaqPcpMmvPlugin(CMakePackage):
     version("v1_03_03", sha256="699dc00f34ed9c698621087aa203d4df163fba96ed0246f993a8e09513929302")
     version("v1_03_02", sha256="c758895726c01b72f8937ef9a1a3f30c5e1e4c94557bf8f043bd9694790a6bfe")
 
+    def url_for_version(self, version):
+        url = "https://github.com/art-daq/artdaq_pcp_mmv_plugin/archive/refs/tags/{0}.tar.gz"
+        return url.format(version)
+
     variant(
         "cxxstd",
         default="17",
