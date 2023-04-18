@@ -7,7 +7,7 @@ import os
 
 from spack.package import *
 
-class Mu2eTDAQSuite(BundlePackage):
+class Mu2eTdaqSuite(BundlePackage):
     """The Mu2e TDAQ Suite, the software used for Mu2e trigger and data acquisition
     """
 
@@ -15,24 +15,22 @@ class Mu2eTDAQSuite(BundlePackage):
     version("v1_02_03")
     version("v1_02_02")
     
+    squals = ("112", "117", "118", "122", "123")
     variant(
         "s",
         default="0",
-        values=("0", "112", "117", "118", "122", "123"),
+        values=("0",) + squals,
         multi=False,
         description="Art suite version to use",
     )
-    depends_on("art-suite@s123+root", when="s=123")
-    depends_on("art-suite@s122+root", when="s=122")
-    depends_on("art-suite@s118+root", when="s=118")
-    depends_on("art-suite@s117+root", when="s=117")
-    depends_on("art-suite@s112+root", when="s=112")
+    for squal in squals:
+        depends_on(f"art-suite@s{squal}+root", when=f"s={squal}")
     depends_on("art-suite+root", when="s=0")
 
     variant(
         "artdaq",
         default="0",
-        values("0","31202","31203"),
+        values = ("0","31202","31203"),
         multi=False,
         description="Artdaq suite version to use",
     )   
@@ -42,7 +40,7 @@ class Mu2eTDAQSuite(BundlePackage):
 
     variant("otsdaq",
             default="0",
-            values("0", "20608", "20609"),
+            values = ("0", "20608", "20609"),
             multi=False,
             description="Otsdaq version to use",
     )
