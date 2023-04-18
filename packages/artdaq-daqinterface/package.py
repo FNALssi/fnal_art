@@ -22,7 +22,8 @@ class ArtdaqDaqinterface(CMakePackage):
     git = "https://github.com/art-daq/artdaq_daqinterface.git"
 
     version("develop", branch="develop", get_full_repo=True)
-    version("v3_12_02", commit="d3f787e")
+    version("v3_12_03", sha256="d56efaa1af93d07acb5e7139c608141f72dfb1a6166e5f25107dc518dfe49f30")
+    version("v3_12_02", sha256="b1a6d45d6723ec697bec1c0a50eac34605bd6c5f4becf5b76f0aeac96c54f8ac")
 
     variant(
         "cxxstd",

@@ -22,7 +22,9 @@ class ArtdaqDatabase(CMakePackage):
     git = "https://github.com/art-daq/artdaq_database.git"
 
     version("develop", branch="develop", get_full_repo=True)
-    version("v1_07_02", commit="a3d27b7")
+    version("v1_07_03", sha256="670a5d44236091bdb85ca643e27dc59fd263fdb2a7dcbeaa7ec04e2b5f67df40")
+    version("v1_07_02", sha256="8cb937967d16f25b59ee8e7104cd968956d892dbe24b29e393c5db982969e432")
+
 
     variant(
         "cxxstd",
@@ -32,17 +34,6 @@ class ArtdaqDatabase(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
     variant("builtin_fhicl", default=True, description="Use built-in FHiCL-cpp with database fixes")
-
-    variant(
-        "s",
-        default="0",
-        values=("0", "112", "117", "118"),
-        multi=False,
-        description="Art suite version to use",
-    )
-    depends_on("art-suite@s118+root", when="s=118")
-    depends_on("art-suite@s117+root", when="s=117")
-    depends_on("art-suite@s112+root", when="s=112")
 
     depends_on("curl")
     depends_on("boost+filesystem+program_options")
@@ -54,10 +45,7 @@ class ArtdaqDatabase(CMakePackage):
 
     depends_on("cetlib", when="~builtin_fhicl")
 
-    with when('@develop'):
-        depends_on("trace+mf")
-    with when('@v1_07_02'):
-        depends_on("trace+mf@v3_17_07")
+    depends_on("trace+mf")
 
     def cmake_args(self):
         args = [self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd"),

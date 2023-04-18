@@ -22,7 +22,8 @@ class ArtdaqUtilities(CMakePackage):
     git = "https://github.com/art-daq/artdaq_utilities.git"
 
     version("develop", branch="develop", get_full_repo=True)
-    version("v1_08_02", commit="c338279")
+    version("v1_08_03", sha256="761ce48cfdfb447fa0536df68719ada0d5ae5a426ca76f627792cac894caf475")
+    version("v1_08_02", sha256="019a09d1f55d269066e0e5049bad6b0999883c6f6c455c178001bbd9d3b68722")
 
     variant(
         "cxxstd",
@@ -32,22 +33,8 @@ class ArtdaqUtilities(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
 
-    variant(
-        "s",
-        default="0",
-        values=("0", "112", "117", "118"),
-        multi=False,
-        description="Art suite version to use",
-    )
-    depends_on("art-suite@s118+root", when="s=118")
-    depends_on("art-suite@s117+root", when="s=117")
-    depends_on("art-suite@s112+root", when="s=112")
-
     depends_on("cetmodules", type="build")
     depends_on("messagefacility")
 
-    with when('@develop'):
-        depends_on("trace+mf")
-    with when('@v1_08_02'):
-        depends_on("trace+mf@v3_17_07")
+    depends_on("trace+mf")
 

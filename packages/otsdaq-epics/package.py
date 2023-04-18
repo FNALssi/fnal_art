@@ -22,8 +22,8 @@ class OtsdaqEpics(CMakePackage):
     git = "https://github.com/art-daq/otsdaq_epics.git"
 
     version("develop", branch="develop", get_full_repo=True)
-    version("v2_06_08", commit="32bdbcd")
-
+    version("v2_06_09", sha256="96c5e5b9a88fd0f18a6682d210bde83dbad7a25b9c8ca5ce4acf072cf02702a8")
+    version("v2_06_08", sha256="5f24df325f4e27dfbd5a30892a80ba75a3eef642d60a759d1580f846f2e22813")
 
     variant(
         "cxxstd",
@@ -33,26 +33,11 @@ class OtsdaqEpics(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
 
-    variant(
-        "s",
-        default="0",
-        values=("0", "112", "117", "118"),
-        multi=False,
-        description="Art suite version to use",
-    )
-    depends_on("art-suite@s118+root", when="s=118")
-    depends_on("art-suite@s117+root", when="s=117")
-    depends_on("art-suite@s112+root", when="s=112")
-
     depends_on("cetmodules", type="build")
     depends_on("epics")
     depends_on("libpqxx")
 
-    with when('@develop'):
-        depends_on("otsdaq")
-        depends_on("otsdaq-utilities")
-    with when('@v2_06_08'):
-        depends_on("otsdaq@v2_06_08")
-        depends_on("otsdaq-utilities@v2_06_08")
+    depends_on("otsdaq")
+    depends_on("otsdaq-utilities")
 
 

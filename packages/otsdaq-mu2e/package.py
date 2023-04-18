@@ -34,29 +34,11 @@ class OtsdaqMu2e(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
 
-    variant(
-        "s",
-        default="0",
-        values=("0", "112", "117", "118"),
-        multi=False,
-        description="Art suite version to use",
-    )
-    depends_on("art-suite@s118+root", when="s=118")
-    depends_on("art-suite@s117+root", when="s=117")
-    depends_on("art-suite@s112+root", when="s=112")
-
     depends_on("cetmodules", type="build")
 
-    with when('@develop'):
-        depends_on("otsdaq")
-        depends_on("otsdaq-utilities")
-        depends_on("otsdaq-components")
-        depends_on("otsdaq-epics")
-        depends_on("artdaq-mu2e")
-    with when('@v1_02_02'):
-        depends_on("otsdaq@v2_06_08")
-        depends_on("otsdaq-utilities@v2_06_08")
-        depends_on("otsdaq-components@v2_06_08")
-        depends_on("otsdaq-epics@v2_06_08")
-        depends_on("artdaq-mu2e@v1_05_02")
+    depends_on("otsdaq")
+    depends_on("otsdaq-utilities")
+    depends_on("otsdaq-components")
+    depends_on("otsdaq-epics")
+    depends_on("artdaq-mu2e")
 

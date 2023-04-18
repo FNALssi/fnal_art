@@ -22,7 +22,8 @@ class OtsdaqPrepmodernization(CMakePackage):
     git = "https://github.com/art-daq/otsdaq_prepmodernization.git"
 
     version("develop", branch="develop", get_full_repo=True)
-    version("v2_06_08", commit="70d400e")
+    version("v2_06_09", sha256="2292d08afa50c6946f722a0a1ece333a889e5b018fcab2c0d28d03fb843dd975")
+    version("v2_06_08", sha256="bbb04dee03dc212aa499f7d978492db26f6896e8436d0c14576be4e22d688e59")
 
 
     variant(
@@ -33,25 +34,9 @@ class OtsdaqPrepmodernization(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
 
-    variant(
-        "s",
-        default="0",
-        values=("0", "112", "117", "118"),
-        multi=False,
-        description="Art suite version to use",
-    )
-    depends_on("art-suite@s118+root", when="s=118")
-    depends_on("art-suite@s117+root", when="s=117")
-    depends_on("art-suite@s112+root", when="s=112")
-
     depends_on("cetmodules", type="build")
 
-    with when('@develop'):
-        depends_on("otsdaq")
-        depends_on("otsdaq-utilities")
-        depends_on("otsdaq-components")
-    with when('@v2_06_08'):
-        depends_on("otsdaq@v2_06_08")
-        depends_on("otsdaq-utilities@v2_06_08")
-        depends_on("otsdaq-components@v2_06_08")
+    depends_on("otsdaq")
+    depends_on("otsdaq-utilities")
+    depends_on("otsdaq-components")
 

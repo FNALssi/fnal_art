@@ -32,22 +32,7 @@ class ArtdaqCoreMu2e(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
 
-    variant(
-        "s",
-        default="0",
-        values=("0", "112", "117", "118"),
-        multi=False,
-        description="Art suite version to use",
-    )
-    depends_on("art-suite@s118+root", when="s=118")
-    depends_on("art-suite@s117+root", when="s=117")
-    depends_on("art-suite@s112+root", when="s=112")
-
     depends_on("cetmodules", type="build")
 
-    with when('@develop'):
-        depends_on("mu2e-pcie-utils")
-        depends_on("artdaq-core")
-    with when('@v1_05_02'):
-        depends_on("mu2e-pcie-utils@v2_08_00")
-        depends_on("artdaq-core@v3_09_04")
+    depends_on("mu2e-pcie-utils")
+    depends_on("artdaq-core")

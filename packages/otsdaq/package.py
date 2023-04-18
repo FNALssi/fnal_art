@@ -22,7 +22,9 @@ class Otsdaq(CMakePackage):
     git = "https://github.com/art-daq/otsdaq.git"
 
     version("develop", branch="develop", get_full_repo=True)
-    version("v2_06_08", commit="6238ece")
+    version("v2_06_09", sha256="921c9c603439950ca4d5c2bf756053ec260d839e3ca6214b023616a9d94ed9e8")
+    version("v2_06_08", sha256="cf377646249f018e3a19890000a82d2513c7ebe853244b6b23bc82a5379c2500")
+    version("v2_06_07", sha256="825cc7ba889e5be37ff2494b62e515d0e1544cb02e44e55b5e3e4e97f2179171")
 
     variant(
         "cxxstd",
@@ -32,25 +34,9 @@ class Otsdaq(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
 
-    variant(
-        "s",
-        default="0",
-        values=("0", "112", "117", "118"),
-        multi=False,
-        description="Art suite version to use",
-    )
-    depends_on("art-suite@s118+root", when="s=118")
-    depends_on("art-suite@s117+root", when="s=117")
-    depends_on("art-suite@s112+root", when="s=112")
-
     depends_on("cetmodules", type="build")
     depends_on("xdaq")
 
-    with when('@develop'):
-        depends_on("artdaq")
-        depends_on("artdaq-database~builtin_fhicl")
-        depends_on("artdaq-daqinterface")
-    with when('@v2_06_08'):
-        depends_on("artdaq@v3_12_02")
-        depends_on("artdaq-database~builtin_fhicl@v1_07_02")
-        depends_on("artdaq-daqinterface@v3_12_02")
+    depends_on("artdaq")
+    depends_on("artdaq-database~builtin_fhicl")
+    depends_on("artdaq-daqinterface")

@@ -32,23 +32,10 @@ class Mu2ePcieUtils(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
 
-    variant(
-        "s",
-        default="0",
-        values=("0", "112", "117", "118"),
-        multi=False,
-        description="Art suite version to use",
-    )
-    depends_on("art-suite@s118+root", when="s=118")
-    depends_on("art-suite@s117+root", when="s=117")
-    depends_on("art-suite@s112+root", when="s=112")
 
     depends_on("cetmodules", type="build")
     depends_on("messagefacility")
 
-    with when('@develop'):
-        depends_on("trace+kmod")
-    with when('@v2_08_00'):
-        depends_on("trace+kmod@v3_17_07")
+    depends_on("trace+kmod")
 
     

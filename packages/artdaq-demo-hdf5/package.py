@@ -22,7 +22,8 @@ class ArtdaqDemoHdf5(CMakePackage):
     git = "https://github.com/art-daq/artdaq_demo_hdf5.git"
 
     version("develop", branch="develop", get_full_repo=True)
-    version("v1_04_02", commit="f0d9008")
+    version("v1_04_03", sha256="68c2bad6f57ac540accafc7f77247e4fbca23d9f78cfb7ee581d2a2043d27365")
+    version("v1_04_02", sha256="5eb2439158e07d0449c501596e89d7fae61d738ecab177c1da2f4bc16b8f3753")
 
     variant(
         "cxxstd",
@@ -32,22 +33,8 @@ class ArtdaqDemoHdf5(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
 
-    variant(
-        "s",
-        default="0",
-        values=("0", "112", "117", "118"),
-        multi=False,
-        description="Art suite version to use",
-    )
-    depends_on("art-suite@s118+root", when="s=118")
-    depends_on("art-suite@s117+root", when="s=117")
-    depends_on("art-suite@s112+root", when="s=112")
-
     depends_on("cetmodules", type="build")
     depends_on("hdf5")
 
-    with when('@develop'):
-        depends_on("artdaq")
-    with when('@v1_04_02'):
-        depends_on("artdaq@v3_12_02")
+    depends_on("artdaq")
 

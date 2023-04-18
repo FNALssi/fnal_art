@@ -22,7 +22,8 @@ class OtsdaqDemo(CMakePackage):
     git = "https://github.com/art-daq/otsdaq_demo.git"
 
     version("develop", branch="develop", get_full_repo=True)
-    version("v2_06_08", commit="4c2aaa5")
+    version("v2_06_09", sha256="8685c2800c05b75695dd9f55c0816069f306de187060cf981d8db5c8831f9616")
+    version("v2_06_08", sha256="8402dbd195ad95ad5960ede16bdb56a780b248501c9486405e1a72c7993a7a70")
 
     variant(
         "cxxstd",
@@ -32,25 +33,9 @@ class OtsdaqDemo(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
 
-    variant(
-        "s",
-        default="0",
-        values=("0", "112", "117", "118"),
-        multi=False,
-        description="Art suite version to use",
-    )
-    depends_on("art-suite@s118+root", when="s=118")
-    depends_on("art-suite@s117+root", when="s=117")
-    depends_on("art-suite@s112+root", when="s=112")
-
     depends_on("cetmodules", type="build")
 
-    with when('@develop'):
-        depends_on("otsdaq")
-        depends_on("otsdaq-utilities")
-        depends_on("otsdaq-components")
-    with when('@v2_06_08'):
-        depends_on("otsdaq@v2_06_08")
-        depends_on("otsdaq-utilities@v2_06_08")
-        depends_on("otsdaq-components@v2_06_08")
+    depends_on("otsdaq")
+    depends_on("otsdaq-utilities")
+    depends_on("otsdaq-components")
 

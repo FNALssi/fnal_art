@@ -22,7 +22,8 @@ class ArtdaqCoreDemo(CMakePackage):
     git = "https://github.com/art-daq/artdaq_core_demo.git"
 
     version("develop", branch="develop", get_full_repo=True)
-    version("v1_10_02", commit="aba71a8")
+    version("v1_10_03", sha256="c3fc28422e2a08ead7b56e9a9edaf2dac8bd0c769687aa6f21d375609cc6c0c4")
+    version("v1_10_02", sha256="ea6b04590bfa158e1528bf4b46cc04a0a7b065848d48ba3ab1cf94ac1bc45389")
 
 
     variant(
@@ -33,20 +34,5 @@ class ArtdaqCoreDemo(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
 
-    variant(
-        "s",
-        default="0",
-        values=("0", "112", "117", "118"),
-        multi=False,
-        description="Art suite version to use",
-    )
-    depends_on("art-suite@s118+root", when="s=118")
-    depends_on("art-suite@s117+root", when="s=117")
-    depends_on("art-suite@s112+root", when="s=112")
-
     depends_on("cetmodules", type="build")
-
-    with when('@develop'):
-        depends_on("artdaq-core")
-    with when('@v1_10_02'):
-        depends_on("artdaq-core@v3_09_04")
+    depends_on("artdaq-core")

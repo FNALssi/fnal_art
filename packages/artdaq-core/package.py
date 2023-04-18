@@ -22,7 +22,8 @@ class ArtdaqCore(CMakePackage):
     git = "https://github.com/art-daq/artdaq_core.git"
 
     version("develop", branch="develop", get_full_repo=True)
-    version("v3_09_04", commit="d15bf64")
+    version("v3_09_08", sha256="5689cdf8384276835be9dfd50489917d3729242833f9f2da115445d9245978b2")
+    version("v3_09_04", sha256="8d4315e0ebe7b663d171352d8e08dd87393d34319f672837eb8c93ea83b8ba63")
 
 
     variant(
@@ -33,22 +34,9 @@ class ArtdaqCore(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
 
-
-    variant(
-        "s",
-        default="0",
-        values=("0", "112", "117", "118"),
-        multi=False,
-        description="Art suite version to use",
-    )
-    depends_on("art-suite@s118+root", when="s=118")
-    depends_on("art-suite@s117+root", when="s=117")
-    depends_on("art-suite@s112+root", when="s=112")
-
+    # art dependencies
     depends_on("canvas-root-io")
     depends_on("cetmodules", type="build")
 
-    with when('@develop'):
-        depends_on("trace+mf")
-    with when('@v3_09_04'):
-        depends_on("trace@v3_17_07 +mf")
+    # artdaq dependencies
+    depends_on("trace+mf")

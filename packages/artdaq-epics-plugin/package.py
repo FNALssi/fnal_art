@@ -22,7 +22,8 @@ class ArtdaqEpicsPlugin(CMakePackage):
     git = "https://github.com/art-daq/artdaq_epics_plugin.git"
 
     version("develop", branch="develop", get_full_repo=True)
-    version("v1_05_02", commit="0cfb5bb")
+    version("v1_05_03", sha256="68937458d87d53ac20607b9e62ac13616c143f3f074675b047897a0b10cf20f0")
+    version("v1_05_02", sha256="8a8d12f29a357c2426c16c3aef1a745b6bf3308ede38aae2300584eff582a3cf")
 
     variant(
         "cxxstd",
@@ -32,23 +33,9 @@ class ArtdaqEpicsPlugin(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
 
-    variant(
-        "s",
-        default="0",
-        values=("0", "112", "117", "118"),
-        multi=False,
-        description="Art suite version to use",
-    )
-    depends_on("art-suite@s118+root", when="s=118")
-    depends_on("art-suite@s117+root", when="s=117")
-    depends_on("art-suite@s112+root", when="s=112")
-
     depends_on("cetmodules", type="build")
     depends_on("epics")
 
-    with when('@develop'):
-        depends_on("artdaq-utilities")
-    with when('@v1_05_02'):
-        depends_on("artdaq-utilities@v1_08_02")
+    depends_on("artdaq-utilities")
 
 
