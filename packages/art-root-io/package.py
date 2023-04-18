@@ -57,6 +57,10 @@ class ArtRootIo(CMakePackage):
         if generator.endswith("Ninja"):
             depends_on("ninja@1.10:", type="build")
 
+    def url_for_version(self, version):
+        url = "https://github.com/art-framework-suite/art-root-io/archive/refs/tags/v{0}.tar.gz"
+        return url.format(version.underscored)
+    
     def cmake_args(self):
         return [
            "--trace-expand",

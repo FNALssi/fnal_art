@@ -38,7 +38,7 @@ class CetlibExcept(CMakePackage):
 
     depends_on("cmake@3.21:", type="build")
     depends_on("cetmodules@3.19.02:", type="build")
-    depends_on("cetpkgsupport", type=("build", "run"))
+#    depends_on("cetpkgsupport", type=("build", "run"))
 #    depends_on("catch2@:2.99", type="build")
     depends_on("catch2@:3.0.1", type="build")
 

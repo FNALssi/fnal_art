@@ -115,7 +115,7 @@ class ArtSuite(BundlePackage):
         depends_on("catch2@2.13.4")
         depends_on("cetlib@3.13.04 cxxstd=17")
         depends_on("cetlib-except@1.07.04 cxxstd=17")
-        depends_on("cetpkgsupport@1.14.01")
+        #depends_on("cetpkgsupport@1.14.01")
         depends_on("clhep@2.4.5.1 cxxstd=17") # 2.4.4.1 not published to spack
         depends_on("fftw@3.3.9")
         depends_on("fhicl-cpp@4.15.03 cxxstd=17")
