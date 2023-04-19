@@ -29,7 +29,7 @@ class ArtSuite(BundlePackage):
         depends_on("catch2@3.0.1") # 3.3.1 not published to Spack
         depends_on("cetlib@3.17.00 cxxstd=17")
         depends_on("cetlib-except@1.09.00 cxxstd=17")
-        depends_on("cetmodules@3.21.00")
+        depends_on("cetmodules@3.21.01")
         depends_on("clhep@2.4.6.4 cxxstd=17")
         depends_on("fftw@3.3.10")
         depends_on("fhicl-cpp@4.18.00 cxxstd=17")
