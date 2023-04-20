@@ -38,7 +38,7 @@ class ArtdaqEpicsPlugin(CMakePackage):
     )
 
     depends_on("cetmodules", type="build")
-    depends_on("epics")
+    depends_on("epics-base")
 
     depends_on("artdaq-utilities")
 
