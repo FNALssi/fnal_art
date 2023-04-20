@@ -23,7 +23,7 @@ class Xdaq(MakefilePackage):
     url = "https://gitlab.cern.ch/cmsos/core/-/archive/release_16_21_0_2/core-release_16_21_0_2.tar.gz"
     git = "https://gitlab.cern.ch/cmsos/core.git"
     
-    version("16_21_0_2", commit="d9864267e19543240e655e0c61a376e2e689354d", git_full_repo=True)
+    version("16_21_0_2", commit="d9864267e19543240e655e0c61a376e2e689354d", get_full_repo=True)
     version("16_26_0_3", sha256="cd425bfde654f108f6634b1a8f7f2af8549fd2386b8ea5f0e47d3d8042c9519e")
 
     depends_on("autoconf", type="build")
