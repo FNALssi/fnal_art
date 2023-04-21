@@ -34,7 +34,6 @@ class Cetmodules(CMakePackage):
     docs_deps = (
         "git@2.22:",
         "py-sphinxcontrib-moderncmakedomain",
-        "py-sphinx-rtd-theme",
         "py-sphinx-design@0.2.0:",
         "py-sphinx@5:5.999",
     )
