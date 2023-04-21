@@ -44,8 +44,6 @@ class Art(CMakePackage):
         description="C++ standard",
     )
 
-    patch('test_build.patch',when="@:3.12.00")
-
     depends_on("boost+date_time+graph+program_options+regex")
     depends_on("boost+filesystem+json+test+thread", type=("build"))
     depends_on("boost+graph+test", type=("test"))
