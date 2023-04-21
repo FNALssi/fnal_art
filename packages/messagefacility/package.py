@@ -42,11 +42,11 @@ class Messagefacility(CMakePackage):
     )
 
     depends_on("boost+filesystem+program_options+system")
-    depends_on("catch2") #, type=("build", "test"))
+    depends_on("catch2")
     depends_on("cetlib")
     depends_on("cetlib-except")
     depends_on("cetmodules", type="build")
-    depends_on("cmake@3.21:", type="build")
+    conflicts("cetmodules@:3.21.00", when="catch2@3:")
     depends_on("fhicl-cpp")
     depends_on("hep-concurrency")
     depends_on("perl", type=("build", "run"))
