@@ -25,6 +25,7 @@ class Genie(AutotoolsPackage):
             version.underscored
         )
 
+    version("3.04.00", sha256="72cf8a119cc59d03763b11afad1a82c0974a06677bf1c154b7c2a90d9f1529c1")
     version("3.00.06", sha256="ab56ea85d0c1d09029254365bfe75a1427effa717389753b9e0c1b6c2eaa5eaf")
     version("3.00.04", sha256="53f034618fef9f7f0e17d1c4ed72743e4bba590e824b795177a1a8a8486c861e")
     version("3.00.02", sha256="34d6c37017b2387c781aea7bc727a0aac0ef45d6b3f3982cc6f3fc82493f65c3")
@@ -35,10 +36,24 @@ class Genie(AutotoolsPackage):
 
     resource(
         name="reweight",
+        url="https://github.com/GENIE-MC/Reweight/archive/R-1_00_02.tar.gz",
+        sha256="58d5ad9c7f2bb3015be506bf40fe7b9e12e8f4ae7f2223cbebb568adb7e8fb19",
+        placement="Reweight",
+        when="@3.00.02:3.00.05",
+    )
+    resource(
+        name="reweight",
         url="https://github.com/GENIE-MC/Reweight/archive/R-1_00_06.tar.gz",
         sha256="58d5ad9c7f2bb3015be506bf40fe7b9e12e8f4ae7f2223cbebb568adb7e8fb19",
         placement="Reweight",
-        when="@3.00.06",
+        when="@3.00.06:3.03.99",
+    )
+    resource(
+        name="reweight",
+        url="https://github.com/GENIE-MC/Reweight/archive/R-1_02_02.tar.gz",
+        sha256="741b323381079d0764b14095b12a16049930cbdfac182110fdda3c3263fb37b3",
+        placement="Reweight",
+        when="@3.04.00:",
     )
 
     depends_on("root+pythia6")
@@ -60,6 +75,10 @@ class Genie(AutotoolsPackage):
     patch("patch/genie-r30006.patch", when="@3.00.06")
 
     patch("patch/sles-cnl.patch", when="platform=cray")
+    patch("patch/root_subdir.patch")
+
+    patch("patch/GENIE-Generator.patch", when="@3.04.00")
+    patch("patch/GENIE-Reweight.patch", when="@3.04.00", level=0)
 
     @property
     def build_targets(self):
@@ -92,9 +111,9 @@ class Genie(AutotoolsPackage):
         if self.spec.satisfies("@3.00.00:"):
             args.extend(
                 [
-                    "--enable-lhapdf5",
-                    "--with-lhapdf5-lib={0}".format(self.spec["lhapdf"].prefix.lib),
-                    "--with-lhapdf5-inc={0}".format(self.spec["lhapdf"].prefix.include),
+                    "--enable-lhapdf6",
+                    "--with-lhapdf6-lib={0}".format(self.spec["lhapdf"].prefix.lib),
+                    "--with-lhapdf6-inc={0}".format(self.spec["lhapdf"].prefix.include),
                 ]
             )
         else:
