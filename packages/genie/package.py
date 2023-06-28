@@ -56,12 +56,6 @@ class Genie(AutotoolsPackage):
         when="@3.04.00:",
     )
 
-    depends_on("root+pythia6")
-    depends_on("lhapdf")
-    depends_on("pythia6+root")
-    depends_on("libxml2")
-    depends_on("log4cpp")
-    depends_on("gsl")
 
     variant(
         "cxxstd",
@@ -70,6 +64,16 @@ class Genie(AutotoolsPackage):
         multi=False,
         description="Use the specified C++ standard when building.",
     )
+
+    variant("lhapdf", default=True) 
+
+    depends_on("lhapdf" , when="+lhapdf")
+
+    depends_on("root+pythia6")
+    depends_on("pythia6+root")
+    depends_on("libxml2")
+    depends_on("log4cpp")
+    depends_on("gsl")
 
     patch("patch/genie-r21210.patch", when="@2_12_10")
     patch("patch/genie-r30006.patch", when="@3.00.06")
@@ -108,7 +112,7 @@ class Genie(AutotoolsPackage):
             "--with-log4cpp-lib={0}".format(self.spec["log4cpp"].prefix),
             "--with-optimiz-level=O3",
         ]
-        if self.spec.satisfies("@3.00.00:"):
+        if self.spec.satisfies("^lhapdf@6:"):
             args.extend(
                 [
                     "--enable-lhapdf6",
@@ -116,7 +120,7 @@ class Genie(AutotoolsPackage):
                     "--with-lhapdf6-inc={0}".format(self.spec["lhapdf"].prefix.include),
                 ]
             )
-        else:
+        elif self.spec.satisfies("^lhapdf"):
             args.extend(
                 [
                     "--enable-lhapdf",
