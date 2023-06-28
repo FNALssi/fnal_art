@@ -120,6 +120,14 @@ class Genie(AutotoolsPackage):
                     "--with-lhapdf6-inc={0}".format(self.spec["lhapdf"].prefix.include),
                 ]
             )
+        elif self.spec.satisfies("^lhapdf@5:"):
+            args.extend(
+                [
+                    "--enable-lhapdf5",
+                    "--with-lhapdf5-lib={0}".format(self.spec["lhapdf"].prefix.lib),
+                    "--with-lhapdf5-inc={0}".format(self.spec["lhapdf"].prefix.include),
+                ]
+            )
         elif self.spec.satisfies("^lhapdf"):
             args.extend(
                 [
