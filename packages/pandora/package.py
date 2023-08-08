@@ -37,6 +37,8 @@ class Pandora(CMakePackage):
     depends_on("root")
     depends_on("eigen")
 
+    patch("pandora-v03-16-00.patch", when="@03.16.00")
+
     def patch(self):
         # Build larpandoracontent as part of pandora
         filter_file(
