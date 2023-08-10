@@ -4,6 +4,7 @@
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
 import glob
+import os.path
 
 from spack import *
 
@@ -36,6 +37,9 @@ class Pandora(CMakePackage):
 
     depends_on("root")
     depends_on("eigen")
+
+    # cannot apply patch on direct checkout, have to let it do
+    # some stuff first?!?
 
     def patch(self):
         # Build larpandoracontent as part of pandora
@@ -70,6 +74,17 @@ class Pandora(CMakePackage):
             "-DPANDORA_LAR_CONTENT=OFF",
         ]
         return args
+
+    # we have to apply our 03.16.00 patch *after* the initial
+    # cmake run because that is what downloads the sources we
+    # need to patch...`
+    @run_after("cmake") 
+    def patch_pandora(self):
+        patch = which("patch") 
+        pdir = os.path.dirname(__file__)
+        with working_dir(self.build_directory):
+            with when("@03.16.00"):
+                patch("-t","-p1","-i",os.path.join(pdir,"pandora-v03-16-00.patch"))
 
     @run_after("install")
     def install_modules(self):
