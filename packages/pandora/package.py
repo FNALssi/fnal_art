@@ -69,22 +69,25 @@ class Pandora(CMakePackage):
             ),
             "-DCMAKE_MODULE_PATH={0}/etc/cmake".format(self.spec["root"].prefix),
             "-DPANDORA_MONITORING=ON",
-            "-DPANDORA_EXAMPLE_CONTENT=OFF",
-            "-DPANDORA_LC_CONTENT=OFF",
-            "-DPANDORA_LAR_CONTENT=OFF",
+            "-DLC_PANDORA_CONTENT=ON",
+            "-DLAR_PANDORA_CONTENT=ON",
+            "-DiINSTALL_DOC=OFF",
+            "-DEXAMPLE_PANDORA_CONTENT=OFF",
         ]
         return args
 
     # we have to apply our 03.16.00 patch *after* the initial
     # cmake run because that is what downloads the sources we
     # need to patch...`
-    @run_after("cmake") 
+    @run_after("build") 
     def patch_pandora(self):
         patch = which("patch") 
+        make = which("make")
         pdir = os.path.dirname(__file__)
-        with working_dir(self.build_directory):
-            with when("@03.16.00"):
-                patch("-t","-p1","-i",os.path.join(pdir,"pandora-v03-16-00.patch"))
+        with when("@03.16.00"):
+            with working_dir(self.stage.source_path):
+                patch("-t","-i",os.path.join(pdir,"pandora-v03-16-00.patch"))
+                make("all") 
 
     @run_after("install")
     def install_modules(self):
