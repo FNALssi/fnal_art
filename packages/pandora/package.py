@@ -38,8 +38,6 @@ class Pandora(CMakePackage):
     depends_on("root")
     depends_on("eigen")
 
-    # cannot apply patch on direct checkout, have to let it do
-    # some stuff first?!?
 
     def patch(self):
         # Build larpandoracontent as part of pandora
@@ -61,6 +59,21 @@ class Pandora(CMakePackage):
             "cmakemodules/MacroPandoraGeneratePackageConfigFiles.cmake",
         )
 
+    # we have to apply our 03.16.00 patch *after* the initial
+    # cmake run because that and then a make downloads the sources we
+    # need to patch...`
+    @run_after("cmake") 
+    def patch_pandora(self):
+        patch = which("patch") 
+        make = which("make")
+        pdir = os.path.dirname(__file__)
+        with when("@03.16.00"):
+            with working_dir(self.build_directory):
+                make("LCContent","LArContent")
+            with working_dir(self.stage.source_path):
+                patch("-p0", "-t", "-i", 
+                       os.path.join(pdir,"pandora-v03-16-00.patch"))
+
     def cmake_args(self):
         args = [
             "-DCMAKE_CXX_STANDARD={0}".format(self.spec.variants["cxxstd"].value),
@@ -76,18 +89,6 @@ class Pandora(CMakePackage):
         ]
         return args
 
-    # we have to apply our 03.16.00 patch *after* the initial
-    # cmake run because that is what downloads the sources we
-    # need to patch...`
-    @run_after("build") 
-    def patch_pandora(self):
-        patch = which("patch") 
-        make = which("make")
-        pdir = os.path.dirname(__file__)
-        with when("@03.16.00"):
-            with working_dir(self.stage.source_path):
-                patch("-t","-i",os.path.join(pdir,"pandora-v03-16-00.patch"))
-                make("all") 
 
     @run_after("install")
     def install_modules(self):
