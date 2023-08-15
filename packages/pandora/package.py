@@ -59,8 +59,9 @@ class Pandora(CMakePackage):
             "cmakemodules/MacroPandoraGeneratePackageConfigFiles.cmake",
         )
 
-    # we have to apply our 03.16.00 patch *after* the initial
-    # cmake run because that and then a make downloads the sources we
+    # apply patch to 3.16.00 (to clear warnings in newer compilers)
+    # we have to apply our this patch *after* the initial
+    # cmake run because that and then a "make" downloads the sources we
     # need to patch...`
     @run_after("cmake") 
     def patch_pandora(self):
@@ -84,7 +85,7 @@ class Pandora(CMakePackage):
             "-DPANDORA_MONITORING=ON",
             "-DLC_PANDORA_CONTENT=ON",
             "-DLAR_PANDORA_CONTENT=ON",
-            "-DiINSTALL_DOC=OFF",
+            "-DINSTALL_DOC=OFF",
             "-DEXAMPLE_PANDORA_CONTENT=OFF",
         ]
         return args
