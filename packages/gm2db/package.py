@@ -13,6 +13,7 @@ class Gm2db(CMakePackage):
     homepage = "https://redmine.fnal.gov/projects/gm2db"
     url = "https://cdcvs.fnal.gov/cgi-bin/git_archive.cgi/cvs/projects/gm2db.v9_60_00.tbz2"
     git_base = "https://cdcvs.fnal.gov/projects/gm2db"
+    version("9.60.00", sha256="4931fd154c35124cf8d7f60fc8e7ce09ff693ca6e2e4a022aff432c7c5efe45c")
     version("spack_branch", branch="feature/mengel_spack", git=git_base, get_full_repo=True)
 
     def url_for_version(self, version):

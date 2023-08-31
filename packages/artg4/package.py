@@ -35,12 +35,12 @@ class Artg4(CMakePackage):
             "CMakeLists.txt",
         )
         # build assumes source is in a directory named "artg4"...
+        symlink(".", "artg4")
         filter_file(
             r'add_subdirectory\( ups \)', 
             'if(WANT_UPS)\n add_subdirectory( ups )\nendif()\n',
             "CMakeLists.txt"
         )
-        symlink(".", "artg4")
         filter_file(
             r'SetImportFileType\(p.get<bool>\("file_type"\)\)',
             'SetImportFileType(p.get<string>("file_type"))',
@@ -130,6 +130,17 @@ class Artg4(CMakePackage):
             r'artg4_services_ActionHolder_service',
             'services_ActionHolder_service',
             'pluginActions/particleGun/CMakeLists.txt',
+        )
+        # https://cdcvs.fnal.gov/redmine/projects/art/wiki/309_breaking_changes
+        filter_file(
+            'std::vector.*handleVec;',
+            '',
+            'util/DataFromRunOrService.hh',
+        )
+        filter_file(
+            'r.getManyByType\(handleVec\);',
+            'auto handleVec = r.getMany< DATATYPE >();',
+            'util/DataFromRunOrService.hh',
         )
 
 

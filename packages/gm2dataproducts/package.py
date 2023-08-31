@@ -15,6 +15,7 @@ class Gm2dataproducts(CMakePackage):
         "https://cdcvs.fnal.gov/cgi-bin/git_archive.cgi/cvs/projects/gm2dataproducts.v9_60_00.tbz2"
     )
     git_base = "https://cdcvs.fnal.gov/projects/gm2dataproducts"
+    version("9.60.00", sha256="c453f4edff4d53635d177d553dfccc0a42c98d71a6945e0c4cffbeca254800e2")
     version("spack_branch", branch="feature/mengel_spack", git=git_base, get_full_repo=True)
 
     def url_for_version(self, version):
