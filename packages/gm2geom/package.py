@@ -34,7 +34,7 @@ class Gm2geom(CMakePackage):
     depends_on("boost", type=("build", "run"))
     depends_on("canvas", type=("build", "run"))
     depends_on("cetlib", type=("build", "run"))
-    depends_on("cetlib_except", type=("build", "run"))
+    depends_on("cetlib-except", type=("build", "run"))
     depends_on("eigen", type=("build", "run"))
     depends_on("fhicl-cpp", type=("build", "run"))
     depends_on("hep-concurrency", type=("build", "run"))
