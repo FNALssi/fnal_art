@@ -71,6 +71,13 @@ class Wirecell(Package):
     patch("setprecisionfix.patch", when="@0.14.0")
     patch("boost_spline.patch", when="@0.14.0")
 
+    def patch(self):
+        filter_file(
+            '#include <typeinfo>',
+            '#include <typeinfo>\n#include<cstdint>',
+            'util/inc/WireCellUtil/Dtype.h',
+        )
+
     def install(self, spec, prefix):
         cxxstd = self.spec.variants["cxxstd"].value
         cxxstdflag = (
@@ -96,6 +103,7 @@ class Wirecell(Package):
             cfg += " --build-debug=" + cxxstdflag
 
         cfg += " configure"
+        python = which('python')
         python(*cfg.split())
         filter_file(r"-std=c\+\+11", cxxstdflag, "build/c4che/_cache.py")
         python("wcb", "-vv")

@@ -59,6 +59,13 @@ class Bxdecay0(CMakePackage):
 
     patch("bxdecay0.patch", when="@1.0.7")
 
+    def patch(self):
+        filter_file(
+            '#include <string>',
+            '#include <cstdint>\n#include <string>',
+            'bxdecay0/particle.h',
+        )
+
     variant(
         "cxxstd",
         default="17",

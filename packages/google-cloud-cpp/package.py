@@ -56,8 +56,10 @@ class GoogleCloudCpp(CMakePackage):
            "google/cloud/bigtable/tests/data_integration_test.cc"
         )
         filter_file(r'#include <vector>', '#include <vector>\n#include <cstdint>', 'google/cloud/iam_bindings.h')
+        filter_file(r'#include <vector>', '#include <vector>\n#include <cstdint>', 'google/cloud/storage/iam_policy.h')
+        filter_file(r'#include <string>', '#include <string>\n#include <cstdint>', 'google/cloud/version.h')
 
-
+ 
     def cmake_args(self):
         # FIXME: Add arguments other than
         # FIXME: CMAKE_INSTALL_PREFIX and CMAKE_BUILD_TYPE

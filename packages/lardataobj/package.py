@@ -70,6 +70,18 @@ class Lardataobj(CMakePackage):
     patch("v09_03_03.patch", when="@09.03.03")
     patch("v09_03_05.patch", when="@09.03.05")
 
+    def patch(self):
+        filter_file(
+            '#include <string>',
+            '#include <cstdint>\n#include<string>',
+            'lardataobj/RawData/AuxDetDigit.h',
+        )
+        filter_file(
+            '#include <string>',
+            '#include <cstdint>\n#include<string>',
+            'lardataobj/RawData/BeamInfo.h',
+        )
+
     def url_for_version(self, version):
         url = "https://github.com/LArSoft/{0}/archive/v{1}.tar.gz"
         return url.format(self.name, version.underscored)
