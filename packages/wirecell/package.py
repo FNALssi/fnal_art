@@ -72,11 +72,12 @@ class Wirecell(Package):
     patch("boost_spline.patch", when="@0.14.0")
 
     def patch(self):
-        filter_file(
-            '#include <typeinfo>',
-            '#include <typeinfo>\n#include<cstdint>',
-            'util/inc/WireCellUtil/Dtype.h',
-        )
+        with(when("@:0.24.3 %gcc@13:")):
+            filter_file(
+                '#include <typeinfo>',
+                '#include <typeinfo>\n#include<cstdint>',
+                'util/inc/WireCellUtil/Dtype.h',
+            )
 
     def install(self, spec, prefix):
         cxxstd = self.spec.variants["cxxstd"].value
