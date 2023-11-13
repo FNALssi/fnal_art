@@ -37,7 +37,7 @@ class ArtSuite(BundlePackage):
         depends_on("cetlib@3.18.00")
         depends_on("cetlib-except@1.09.01")
         depends_on("cetmodules@3.22.02")
-        depends_on("clhep@2.4.7.1")
+        depends_on("clhep@2.4.6.4") # 2.4.7.1 not published to Spack
         depends_on("fftw@3.3.10")
         depends_on("fhicl-cpp@4.18.02")
         depends_on("gsl@2.7")
@@ -46,7 +46,7 @@ class ArtSuite(BundlePackage):
         depends_on("messagefacility@2.10.03")
         depends_on("py-numpy@1.24.3")
         depends_on("openblas@0.3.23")
-        depends_on("postgresql@15.3") 
+        depends_on("postgresql@15.2") # 15.3 not published to Spack
         depends_on("py-pybind11@2.10.4") 
         depends_on("pythia6@6.4.28")
         depends_on("python@3.9.15")
