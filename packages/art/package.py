@@ -46,9 +46,10 @@ class Art(CMakePackage):
         sticky=True,
         description="C++ standard",
     )
+    conflicts("cxxstd=17", when="@develop")
 
     depends_on("boost+date_time+graph+program_options+regex")
-    depends_on("boost+filesystem+json+test+thread", type=("build"))
+    depends_on("boost+filesystem+json+test+thread cxxstd=11", type=("build"))
     depends_on("boost+graph+test", type=("test"))
     depends_on("canvas")
     depends_on("catch2@2.3.0", type=("build", "test"), when="@:3.11.99")
@@ -77,7 +78,7 @@ class Art(CMakePackage):
 
     def cmake_args(self):
         return [
-           "--preset", "default", 
+           "--preset", "default",
            self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd"),
         ]
 

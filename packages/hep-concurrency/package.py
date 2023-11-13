@@ -37,6 +37,7 @@ class HepConcurrency(CMakePackage):
         sticky=True,
         description="C++ standard",
     )
+    conflicts("cxxstd=17", when="@develop")
 
     depends_on("catch2@3:",    when="@1.09.00:", type=("build", "test"))
     depends_on("catch2@2.3.0", when="@:1.08.99", type=("build", "test"))
@@ -58,7 +59,7 @@ class HepConcurrency(CMakePackage):
 
     def cmake_args(self):
         return [
-           "--preset", "default", 
+           "--preset", "default",
            self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd"),
         ]
 

@@ -38,6 +38,7 @@ class FhiclCpp(CMakePackage):
         sticky=True,
         description="C++ standard",
     )
+    conflicts("cxxstd=17", when="@develop")
 
     depends_on("boost+program_options+test")
     depends_on("cetlib")
@@ -64,7 +65,7 @@ class FhiclCpp(CMakePackage):
 
     def cmake_args(self):
         return [
-           "--preset", "default", 
+           "--preset", "default",
            self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd"),
         ]
 
@@ -74,3 +75,10 @@ class FhiclCpp(CMakePackage):
         env.prepend_path("PATH", os.path.join(prefix, "bin"))
         # Cleanup
         sanitize_environments(env, "PATH")
+
+    def setup_run_environment(self, env):
+        bindir = self.prefix.bin
+        # Bash completions.
+        env.from_sourcing_file(os.path.join(bindir, "fhicl-dump_completions"))
+        env.from_sourcing_file(os.path.join(bindir, "fhicl-expand_completions"))
+        env.from_sourcing_file(os.path.join(bindir, "fhicl-get_completions"))

@@ -25,7 +25,7 @@ class ArtRootIo(CMakePackage):
     version("1.12.04", sha256="912e01cb3f253de244548a52ee4f9e31b2eb6d1af9bd7cb33e48bab064651273")
     version("1.12.03", sha256="2281435aa910085902f9a8d14c90d69ee980a980637bbb4bb2e1aad1ab5f02af")
     version("1.12.02", sha256="f7fa60cad2947fa135cdd52cb5d39d3e871cca246181288734745067c7c3f555")
-    version("1.12.01", sha256="d6594b039567c5f4a7053678d70b82e543a19fef989f0957ca6a6e4862372511") 
+    version("1.12.01", sha256="d6594b039567c5f4a7053678d70b82e543a19fef989f0957ca6a6e4862372511")
     version("1.11.03", sha256="a29b64b07709ac1560ccc1b9570cc8a4197a8834d2b9dfea5bbfd293231d4a20")
     version("1.11.00", sha256="1134d1c1e69045249bf678e6e07728f06035ee2ee982af5155184d1c271468ae")
     version("1.08.05", sha256="77f58e4200f699dcb324a3a9fc9e59562d2a1721a34a6db43fdb435853890d21")
@@ -40,6 +40,7 @@ class ArtRootIo(CMakePackage):
         sticky=True,
         description="C++ standard",
     )
+    conflicts("cxxstd=17", when="@develop")
 
     depends_on("art")
     depends_on("boost+filesystem+date_time+program_options")
@@ -66,11 +67,11 @@ class ArtRootIo(CMakePackage):
     def url_for_version(self, version):
         url = "https://github.com/art-framework-suite/art-root-io/archive/refs/tags/v{0}.tar.gz"
         return url.format(version.underscored)
-    
+
     def cmake_args(self):
         return [
            "--trace-expand",
-           "--preset", "default", 
+           "--preset", "default",
            self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd"),
         ]
 

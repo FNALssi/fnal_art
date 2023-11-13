@@ -42,6 +42,7 @@ class Messagefacility(CMakePackage):
         sticky=True,
         description="C++ standard",
     )
+    conflicts("cxxstd=17", when="@develop")
 
     depends_on("boost+filesystem+program_options+system")
     depends_on("catch2")
@@ -65,7 +66,7 @@ class Messagefacility(CMakePackage):
 
     def cmake_args(self):
         return [
-           "--preset", "default", 
+           "--preset", "default",
            self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd"),
         ]
 

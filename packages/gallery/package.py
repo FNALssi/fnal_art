@@ -39,6 +39,7 @@ class Gallery(CMakePackage):
         sticky=True,
         description="C++ standard",
     )
+    conflicts("cxxstd=17", when="@develop")
 
     depends_on("canvas")
     depends_on("canvas-root-io")
@@ -59,7 +60,7 @@ class Gallery(CMakePackage):
 
     def cmake_args(self):
         return [
-           "--preset", "default", 
+           "--preset", "default",
            self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd"),
         ]
 
