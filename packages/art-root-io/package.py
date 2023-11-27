@@ -4,6 +4,12 @@
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
 import os
+import sys
+
+from pathlib import Path
+
+sys.path.append(str(Path(__file__).parents[2] / "lib"))
+from preset_args import preset_args
 
 from spack.package import *
 
@@ -31,7 +37,6 @@ class ArtRootIo(CMakePackage):
     version("1.08.05", sha256="77f58e4200f699dcb324a3a9fc9e59562d2a1721a34a6db43fdb435853890d21")
     version("1.08.03", sha256="fefdb0803bc139a65339d9fa1509f2e9be1c5613b64ec1ec84e99f404663e4bf")
 
-
     variant(
         "cxxstd",
         default="17",
@@ -50,9 +55,9 @@ class ArtRootIo(CMakePackage):
     depends_on("catch2@2.3.0:", when="@:1.11.99", type=("build", "test"))
     depends_on("cetlib")
     depends_on("cetlib-except")
-    #depends_on("cetmodules@3.19.02:", type="build")
+    # depends_on("cetmodules@3.19.02:", type="build")
     depends_on("cetmodules", type="build")
-    #conflicts("cetmodules@:3.21.00", when="catch2@3:")
+    # conflicts("cetmodules@:3.21.00", when="catch2@3:")
     depends_on("fhicl-cpp")
     depends_on("hep-concurrency")
     depends_on("messagefacility")
@@ -69,10 +74,9 @@ class ArtRootIo(CMakePackage):
         return url.format(version.underscored)
 
     def cmake_args(self):
-        return [
-           "--trace-expand",
-           "--preset", "default",
-           self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd"),
+        return preset_args(self.stage.source_path) + [
+            "--trace-expand",
+            self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd"),
         ]
 
     def setup_build_environment(self, env):

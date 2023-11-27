@@ -5,6 +5,12 @@
 
 
 import os
+import sys
+
+from pathlib import Path
+
+sys.path.append(str(Path(__file__).parents[2] / "lib"))
+from preset_args import preset_args
 
 from spack.package import *
 
@@ -61,13 +67,14 @@ class Messagefacility(CMakePackage):
             depends_on("ninja@1.10:", type="build")
 
     def url_for_version(self, version):
-        url = "https://github.com/art-framework-suite/messagefacility/archive/refs/tags/v{0}.tar.gz"
+        url = (
+            "https://github.com/art-framework-suite/messagefacility/archive/refs/tags/v{0}.tar.gz"
+        )
         return url.format(version.underscored)
 
     def cmake_args(self):
-        return [
-           "--preset", "default",
-           self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd"),
+        return preset_args(self.stage.source_path) + [
+            self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")
         ]
 
     def setup_build_environment(self, env):
