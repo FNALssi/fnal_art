@@ -37,6 +37,8 @@ class CetlibExcept(CMakePackage):
         description="C++ standard",
     )
 
+    depends_on("compiler-runtime")
+
     depends_on("catch2@2.3.0:", type=("build", "test"))
     depends_on("cetmodules@3.19.02:", type="build")
     conflicts("cetmodules@:3.21.00", when="catch2@3:")

@@ -34,6 +34,8 @@ class Btrk(SConsPackage):
         description="C++ standard",
     )
 
+    depends_on("compiler-runtime")
+
     def patch(self):
         filter_file(r"for var in \[ 'LD_LIBRARY_PATH',  'GCC_FQ_DIR',  'PATH', 'PYTHONPATH',  'ROOTSYS', 'PYTHON_ROOT', 'PYTHON_DIR' \]:",
                 r"for var in os.environ.keys():",

@@ -36,6 +36,8 @@ class Sbndaq(CMakePackage):
     variant("icarus", default=False, description="Build ICARUS-specific parts of the package")
     variant("sbnd", default=False, description="Build SBND-specific parts of the package")
 
+    depends_on("compiler-runtime")
+
     depends_on("sbndaq-artdaq")
     depends_on("sbndaq-artdaq+icarus", when="+icarus")
     depends_on("sbndaq-artdaq+sbnd", when="+sbnd")

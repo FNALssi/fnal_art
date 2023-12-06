@@ -39,6 +39,8 @@ class FhiclCpp(CMakePackage):
         description="C++ standard",
     )
 
+    depends_on("compiler-runtime")
+
     depends_on("boost+program_options+test")
     depends_on("cetlib")
     depends_on("cetlib-except")

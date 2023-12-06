@@ -42,6 +42,8 @@ class ArtRootIo(CMakePackage):
         description="C++ standard",
     )
 
+    depends_on("compiler-runtime")
+
     depends_on("art")
     depends_on("boost+filesystem+date_time+program_options")
     depends_on("canvas")

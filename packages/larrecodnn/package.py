@@ -91,6 +91,8 @@ class Larrecodnn(CMakePackage):
     patch("v09_09_09_01.patch", when="@09.09.09.01")
     patch("v09_09_09_02.patch", when="@09.09.09.02")
 
+    depends_on("compiler-runtime")
+
     depends_on("cetmodules", type="build")
     depends_on("larfinder", type="build")
     depends_on("larcoreobj")

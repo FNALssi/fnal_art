@@ -72,6 +72,8 @@ class Nugen(CMakePackage):
             )
         )
 
+    depends_on("compiler-runtime")
+
     variant(
         "cxxstd",
         default="17",

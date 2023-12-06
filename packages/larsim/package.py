@@ -88,6 +88,8 @@ class Larsim(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
 
+    depends_on("compiler-runtime")
+
     depends_on("nufinder")
     depends_on("artg4tk")
     depends_on("larsoft-data")

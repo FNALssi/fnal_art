@@ -53,6 +53,8 @@ class Sbnanaobj(CMakePackage):
     patch("v09_17_04.patch", when="@09.17.04")
     patch("v09_17_02.patch", when="@09.17.02")
 
+    depends_on("compiler-runtime")
+
     depends_on("root")
     depends_on("py-srproxy")
     depends_on("castxml")

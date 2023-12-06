@@ -31,6 +31,8 @@ class ArtdaqSuite(BundlePackage):
         depends_on(f"art-suite@s{squal}+root", when=f"s={squal}")
     depends_on("art-suite+root", when="s=0")
 
+    depends_on("compiler-runtime")
+
     variant("demo", default=False, description="Also install artdaq_demo components")
     variant("db", default=True, description="Install artdaq_database")
     variant("epics", default=True, description="Install artdaq EPICS plugin")

@@ -50,6 +50,8 @@ class Wirecell(Package):
         description="Use the specified C++ standard when building.",
     )
 
+    depends_on("compiler-runtime")
+
     depends_on("jsoncpp")
     depends_on("jsonnet")
 

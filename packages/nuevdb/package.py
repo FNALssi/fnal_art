@@ -76,6 +76,8 @@ class Nuevdb(CMakePackage):
     patch("v1_05_05.patch", when="@1.05.05")
     patch("v1_05_06.patch", when="@1.05.06")
 
+    depends_on("compiler-runtime")
+
     depends_on("cetmodules", type="build")
     depends_on("art-root-io")
     depends_on("dk2nudata")

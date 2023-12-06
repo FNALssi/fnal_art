@@ -42,6 +42,8 @@ class TrtisClients(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
 
+    depends_on("compiler-runtime")
+
     depends_on("cmake@3.18:", type="build")
     depends_on("py-setuptools", type="build")
     depends_on("py-wheel", type="build")

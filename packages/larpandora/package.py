@@ -91,6 +91,8 @@ class Larpandora(CMakePackage):
     patch("v09_10_02_01.patch", when="@09.10.02.01")
     patch("v09_10_02_02.patch", when="@09.10.02.02")
 
+    depends_on("compiler-runtime")
+
     depends_on("messagefacility")
     depends_on("canvas")
     depends_on("art-root-io")

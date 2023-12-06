@@ -43,6 +43,8 @@ class Messagefacility(CMakePackage):
         description="C++ standard",
     )
 
+    depends_on("compiler-runtime")
+
     depends_on("boost+filesystem+program_options+system")
     depends_on("catch2")
     depends_on("cetlib")

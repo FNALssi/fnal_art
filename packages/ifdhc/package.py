@@ -48,6 +48,8 @@ class Ifdhc(MakefilePackage):
         description="Use the specified C++ standard when building.",
     )
 
+    depends_on("compiler-runtime")
+
     patch("version.patch", level=1, when="@:2.4.5")
 
     parallel = False

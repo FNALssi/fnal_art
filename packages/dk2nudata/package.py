@@ -31,6 +31,8 @@ class Dk2nudata(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
 
+    depends_on("compiler-runtime")
+
     depends_on("cmake", type="build")
     depends_on("root")
     depends_on("tbb")

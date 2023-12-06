@@ -53,6 +53,8 @@ class Artg4tk(CMakePackage):
         when="@c06a0ed7a0",
     )
     # patch('mwm.patch')
+    depends_on("compiler-runtime")
+
     depends_on("cetmodules", type="build")
     depends_on("cetbuildtools", type="build")
     depends_on("art")

@@ -25,6 +25,8 @@ class ArtSuite(BundlePackage):
 
     variant("root", default=True, description="Also bring in the ROOT IO packages")
     
+    depends_on("compiler-runtime")
+
     with when("@s126"):
         depends_on("cmake@master")
 

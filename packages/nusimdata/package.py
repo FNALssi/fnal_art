@@ -78,6 +78,8 @@ class Nusimdata(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
 
+    depends_on("compiler-runtime")
+
     # Build and link dependencies.
     depends_on("canvas-root-io")
     depends_on("dk2nudata")

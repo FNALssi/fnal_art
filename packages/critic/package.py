@@ -55,6 +55,8 @@ class Critic(CMakePackage):
         description="C++ standard",
     )
 
+    depends_on("compiler-runtime")
+
     depends_on("art")
     depends_on("art-root-io")
     depends_on("canvas")

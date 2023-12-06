@@ -58,6 +58,8 @@ class Sbncode(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
 
+    depends_on("compiler-runtime")
+
     # Build-only dependencies.
     depends_on("cmake@3.11:")
     depends_on("cetmodules", type="build")

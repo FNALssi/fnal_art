@@ -41,6 +41,8 @@ class ArtdaqDatabase(CMakePackage):
     )
     variant("builtin_fhicl", default=True, description="Use built-in FHiCL-cpp with database fixes")
 
+    depends_on("compiler-runtime")
+
     depends_on("curl")
     depends_on("boost+filesystem+program_options")
     depends_on("swig", type="build")

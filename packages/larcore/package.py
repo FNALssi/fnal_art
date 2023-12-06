@@ -87,6 +87,8 @@ class Larcore(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
 
+    depends_on("compiler-runtime")
+
     depends_on("messagefacility")
     depends_on("larcorealg")
     depends_on("art-root-io")

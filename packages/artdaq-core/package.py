@@ -47,6 +47,8 @@ class ArtdaqCore(CMakePackage):
     )
     variant("doc", default=False, description="Build documentation with Doxygen.")
 
+    depends_on("compiler-runtime")
+
     # art dependencies
     depends_on("canvas-root-io")
     depends_on("cetmodules", type="build")

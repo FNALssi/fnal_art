@@ -39,6 +39,8 @@ class Cry(MakefilePackage):
         description="Use the specified C++ standard when building.",
     )
 
+    depends_on("compiler-runtime")
+
     @run_before("build")
     def filter_makefile(self):
         makefile = FileFilter("Makefile.common")

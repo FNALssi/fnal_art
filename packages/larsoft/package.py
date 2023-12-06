@@ -92,6 +92,8 @@ class Larsoft(CMakePackage):
     patch("v09_35_00.patch", when="@09.35.00")
     patch("v09_37_01_01.patch", when="@09.37.01.01")
 
+    depends_on("compiler-runtime")
+
     depends_on("cetmodules", type="build")
     depends_on("larfinder", type="build")
     depends_on("ifdh-art")

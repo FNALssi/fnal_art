@@ -41,6 +41,8 @@ class IntelTbbOneapi(CMakePackage):
 
     variant("examples", default=False, description="Build examples")
 
+    depends_on("compiler-runtime")
+
     # Build and install CMake config files if we're new enough.
     depends_on("cmake@3.0.0:", type="build")
     depends_on("hwloc")

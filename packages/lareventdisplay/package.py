@@ -93,6 +93,8 @@ class Lareventdisplay(CMakePackage):
     # patch('v09_02_08_01.patch', when='@09.02.08.01')
     patch("v09_02_08_02.patch", when="@09.02.08.02")
 
+    depends_on("compiler-runtime")
+
     depends_on("larreco")
     depends_on("nuevdb")
     depends_on("cetmodules", type="build")

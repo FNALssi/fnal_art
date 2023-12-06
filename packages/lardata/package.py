@@ -93,6 +93,8 @@ class Lardata(CMakePackage):
     patch("v09_04_02_larvecutils.patch", when="@09.04.vec02")
     patch("v09_04_02.patch", when="@09.04.02")
 
+    depends_on("compiler-runtime")
+
     depends_on("boost +date_time+serialization")
     depends_on("nutools")
     depends_on("nusimdata")

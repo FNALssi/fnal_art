@@ -79,6 +79,8 @@ class Nutools(CMakePackage):
     patch("v3_11_05.patch", when="@3.11.05")
     patch("v3_11_06.patch", when="@3.11.06")
 
+    depends_on("compiler-runtime")
+
     depends_on("cetmodules", type="build")
     depends_on("art-root-io")
     depends_on("perl")

@@ -104,6 +104,8 @@ class Lardataobj(CMakePackage):
             )
         )
 
+    depends_on("compiler-runtime")
+
     depends_on("nusimdata")
     depends_on("larcorealg")
     depends_on("larcoreobj")

@@ -89,6 +89,8 @@ class Larwirecell(CMakePackage):
     patch("findjsoncpp.patch")
 
 
+    depends_on("compiler-runtime")
+
     depends_on("boost")
     depends_on("larevt")
     depends_on("wirecell")

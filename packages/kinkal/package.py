@@ -40,6 +40,8 @@ class Kinkal(CMakePackage):
         description="C++ standard",
     )
 
+    depends_on("compiler-runtime")
+
     def patch(self):
         filter_file(
             r"(set\(CMAKE_CXX_STANDARD )17\)",

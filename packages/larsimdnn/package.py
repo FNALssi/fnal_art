@@ -66,6 +66,8 @@ class Larsimdnn(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
 
+    depends_on("compiler-runtime")
+
     depends_on("larsoft-data")
     depends_on("larevt")
     depends_on("marley")

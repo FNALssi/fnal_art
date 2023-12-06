@@ -28,6 +28,8 @@ class Log4cpp(AutotoolsPackage):
         description="Use the specified C++ standard when building.",
     )
 
+    depends_on("compiler-runtime")
+
     def setup_build_environment(self, spack_env):
         cxxstd = self.spec.variants["cxxstd"].value
         cxxstdflag = (

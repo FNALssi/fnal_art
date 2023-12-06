@@ -50,6 +50,8 @@ class Lhapdf(AutotoolsPackage):
         description="Use the specified C++ standard when building.",
     )
 
+    depends_on("compiler-runtime")
+
     depends_on("pdfsets")
 
     def configure_args(self):

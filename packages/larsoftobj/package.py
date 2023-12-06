@@ -92,6 +92,8 @@ class Larsoftobj(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
 
+    depends_on("compiler-runtime")
+
     depends_on("gallery")
     depends_on("lardataobj")
     depends_on("lardataalg")

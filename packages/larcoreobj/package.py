@@ -105,6 +105,8 @@ class Larcoreobj(CMakePackage):
     depends_on("canvas-root-io")
     depends_on("cetmodules", type="build")
 
+    depends_on("compiler-runtime")
+
     def cmake_args(self):
         args = ["-DCMAKE_CXX_STANDARD={0}".format(self.spec.variants["cxxstd"].value)]
         return args

@@ -32,6 +32,8 @@ class Ppfx(CMakePackage):
         description="C++ standard",
     )
 
+    depends_on("compiler-runtime")
+
     depends_on("cetmodules", type="build")
     depends_on("cetbuildtools", type="build")
     depends_on("doxygen", type="build")

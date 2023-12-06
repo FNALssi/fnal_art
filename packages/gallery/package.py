@@ -41,6 +41,8 @@ class Gallery(CMakePackage):
         description="C++ standard",
     )
 
+    depends_on("compiler-runtime")
+
     depends_on("canvas")
     depends_on("canvas-root-io")
     depends_on("cetlib")

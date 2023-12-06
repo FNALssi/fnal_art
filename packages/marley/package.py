@@ -27,6 +27,8 @@ class Marley(Package):
         description="Use the specified C++ standard when building.",
     )
 
+    depends_on("compiler-runtime")
+
     depends_on("root")
     depends_on("gsl")
 

@@ -86,6 +86,8 @@ class Larpandoracontent(CMakePackage):
        description="Enable PandoraMonitoring when building."
     )
 
+    depends_on("compiler-runtime")
+
     depends_on("cetmodules", type="build")
     depends_on("eigen")
     depends_on("pandora +monitoring" , when="+monitoring")

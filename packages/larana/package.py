@@ -83,6 +83,8 @@ class Larana(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
 
+    depends_on("compiler-runtime")
+
     depends_on("larreco")
     depends_on("cetmodules", type="build")
 

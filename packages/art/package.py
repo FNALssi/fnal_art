@@ -47,6 +47,8 @@ class Art(CMakePackage):
         description="C++ standard",
     )
 
+    depends_on("compiler-runtime")
+
     depends_on("boost+date_time+graph+program_options+regex")
     depends_on("boost+filesystem+json+test+thread", type=("build"))
     depends_on("boost+graph+test", type=("test"))

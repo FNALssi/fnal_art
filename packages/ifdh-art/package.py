@@ -81,6 +81,8 @@ class IfdhArt(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
 
+    depends_on("compiler-runtime")
+
     depends_on("art")
     depends_on("ifdhc")
     depends_on("ifbeam")

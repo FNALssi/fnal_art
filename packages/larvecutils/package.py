@@ -68,6 +68,8 @@ class Larvecutils(CMakePackage):
 
     patch("v09_00_01.patch", when="@09.00.01")
 
+    depends_on("compiler-runtime")
+
     # depends_on('nutools')
     # depends_on('larcore')
     # depends_on('lardataobj')

@@ -41,6 +41,8 @@ class CanvasRootIo(CMakePackage):
         description="C++ standard",
     )
 
+    depends_on("compiler-runtime")
+
     depends_on("boost+thread")
     depends_on("canvas")
     depends_on("cetlib")

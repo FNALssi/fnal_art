@@ -102,6 +102,8 @@ class Larreco(CMakePackage):
     )
     variant("tf", default=False, description="Build tensorflow dependent libraries.")
 
+    depends_on("compiler-runtime")
+
     depends_on("cetmodules", type="build")
     depends_on("art")
     depends_on("boost")

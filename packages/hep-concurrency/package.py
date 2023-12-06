@@ -38,6 +38,8 @@ class HepConcurrency(CMakePackage):
         description="C++ standard",
     )
 
+    depends_on("compiler-runtime")
+
     depends_on("catch2@3:",    when="@1.09.00:", type=("build", "test"))
     depends_on("catch2@2.3.0", when="@:1.08.99", type=("build", "test"))
     depends_on("cetlib-except")

@@ -67,6 +67,8 @@ class Genie(AutotoolsPackage):
 
     variant("lhapdf", default=True) 
 
+    depends_on("compiler-runtime")
+
     depends_on("lhapdf" , when="+lhapdf")
 
     depends_on("root+pythia6")

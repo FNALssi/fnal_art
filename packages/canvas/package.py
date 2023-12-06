@@ -41,6 +41,8 @@ class Canvas(CMakePackage):
         description="C++ standard",
     )
 
+    depends_on("compiler-runtime")
+
     depends_on("boost+date_time+test")
     depends_on("cetlib")
     depends_on("cetlib-except")
@@ -74,8 +76,6 @@ class Canvas(CMakePackage):
         env.prepend_path("PATH", os.path.join(prefix, "bin"))
         # Cleanup.
         sanitize_environments(env, "PATH")
-        env.set("CANVAS_INC", prefix.include)
 
     def setup_dependent_run_environment(self, env, dependent_spec):
-        prefix = self.prefix
-        env.set("CANVAS_INC", prefix.include)
+        env.set("CANVAS_INC", self.prefix.include)

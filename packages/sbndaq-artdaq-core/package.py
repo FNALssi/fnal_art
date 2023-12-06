@@ -59,6 +59,8 @@ class SbndaqArtdaqCore(CMakePackage):
     patch("v1_00_00of0.patch", when="@v1_00_00of0")
     patch("v1_00_00of2.patch", when="@v1_00_00of2")
 
+    depends_on("compiler-runtime")
+
     depends_on("messagefacility")
     depends_on("cetmodules", type="build")
     depends_on("artdaq-core")

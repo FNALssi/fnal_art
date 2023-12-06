@@ -59,6 +59,8 @@ class Wibtools(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
 
+    depends_on("compiler-runtime")
+
     def url_for_version(self, version):
         url = "https://github.com/SBNSoftware/{0}/archive/v{1}.tar.gz"
         return url.format(self.name, version.underscored)

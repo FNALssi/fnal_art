@@ -90,6 +90,8 @@ class Larsimrad(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
 
+    depends_on("compiler-runtime")
+
     depends_on("cetmodules", type="build")
     depends_on("art-root-io")
     depends_on("larbatch")

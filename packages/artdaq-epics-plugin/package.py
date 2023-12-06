@@ -45,6 +45,8 @@ class ArtdaqEpicsPlugin(CMakePackage):
         description="Use the specified C++ standard when building.",
     )
 
+    depends_on("compiler-runtime")
+
     depends_on("cetmodules", type="build")
     depends_on("epics-base")
 
