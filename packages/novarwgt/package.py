@@ -21,7 +21,7 @@ class Novarwgt(CMakePackage):
     # the license, set checked_by to your Github username.
     license("UNKNOWN", checked_by="github_user1")
 
-    version("0.13", branch="v00.13")
+    version("develop", branch="feature/spack")
 
     variant(
         "cxxstd",
@@ -35,3 +35,24 @@ class Novarwgt(CMakePackage):
     depends_on("root")
 
     depends_on("cetmodules", type="build")
+
+    # optional cetlib dependency
+    variant("cetlib", default=False, description="Enable CETLib dependency")
+    depends_on("cetlib", when="+cetlib")
+
+    # optional genie dependency
+    variant("genie", default=True, description="Enable GENIE dependency")
+    depends_on("nufinder", when="+genie")
+    depends_on("genie", when="+genie")
+
+    # optional nusimdata dependency
+    variant("nusimdata", default=True, description="Enable NuSimData dependency")
+    depends_on("nusimdata", when="+nusimdata")
+
+    def cmake_args(self):
+        args = [
+            self.define_from_variant("NOVARWGT_USE_CETLIB", "cetlib"),
+            self.define_from_variant("NOVARWGT_USE_GENIE", "genie"),
+            self.define_from_variant("NOVARWGT_USE_NUSIMDATA", "nusimdata"),
+        ]
+        return args

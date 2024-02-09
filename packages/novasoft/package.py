@@ -35,6 +35,7 @@ class Novasoft(CMakePackage, MakefilePackage):
     depends_on("ifdhc")
     depends_on("libwda")
     depends_on("log4cpp")
+    depends_on("novarwgt")
     depends_on("nufinder")
     depends_on("nusimdata")
     depends_on("postgresql")
