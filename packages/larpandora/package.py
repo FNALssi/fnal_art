@@ -105,10 +105,11 @@ class Larpandora(CMakePackage):
     def cmake_args(self):
         args = [
             self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd"),
-            self.define_from_variant(
+            self.define(
                 "CMAKE_PREFIX_PATH", self.spec["py-torch"].package.cmake_prefix_paths[0]
             ),
             self.define("IGNORE_ABSOLUTE_TRANSITIVE_DEPENDENCIES", True),
+            self.define("larpandora_FW_DIR", "fw"),
         ]
         return args
 

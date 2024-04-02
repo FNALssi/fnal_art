@@ -102,6 +102,11 @@ class Larwirecell(CMakePackage):
             'set(_fwc_fphsa_extra_required_vars "")',
             "Modules/FindWireCell.cmake",
         )
+        filter_file(
+            r"jsoncpp_lib",
+            'jsoncpp',
+            "Modules/FindWireCell.cmake",
+        )
         filter_file(r"Boost::stacktrace_basic", "", "Modules/FindWireCell.cmake")
         filter_file(
             r" set\(_fwc_fphsa_extra_args",

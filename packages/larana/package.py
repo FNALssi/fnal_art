@@ -88,7 +88,9 @@ class Larana(CMakePackage):
     depends_on("cetmodules", type="build")
 
     def cmake_args(self):
-        args = [self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")]
+        args = [self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd"),
+                self.define("larana_FW_DIR", "fw"),
+               ]
         return args
 
     def setup_build_environment(self, spack_env):

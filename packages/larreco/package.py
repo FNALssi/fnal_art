@@ -126,6 +126,7 @@ class Larreco(CMakePackage):
             self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd"),
             self.define("IGNORE_ABSOLUTE_TRANSITIVE_DEPENDENCIES", True),
             self.define("RStarTree_INCLUDE_DIR", self.spec["rstartree"].prefix.include),
+            self.define("larreco_FW_DIR", "fw")
         ]
         return args
 
