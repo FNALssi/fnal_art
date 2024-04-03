@@ -197,7 +197,7 @@ class Icarusalg(CMakePackage):
         # Cleanup.
         sanitize_environments(spack_env)
 
-    def setup_dependent_run_environment(self, run_env, dependent_spec):
+    def setup_run_environment(self, run_env):
         # Binaries.
         run_env.prepend_path("PATH", self.prefix.bin)
         # Ensure we can find plugin libraries.
@@ -208,5 +208,3 @@ class Icarusalg(CMakePackage):
         run_env.prepend_path("PERL5LIB", os.path.join(self.prefix, "perllib"))
         #
         run_env.append_path("FW_SEARCH_PATH", "{0}/gdml".format(self.prefix))
-        # Cleanup.
-        sanitize_environments(run_env)

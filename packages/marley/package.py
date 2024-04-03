@@ -51,3 +51,10 @@ class Marley(Package):
     def install(self, spec, prefix):
         with working_dir("build"):
             make("prefix={0}".format(prefix), "install")
+
+    def setup_run_environment(self, run_env):
+        run_env.prepend_path("PATH", self.prefix.bin)
+        run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
+        run_env.append_path("FW_SEARCH_PATH", self.prefix.share.data)
+        run_env.append_path("FW_SEARCH_PATH", self.prefix.share.data.react)
+        run_env.append_path("FW_SEARCH_PATH", self.prefix.share.data.structure)

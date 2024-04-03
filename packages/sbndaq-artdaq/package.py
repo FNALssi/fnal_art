@@ -92,12 +92,10 @@ class SbndaqArtdaq(CMakePackage):
         # Cleaup.
         sanitize_environments(env, "CET_PLUGIN_PATH", "FHICL_FILE_PATH")
 
-    def setup_dependent_run_environment(self, env, dependent_spec):
+    def setup_run_environment(self, env):
         prefix = self.prefix
         # Ensure we can find plugin libraries.
         env.prepend_path("CET_PLUGIN_PATH", prefix.lib)
         # Ensure we can find fhicl files
         env.prepend_path("FHICL_FILE_PATH", prefix + "/fcl")
-        # Cleaup.
-        sanitize_environments(env, "CET_PLUGIN_PATH", "FHICL_FILE_PATH")
     

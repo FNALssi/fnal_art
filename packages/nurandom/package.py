@@ -127,7 +127,7 @@ class Nurandom(CMakePackage):
         # Cleanup.
         sanitize_environments(spack_env)
 
-    def setup_dependent_run_environment(self, run_env, dependent_spec):
+    def setup_run_environment(self, run_env):
         # Binaries.
         run_env.prepend_path("PATH", self.prefix.bin)
         # Ensure we can find plugin libraries.
@@ -136,5 +136,4 @@ class Nurandom(CMakePackage):
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
         # Perl modules.
         run_env.prepend_path("PERL5LIB", os.path.join(self.prefix, "perllib"))
-        # Cleanup.
-        sanitize_environments(run_env)
+        run_env.prepend_path("FHICL_FILE_PATH", self.prefix.fcl)

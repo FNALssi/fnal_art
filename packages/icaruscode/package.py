@@ -212,7 +212,7 @@ class Icaruscode(CMakePackage):
         # Cleanup.
         sanitize_environments(spack_env)
 
-    def setup_dependent_run_environment(self, run_env, dependent_spec):
+    def setup_run_environment(self, run_env):
         # Binaries.
         run_env.prepend_path("PATH", self.prefix.bin)
         # Ensure we can find plugin libraries.
@@ -223,5 +223,3 @@ class Icaruscode(CMakePackage):
         run_env.prepend_path("PERL5LIB", os.path.join(self.prefix, "perllib"))
         # FW search path
         run_env.append_path("FW_SEARCH_PATH", os.path.join(self.prefix, "fw"))
-        # Cleanup.
-        sanitize_environments(run_env)

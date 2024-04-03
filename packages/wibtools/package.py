@@ -91,7 +91,7 @@ class Wibtools(CMakePackage):
         env.set("WIB_ADDRESS_TABLE_PATH", prefix + "/tables")
         env.set("EIB_CONFIG_PATH", prefix + "/config")
         
-    def setup_dependent_run_environment(self, env, dependent_spec):
+    def setup_run_environment(self, env):
         prefix = self.prefix
         env.set("WIBTOOLS_BIN", prefix.bin)
         env.set("WIB_ADDRESS_TABLE_PATH", prefix + "/tables")

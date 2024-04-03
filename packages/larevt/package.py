@@ -142,7 +142,7 @@ class Larevt(CMakePackage):
         spack_env.append_path("FHICL_FILE_PATH", "{0}/fcl".format(self.prefix))
         spack_env.append_path("FW_SEARCH_PATH", "{0}/gdml".format(self.prefix))
 
-    def setup_dependent_run_environment(self, run_env, dspec):
+    def setup_run_environment(self, run_env):
         # Ensure we can find plugin libraries.
         run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         run_env.prepend_path("PATH", self.prefix.bin)

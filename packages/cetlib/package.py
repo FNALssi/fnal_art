@@ -94,9 +94,11 @@ class Cetlib(CMakePackage):
         # Cleanup.
         sanitize_environments(env, "PERL5LIB")
 
-    def setup_dependent_run_environment(self, env, dependent_spec):
+    def setup_run_environment(self, env):
         prefix = self.prefix
+        env.prepend_path("PATH", self.prefix.bin)
         # Perl modules.
         env.prepend_path("PERL5LIB", os.path.join(prefix, "perllib"))
         # Cleanup.
         sanitize_environments(env, "PERL5LIB")
+        env.prepend_path("CET_PLUGIN_PATH", prefix.lib )

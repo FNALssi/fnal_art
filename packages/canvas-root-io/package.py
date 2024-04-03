@@ -112,14 +112,12 @@ class CanvasRootIo(CMakePackage):
         sanitize_environments(env, "CET_PLUGIN_PATH", "LD_LIBRARY_PATH", "ROOT_INCLUDE_PATH")
 
     def setup_dependent_run_environment(self, env, dependent_spec):
-        prefix = self.prefix
-        # Set LD_LIBRARY_PATH so CheckClassVersion.py can find cppyy lib
-        env.prepend_path("LD_LIBRARY_PATH", join_path(self.spec["root"].prefix.lib))
-        env.prepend_path("LD_LIBRARY_PATH", join_path(self.spec["root"].prefix.lib,"root"))
         # Ensure Root can find headers for autoparsing.
         for d in dependent_spec.traverse(
             root=False, cover="nodes", order="post", deptype=("link"), direction="children"
         ):
             env.prepend_path("ROOT_INCLUDE_PATH", str(dependent_spec[d.name].prefix.include))
-        # Cleanup.
-        sanitize_environments(env, "CET_PLUGIN_PATH", "LD_LIBRARY_PATH", "ROOT_INCLUDE_PATH")
+
+    def setup_run_environment(self, run_env):
+        run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
+        run_env.append_path("CET_PLUGIN_PATH", self.prefix.lib)

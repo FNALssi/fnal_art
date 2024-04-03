@@ -140,10 +140,8 @@ class Wirecell(Package):
         # Cleanup.
         sanitize_environments(spack_env)
 
-    def setup_dependent_run_environment(self, run_env, dependent_spec):
+    def setup_run_environment(self, run_env):
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
-        # Cleanup.
-        sanitize_environments(run_env)
 
     def flag_handler(self, name, flags):
         if name == "cxxflags" and self.spec.compiler.name == "gcc":

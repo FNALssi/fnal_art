@@ -34,6 +34,7 @@ class LarsoftData(Package):
             "Argoneut",
             "Genfit",
             "ParticleIdentification",
+            "PhotonPropagation/LibraryData",
             os.path.join("pdf", "Gaisser"),
             os.path.join("pdf", "MUSUN"),
             "SupernovaNeutrinos",
@@ -48,5 +49,5 @@ class LarsoftData(Package):
     def setup_dependent_build_environment(self, spack_env, dep_spec):
         self._add_paths_to_environment(spack_env)
 
-    def setup_dependent_run_environment(self, run_env, dep_spec):
+    def setup_run_environment(self, run_env):
         self._add_paths_to_environment(run_env)

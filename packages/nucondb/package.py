@@ -75,5 +75,5 @@ class Nucondb(MakefilePackage):
     def setup_dependent_build_environment(self, spack_env, dspec):
         spack_env.set("NUCONDB_DIR", self.prefix)
 
-    def setup_dependent_run_environment(self, run_env, dspec):
+    def setup_run_environment(self, run_env):
         run_env.set("NUCONDB_DIR", self.prefix)
