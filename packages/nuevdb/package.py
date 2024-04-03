@@ -79,6 +79,7 @@ class Nuevdb(CMakePackage):
     depends_on("cetmodules", type="build")
     depends_on("art-root-io")
     depends_on("art")
+    depends_on("cry")
     depends_on("root")
     depends_on("libwda")
     depends_on("nusimdata")

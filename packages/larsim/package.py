@@ -121,10 +121,11 @@ class Larsim(CMakePackage):
             self.define("IFDH_INC", self.spec["ifdhc"].prefix.include),
             self.define("IFDH_LIB", self.spec["ifdhc"].prefix),
             self.define("GENIE_INC", self.spec["genie"].prefix.include),
-            self.define("GENIE_VERSION", "v" + self.spec["genie"].version.underscored),
+            self.define("GENIE_VERSION", "v" + str(self.spec["genie"].version.underscored)),
             self.define("LARSOFT_DATA_DIR", "v" + self.spec["larsoft-data"].prefix),
             self.define(
-                "LARSOFT_DATA_VERSION", "v" + self.spec["larsoft-data"].version.underscored
+                "LARSOFT_DATA_VERSION", 
+                "v" + str(self.spec["larsoft-data"].version.underscored)
             ),
             self.define("IGNORE_ABSOLUTE_TRANSITIVE_DEPENDENCIES", True),
             # The following lines should be removed once the larsim/CMakePresets.json file is fixed
