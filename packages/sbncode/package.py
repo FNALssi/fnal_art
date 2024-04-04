@@ -36,13 +36,9 @@ class Sbncode(CMakePackage):
     list_url = "https://api.github.com/repos/SBNSoftware/sbncode/tags"
 
     version("develop", branch="develop", git=git_base, get_full_repo=True)
-    version(
-        "09.37.02.03", sha256="1d287d1dd3df5c2108154660f9846ce7776a69cb4861d0f89beea69e0c60fbce"
-    )
+    version("09.37.02.03", sha256="1d287d1dd3df5c2108154660f9846ce7776a69cb4861d0f89beea69e0c60fbce")
     version("09.37.01.03", checksum="297eaedc009e7069da0427acc0af4f27")
-    version(
-        "09.37.01.02", sha256="a7811d95c816f112f3e320fbf2a15b199a6af3c385e1f53e14ddb6c04ace54cf"
-    )
+    version("09.37.01.02", sha256="a7811d95c816f112f3e320fbf2a15b199a6af3c385e1f53e14ddb6c04ace54cf")
     version("09.35.00", sha256="6dc753dcc24e9583a261a70da99a1275835b70091c816dbbb0ddee60ad698686")
 
     patch("v09_35_00.patch", when="@09.35.00")
@@ -135,11 +131,7 @@ class Sbncode(CMakePackage):
                 lambda v: (v.dotted, self.url_for_version(v)),
                 [
                     Version(d["name"][1:])
-                    for d in sjson.load(
-                        spack.util.web.read_from_url(
-                            self.list_url, accept_content_type="application/json"
-                        )[2]
-                    )
+                    for d in sjson.load(spack.util.web.read_from_url(self.list_url, accept_content_type="application/json")[2])
                     if d["name"].startswith("v")
                 ],
             )
@@ -165,7 +157,11 @@ class Sbncode(CMakePackage):
         spack_env.prepend_path("CET_PLUGIN_PATH", os.path.join(self.build_directory, "lib"))
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             spack_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         spack_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
@@ -181,7 +177,11 @@ class Sbncode(CMakePackage):
         run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             run_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
@@ -201,4 +201,3 @@ class Sbncode(CMakePackage):
         spack_env.prepend_path("PERL5LIB", os.path.join(self.prefix, "perllib"))
         # Cleanup.
         sanitize_environments(spack_env)
-

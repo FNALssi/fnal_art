@@ -47,11 +47,7 @@ class Bxdecay0(CMakePackage):
                 lambda v: (v.dotted, self.url_for_version(v)),
                 [
                     Version(d["name"][1:])
-                    for d in sjson.load(
-                        spack.util.web.read_from_url(
-                            self.list_url, accept_content_type="application/json"
-                        )[2]
-                    )
+                    for d in sjson.load(spack.util.web.read_from_url(self.list_url, accept_content_type="application/json")[2])
                     if d["name"].startswith("v")
                 ],
             )
@@ -60,11 +56,11 @@ class Bxdecay0(CMakePackage):
     patch("bxdecay0.patch", when="@1.0.7")
 
     def patch(self):
-        with(when("@:1.1.1 %gcc@13:" )):
+        with (when("@:1.1.1 %gcc@13:")):
             filter_file(
-                '#include <string>',
-                '#include <cstdint>\n#include <string>',
-                'bxdecay0/particle.h',
+                "#include <string>",
+                "#include <cstdint>\n#include <string>",
+                "bxdecay0/particle.h",
             )
 
     variant(
@@ -93,8 +89,9 @@ class Bxdecay0(CMakePackage):
 
     def cmake_args(self):
         # Set CMake args.
-        args = [self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd"),
-          "-DGSL_ROOT_DIR={0}".format(self.spec["gsl"].prefix),
+        args = [
+            self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd"),
+            "-DGSL_ROOT_DIR={0}".format(self.spec["gsl"].prefix),
         ]
         return args
 
@@ -103,7 +100,11 @@ class Bxdecay0(CMakePackage):
         spack_env.prepend_path("PATH", os.path.join(self.build_directory, "bin"))
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             spack_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         spack_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
@@ -113,7 +114,11 @@ class Bxdecay0(CMakePackage):
     def setup_run_environment(self, run_env):
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             run_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
@@ -127,4 +132,3 @@ class Bxdecay0(CMakePackage):
         spack_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
         # Cleanup.
         sanitize_environments(spack_env)
-

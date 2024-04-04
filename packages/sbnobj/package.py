@@ -42,12 +42,7 @@ class Sbnobj(CMakePackage):
     git_base = "https://cdcvs.fnal.gov/projects/sbnobj"
     git_base = "https://github.com/SBNSoftware/sbnobj.git"
 
-    version(
-        "develop",
-        commit="821c5e24aa509b4e1ba0eda064d3ce5f3fbce1a2",
-        git=git_base,
-        get_full_repo=True,
-    )
+    version("develop", commit="821c5e24aa509b4e1ba0eda064d3ce5f3fbce1a2", git=git_base, get_full_repo=True)
     version("09.12.12", sha256="60f4f1d437cad1b1573c5f56186a48edbeab1431ccdeb0bcbe8d62fc3c7b21b0")
     version("09.12.09", sha256="4905f82711ac35fcdb732500ce1a33cee83f38a66a116d3d30aeeca749ba1313")
     version("09.12.05", tag="v09_12_05", git=git_base, get_full_repo=True)
@@ -145,7 +140,11 @@ class Sbnobj(CMakePackage):
         spack_env.prepend_path("CET_PLUGIN_PATH", os.path.join(self.build_directory, "lib"))
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             spack_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         # Perl modules.
@@ -159,7 +158,11 @@ class Sbnobj(CMakePackage):
         run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             run_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
@@ -180,4 +183,3 @@ class Sbnobj(CMakePackage):
         spack_env.prepend_path("PERL5LIB", os.path.join(self.prefix, "perllib"))
         # Cleanup.
         sanitize_environments(spack_env)
-

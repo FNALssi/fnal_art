@@ -47,9 +47,7 @@ class Icaruscode(CMakePackage):
         git=git_base,
         get_full_repo=True,
     )
-    version(
-        "09.37.02.03", sha256="1762e5a05ebac100032b2bc46244a63f3bc454f51a583da03b935a6827d7df6f"
-    )
+    version("09.37.02.03", sha256="1762e5a05ebac100032b2bc46244a63f3bc454f51a583da03b935a6827d7df6f",)
     version("09.37.01.03p02", tag="v09_37_01_03p02", git=git_base, get_full_repo=True)
     version("09.37.01.vec03p02", tag="v09_37_01_03p02", git=git_base, get_full_repo=True)
     version("09.37.01.02p02", tag="v09_37_01_02p02", git=git_base, get_full_repo=True)
@@ -173,7 +171,11 @@ class Icaruscode(CMakePackage):
         spack_env.prepend_path("CET_PLUGIN_PATH", os.path.join(self.build_directory, "lib"))
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             spack_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         # Perl modules.
@@ -190,7 +192,11 @@ class Icaruscode(CMakePackage):
         run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             run_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
@@ -213,4 +219,3 @@ class Icaruscode(CMakePackage):
         spack_env.append_path("FW_SEARCH_PATH", os.path.join(self.prefix, "fw"))
         # Cleanup.
         sanitize_environments(spack_env)
-

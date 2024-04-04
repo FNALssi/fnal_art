@@ -34,9 +34,7 @@ class Larsimdnn(CMakePackage):
     list_url = "https://api.github.com/repos/LArSoft/larsimdnn/tags"
 
     version("09.05.10", sha256="245b7a56cb1cefca75be0ca84ee993a6a6390623223bd2b76e155ae0347be6e8")
-    version(
-        "mwm1", tag="mwm1", git="https://github.com/marcmengel/larsimdnn.git", get_full_repo=True
-    )
+    version("mwm1", tag="mwm1", git="https://github.com/marcmengel/larsimdnn.git", get_full_repo=True)
     version("develop", branch="develop", get_full_repo=True)
 
     def url_for_version(self, version):
@@ -49,11 +47,7 @@ class Larsimdnn(CMakePackage):
                 lambda v: (v.dotted, self.url_for_version(v)),
                 [
                     Version(d["name"][1:])
-                    for d in sjson.load(
-                        spack.util.web.read_from_url(
-                            self.list_url, accept_content_type="application/json"
-                        )[2]
-                    )
+                    for d in sjson.load(spack.util.web.read_from_url(self.list_url, accept_content_type="application/json")[2])
                     if d["name"].startswith("v") and not d["name"].endswith(")")
                 ],
             )
@@ -104,7 +98,11 @@ class Larsimdnn(CMakePackage):
         spack_env.prepend_path("CET_PLUGIN_PATH", os.path.join(self.build_directory, "lib"))
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             spack_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         # Perl modules.
@@ -117,7 +115,11 @@ class Larsimdnn(CMakePackage):
         run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             run_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
@@ -135,4 +137,3 @@ class Larsimdnn(CMakePackage):
         spack_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
         spack_env.append_path("FHICL_FILE_PATH", "{0}/fcl".format(self.prefix))
         spack_env.append_path("FW_SEARCH_PATH", "{0}/gdml".format(self.prefix))
-

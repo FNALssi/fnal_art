@@ -70,23 +70,21 @@ class Ifdhc(MakefilePackage):
             self.spec["uuid"].prefix.include,
         )
         cxxstd = self.spec.variants["cxxstd"].value
-        cxxstdflag = (
-            "" if cxxstd == "default" else getattr(self.compiler, "cxx{0}_flag".format(cxxstd))
-        )
+        cxxstdflag = "" if cxxstd == "default" else getattr(self.compiler, "cxx{0}_flag".format(cxxstd))
 
-       
         with when("@2.6.9"):
             # sshbuildshims build_ifdhc.sh:311
             cxxstdflag = "%s -Wno-unused-but-set-variable" % cxxstdflag
 
-        return ("SHELL=/bin/bash", 
-                "PYMAJOR=%s" % self.spec["python"].version[0],
-                "PYTHON=%s" % self.spec["python"].command.path,
-                "PYTHON_LIB=%s" % self.spec["python"].libs.directories[0],
-                "PYTHON_INCLUDE=%s" % self.spec["python"].headers.directories[0],
-                "ARCH=-g -DNDEBUG %s %s" % (cxxstdflag, uuidflags), 
-                "all"
-               )
+        return (
+            "SHELL=/bin/bash",
+            "PYMAJOR=%s" % self.spec["python"].version[0],
+            "PYTHON=%s" % self.spec["python"].command.path,
+            "PYTHON_LIB=%s" % self.spec["python"].libs.directories[0],
+            "PYTHON_INCLUDE=%s" % self.spec["python"].headers.directories[0],
+            "ARCH=-g -DNDEBUG %s %s" % (cxxstdflag, uuidflags),
+            "all",
+        )
 
     @property
     def install_targets(self):
@@ -100,7 +98,7 @@ class Ifdhc(MakefilePackage):
 
     @run_after("install")
     def is_built(self):
-        ''' replicate build-shims checks '''
+        """replicate build-shims checks"""
         assert os.path.exists(self.prefix.bin.ifdh)
         assert os.path.exists(self.prefix.inc + "/ifdh.h")
         assert os.path.exists(self.prefix.lib + "/libifdh.so")
@@ -115,7 +113,7 @@ class Ifdhc(MakefilePackage):
         run_env.prepend_path("PATH", self.spec.prefix.bin)
         run_env.set("IFDHC_DIR", self.spec.prefix)
         # bump ifdhc-config ahead of us in case of updated scripts
-        run_env.prepend_path("PATH", self.spec['ifdhc-config'].prefix.bin)
+        run_env.prepend_path("PATH", self.spec["ifdhc-config"].prefix.bin)
         run_env.prune_duplicate_paths("PATH")
 
     def setup_dependent_build_environment(self, spack_env, dspec):
@@ -124,4 +122,3 @@ class Ifdhc(MakefilePackage):
         spack_env.prepend_path("ROOT_INCLUDE_PATH", self.spec.prefix.inc)
         spack_env.set("IFDHC_DIR", self.spec.prefix)
         spack_env.set("IFDHC_INC", self.spec.prefix.inc)
-

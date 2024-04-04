@@ -38,20 +38,12 @@ class Larcore(CMakePackage):
     version("09.03.02", sha256="16f60e05edd620b6a41928f591fe062db2e9d91cf7948fa4f30d688bd547bcbb")
     version("09.03.01", sha256="bab2aa40e0d796c4f11433ea1096e0b44b1b4d1b09b1c531495ad2b19caf879f")
     version("09.03.00", sha256="d9f54979c57c94cee142e6b477a5df44a65baf4a132d48cc455f49540bf3d72b")
-    version(
-        "09.02.04.01", sha256="efd3ae5d4ea699a383ab481d1efa496f19fbb57e1edf422ad773aa6eb1766876"
-    )
+    version("09.02.04.01", sha256="efd3ae5d4ea699a383ab481d1efa496f19fbb57e1edf422ad773aa6eb1766876")
     version("09.02.04", sha256="b3408c26313679a872b2a875d92510b1a4a4a108ce5795b81185edf1d6c4a813")
     version("09.02.03", sha256="27fa2435c66e1e4b5dfcf0d4a0c1c3aa34623a2a50f36bd47fcf8102b17c6198")
-    version(
-        "09.02.02.04", sha256="c6ea5c49f757252d8739f081638997a7815081860bcd97f7691cd852a00f0082"
-    )
-    version(
-        "09.02.02.03", sha256="30ecf738c12380a9629024b84af3cd9110749f0ddd37ae3cd0834c31b42f0e18"
-    )
-    version(
-        "09.02.02.02", sha256="5fa4a0040139f7e06a1219919a876dd4cc56970b01c6d8e8cd32b1119b899f93"
-    )
+    version("09.02.02.04", sha256="c6ea5c49f757252d8739f081638997a7815081860bcd97f7691cd852a00f0082")
+    version("09.02.02.03", sha256="30ecf738c12380a9629024b84af3cd9110749f0ddd37ae3cd0834c31b42f0e18")
+    version("09.02.02.02", sha256="5fa4a0040139f7e06a1219919a876dd4cc56970b01c6d8e8cd32b1119b899f93")
     version("mwm1", tag="mwm1", git="https://github.com/marcmengel/larcore.git")
     version("develop", branch="develop", get_full_repo=True)
 
@@ -65,11 +57,7 @@ class Larcore(CMakePackage):
                 lambda v: (v.dotted, self.url_for_version(v)),
                 [
                     Version(d["name"][1:])
-                    for d in sjson.load(
-                        spack.util.web.read_from_url(
-                            self.list_url, accept_content_type="application/json"
-                        )[2]
-                    )
+                    for d in sjson.load(spack.util.web.read_from_url(self.list_url, accept_content_type="application/json")[2])
                     if d["name"].startswith("v") and not d["name"].endswith(")")
                 ],
             )
@@ -101,8 +89,7 @@ class Larcore(CMakePackage):
         os.system(
             "set -x; find %s/test/Geometry/CMakeFiles %s/larcore/Geometry/CMakeFiles "
             "-type f -print  | tee /tmp/fixlist | "
-            "xargs perl -pi -e 's/libboost_filesystem.a/libboost_filesystem.so/go;'"
-            % (self.build_directory, self.build_directory)
+            "xargs perl -pi -e 's/libboost_filesystem.a/libboost_filesystem.so/go;'" % (self.build_directory, self.build_directory)
         )
         print("done fixing filesystem.a references..")
 
@@ -113,7 +100,11 @@ class Larcore(CMakePackage):
         spack_env.prepend_path("CET_PLUGIN_PATH", os.path.join(self.build_directory, "lib"))
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             spack_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         # Perl modules.
@@ -124,7 +115,6 @@ class Larcore(CMakePackage):
         spack_env.prepend_path("FW_SEARCH_PATH", os.path.join(self.build_directory, "fcl"))
         # Cleaup.
         sanitize_environments(spack_env)
-
 
     def flag_handler(self, name, flags):
         if name == "cxxflags" and self.spec.compiler.name == "gcc":
@@ -137,7 +127,11 @@ class Larcore(CMakePackage):
         run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             run_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
@@ -149,4 +143,3 @@ class Larcore(CMakePackage):
         run_env.prepend_path("FW_SEARCH_PATH", os.path.join(self.prefix, "gdml"))
         # Cleaup.
         sanitize_environments(run_env)
-

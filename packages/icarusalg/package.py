@@ -35,15 +35,8 @@ class Icarusalg(CMakePackage):
     url = "https://github.com/SBNSoftware/icarusalg/archive/refs/tags/v09_34_00.tar.gz"
     list_url = "https://api.github.com/repos/SBNSoftware/icarusalg/tags"
 
-    version(
-        "develop",
-        commit="357823a14d1f655f620bb288f6dc373b5685664f",
-        git=git_base,
-        get_full_repo=True,
-    )
-    version(
-        "09.37.02.01", sha256="717678d1015441349b892bb19efd2b09c5b5f6349dfb25a484bc9101d761b4eb"
-    )
+    version("develop", commit="357823a14d1f655f620bb288f6dc373b5685664f", git=git_base, get_full_repo=True)
+    version("09.37.02.01", sha256="717678d1015441349b892bb19efd2b09c5b5f6349dfb25a484bc9101d761b4eb") 
     version("09.37.01", sha256="048f3a88ebd66dd8ba6b8fbc536ea68bb58b7b48b3ffaa5ff555a301a838b11d")
     version("09.34.00", sha256="b55ab020b0a3239e0492183d7eb55501102693ee8123ca5ccef0d40a4f11b1d9")
     version("09.33.00", sha256="b61f8a2eb23405d151b69b3ee2d7d76f30ed35da9ff12426e680994cf7a3461a")
@@ -115,11 +108,7 @@ class Icarusalg(CMakePackage):
                 lambda v: (v.dotted, self.url_for_version(v)),
                 [
                     Version(d["name"][1:])
-                    for d in sjson.load(
-                        spack.util.web.read_from_url(
-                            self.list_url, accept_content_type="application/json"
-                        )[2]
-                    )
+                    for d in sjson.load(spack.util.web.read_from_url(self.list_url, accept_content_type="application/json")[2])
                     if d["name"].startswith("v")
                 ],
             )
@@ -162,7 +151,11 @@ class Icarusalg(CMakePackage):
         spack_env.prepend_path("CET_PLUGIN_PATH", os.path.join(self.build_directory, "lib"))
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             spack_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         # Perl modules.
@@ -176,7 +169,11 @@ class Icarusalg(CMakePackage):
         run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             run_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
@@ -200,4 +197,3 @@ class Icarusalg(CMakePackage):
         spack_env.append_path("FW_SEARCH_PATH", "{0}/gdml".format(self.prefix))
         # Cleanup.
         sanitize_environments(spack_env)
-

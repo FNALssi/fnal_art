@@ -20,9 +20,7 @@ class Messagefacility(CMakePackage):
 
     homepage = "https://art.fnal.gov/"
     git = "https://github.com/art-framework-suite/messagefacility.git"
-    url = (
-        "https://github.com/art-framework-suite/messagefacility/archive/refs/tags/v2_10_03.tar.gz"
-    )
+    url = "https://github.com/art-framework-suite/messagefacility/archive/refs/tags/v2_10_03.tar.gz"
 
     version("2.10.05", sha256="cd99c85b81f7d4d23195fb6f84d8815c73d6eedbb4c543dc10c9616a5c31368d")
     version("2.10.04", sha256="5c63a26c974c69677eeb8c927a581aa40bd7ff8f6abf6ebcdd20cc423e145df9")
@@ -63,15 +61,11 @@ class Messagefacility(CMakePackage):
             depends_on("ninja@1.10:", type="build")
 
     def url_for_version(self, version):
-        url = (
-            "https://github.com/art-framework-suite/messagefacility/archive/refs/tags/v{0}.tar.gz"
-        )
+        url = "https://github.com/art-framework-suite/messagefacility/archive/refs/tags/v{0}.tar.gz"
         return url.format(version.underscored)
 
     def cmake_args(self):
-        return preset_args(self.stage.source_path) + [
-            self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")
-        ]
+        return preset_args(self.stage.source_path) + [self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")]
 
     def setup_build_environment(self, env):
         prefix = self.build_directory
@@ -102,4 +96,3 @@ class Messagefacility(CMakePackage):
         env.prepend_path("PERL5LIB", os.path.join(prefix, "perllib"))
         # Cleaup.
         sanitize_environments(env, "CET_PLUGIN_PATH", "PERL5LIB")
-

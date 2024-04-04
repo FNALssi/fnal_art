@@ -33,19 +33,12 @@ class Larexamples(CMakePackage):
     url = "https://github.com/LArSoft/larexamples/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/larexamples/tags"
 
-
-    version(
-        "09.30.00.rc1", sha256="81b42e8c9886e4199b230a5570922025e6a231c2db8f05fb50e98a03f6862767"
-    )
+    version("09.30.00.rc1", sha256="81b42e8c9886e4199b230a5570922025e6a231c2db8f05fb50e98a03f6862767")
     version("09.08.10", sha256="4ca06e9aef4df0031de5ee89aee60fa22c9b365f2ac7521124c78d4f353cc37f")
     version("09.08.07", sha256="18c15b664d1c9dcd470d18b80231c84046e8a657c562cde990e45c367bd272c6")
     version("09.08.04", sha256="842ef4901801286c9d86002b81f3cd220cfc4211e43db92a90d508170cb2168f")
-    version(
-        "09.02.08.02", sha256="144ffc2e740c7aa73155b3e1f02a4bf0016ac25c9e5092162aefb4fb507ce1c3"
-    )
-    version(
-        "09.02.08.01", sha256="8745a14211001dd321b23b0a591e65aecd188d4393b5f6cac26a42f9e2f66075"
-    )
+    version("09.02.08.02", sha256="144ffc2e740c7aa73155b3e1f02a4bf0016ac25c9e5092162aefb4fb507ce1c3")
+    version("09.02.08.01", sha256="8745a14211001dd321b23b0a591e65aecd188d4393b5f6cac26a42f9e2f66075")
     version("09.02.05", sha256="4b2bfdb5c9e1354c12f4581185c3214f37b178de14e4f630f924a6aa9dabcfde")
     version("09.02.03", sha256="dc34d8563a7baee2698edb3573063818b5852ce7b0092d201587e12eea7eb8e8")
     version("09.02.02", sha256="063a962e804fa3d72235ebecb8708d2859ec4f0b41f68b3785354cd2a483e044")
@@ -55,9 +48,7 @@ class Larexamples(CMakePackage):
     version("09.01.19", sha256="3e22003f17f9101beb9ea7df375c14b31b4aadd3e7e0e5e304dbf9f231773d2a")
     version("09.01.18", sha256="609d23c317863c2167b33cb32fe28d9255c08608a04452fc9611c58ca72e692a")
     version("09.01.17", sha256="43edeed8b818581b4ed0ca0f2fb58bea07ed7bc5561aa58f252485e63c8eae9b")
-    version(
-        "mwm1", tag="mwm1", git="https://github.com/marcmengel/larexamples.git", get_full_repo=True
-    )
+    version("mwm1", tag="mwm1", git="https://github.com/marcmengel/larexamples.git", get_full_repo=True)
     version("develop", branch="develop", get_full_repo=True)
 
     def url_for_version(self, version):
@@ -70,11 +61,7 @@ class Larexamples(CMakePackage):
                 lambda v: (v.dotted, self.url_for_version(v)),
                 [
                     Version(d["name"][1:])
-                    for d in sjson.load(
-                        spack.util.web.read_from_url(
-                            self.list_url, accept_content_type="application/json"
-                        )[2]
-                    )
+                    for d in sjson.load(spack.util.web.read_from_url(self.list_url, accept_content_type="application/json")[2])
                     if d["name"].startswith("v") and not d["name"].endswith(")")
                 ],
             )
@@ -109,7 +96,11 @@ class Larexamples(CMakePackage):
         spack_env.prepend_path("CET_PLUGIN_PATH", os.path.join(self.build_directory, "lib"))
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             spack_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         # Set path to find fhicl files
@@ -124,7 +115,11 @@ class Larexamples(CMakePackage):
         run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             run_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
@@ -142,4 +137,3 @@ class Larexamples(CMakePackage):
         spack_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
         spack_env.append_path("FHICL_FILE_PATH", "{0}/fcl".format(self.prefix))
         spack_env.append_path("FW_SEARCH_PATH", "{0}/gdml".format(self.prefix))
-

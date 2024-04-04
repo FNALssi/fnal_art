@@ -33,7 +33,7 @@ class Wirecell(Package):
     url = "https://github.com/WireCell/wire-cell-toolkit/archive/refs/tags/0.13.0.tar.gz"
 
     version("0.24.3", sha256="040d819a3a81b953a42c8b4bb898acf6978cee45beea0361a2f3cdb602a6028c")
-    version("0.24.1", sha256="0467a4dff51abac3661aa99c5f3cc5de1ba1607a7f357631a2fbf7dcdf01c8a9")
+    version("0.24.1", sha256="0467a4dff51abac3661aa99c5f3cc5de1ba1607a7f357631a2fbf7dcdf01c8a9") 
     version("0.17.0", sha256="f2807adb83c8c6960ccefe8002bd015d646a96ad181d2092848d2461b3b81eea")
     version("0.16.0", sha256="af04affc1642c6ea534c479f0e1701e74b43674c2ebc025a117849ac0aba9cee")
     version("0.14.0", sha256="f7d792ef3c73744b395a6880018a4ba3349f2c5ba2f96399ad1a4d17be8f6092")
@@ -81,9 +81,7 @@ class Wirecell(Package):
 
     def install(self, spec, prefix):
         cxxstd = self.spec.variants["cxxstd"].value
-        cxxstdflag = (
-            "" if cxxstd == "default" else getattr(self.compiler, "cxx{0}_flag".format(cxxstd))
-        )
+        cxxstdflag = "" if cxxstd == "default" else getattr(self.compiler, "cxx{0}_flag".format(cxxstd))
 
         cfg = "wcb"
         cfg += " --prefix=%s" % prefix
@@ -113,13 +111,15 @@ class Wirecell(Package):
 
     def setup_build_environment(self, spack_env):
         cxxstd = self.spec.variants["cxxstd"].value
-        cxxstdflag = (
-            "" if cxxstd == "default" else getattr(self.compiler, "cxx{0}_flag".format(cxxstd))
-        )
+        cxxstdflag = "" if cxxstd == "default" else getattr(self.compiler, "cxx{0}_flag".format(cxxstd))
         spack_env.append_flags("CXXFLAGS", cxxstdflag)
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             spack_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         # Cleanup.
@@ -129,7 +129,11 @@ class Wirecell(Package):
         run_env.prepend_path("PATH", self.prefix.bin)
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             run_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)

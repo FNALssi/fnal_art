@@ -40,7 +40,9 @@ class Nucondb(MakefilePackage):
 
     def patch(self):
         filter_file(
-            r"catch \(WebAPIException we\)", "catch (WebAPIException &we)", "src/nucondb.cc"
+            r"catch \(WebAPIException we\)",
+            "catch (WebAPIException &we)",
+            "src/nucondb.cc",
         )
 
     def url_for_version(self, version):
@@ -50,9 +52,7 @@ class Nucondb(MakefilePackage):
     @property
     def build_targets(self):
         cxxstd = self.spec.variants["cxxstd"].value
-        cxxstdflag = (
-            "" if cxxstd == "default" else getattr(self.compiler, "cxx{0}_flag".format(cxxstd))
-        )
+        cxxstdflag = "" if cxxstd == "default" else getattr(self.compiler, "cxx{0}_flag".format(cxxstd))
         return [
             "LIBWDA_FQ_DIR=" + self.spec["libwda"].prefix,
             "LIBWDA_LIB=" + self.spec["libwda"].prefix.lib,

@@ -64,9 +64,7 @@ class CanvasRootIo(CMakePackage):
             depends_on("ninja@1.10:", type="build")
 
     def cmake_args(self):
-        return preset_args(self.stage.source_path) + [
-            self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")
-        ]
+        return preset_args(self.stage.source_path) + [self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")]
 
     def url_for_version(self, version):
         url = "https://github.com/art-framework-suite/canvas-root-io/archive/refs/tags/v{0}.tar.gz"
@@ -80,7 +78,11 @@ class CanvasRootIo(CMakePackage):
         env.prepend_path("LD_LIBRARY_PATH", join_path(self.spec["root"].prefix.lib))
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         # Cleanup.
@@ -92,11 +94,15 @@ class CanvasRootIo(CMakePackage):
         env.prepend_path("LD_LIBRARY_PATH", prefix.lib)
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         env.prepend_path("ROOT_INCLUDE_PATH", prefix.include)
-        run_env.append_path("CET_PLUGIN_PATH", self.prefix.lib)
+        env.append_path("CET_PLUGIN_PATH", self.prefix.lib)
         # Cleanup.
         sanitize_environments(env, "CET_PLUGIN_PATH", "ROOT_INCLUDE_PATH")
 
@@ -106,16 +112,12 @@ class CanvasRootIo(CMakePackage):
         env.prepend_path("LD_LIBRARY_PATH", join_path(self.spec["root"].prefix.lib))
         # Ensure Root can find headers for autoparsing.
         for d in dependent_spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             env.prepend_path("ROOT_INCLUDE_PATH", str(dependent_spec[d.name].prefix.include))
         # Cleanup.
         sanitize_environments(env, "CET_PLUGIN_PATH", "LD_LIBRARY_PATH", "ROOT_INCLUDE_PATH")
-
-    def setup_dependent_run_environment(self, env, dependent_spec):
-        # Ensure Root can find headers for autoparsing.
-        for d in dependent_spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
-        ):
-            env.prepend_path("ROOT_INCLUDE_PATH", str(dependent_spec[d.name].prefix.include))
-

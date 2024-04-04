@@ -33,18 +33,12 @@ class Lareventdisplay(CMakePackage):
     url = "https://github.com/LArSoft/lareventdisplay/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/lareventdisplay/tags"
 
-    version(
-        "09.30.00.rc1", sha256="c479c376a2f0be7f4584c8a3d4919ad89f1b9e39a4f11a215f616cc729363d5e"
-    )
+    version("09.30.00.rc1", sha256="c479c376a2f0be7f4584c8a3d4919ad89f1b9e39a4f11a215f616cc729363d5e")
     version("09.10.11", sha256="13dbdac0498248f154ee7abedd813b5f7fb43e93ef5dd8dccceddbc320ca677a")
     version("09.10.08", sha256="b3875a4fdd011b8ad6c116e7eb8c21c7518e16bdd36eaa95ec4ad0c4f35b739c")
     version("09.10.05", sha256="b79ef329c22ea79ab4e4b591b8481d6e08a8d1ec80e83973854f2dd9717e43e8")
-    version(
-        "09.02.08.02", sha256="fe3623fbc9438f96e66927c8c5b24114b5d0fef0f2e8dd0576b290d0fc9b4147"
-    )
-    version(
-        "09.02.08.01", sha256="38e397c789b566328c5fb05353a2d4da71d13f9c36c7d131e13eeb0c3f270046"
-    )
+    version("09.02.08.02", sha256="fe3623fbc9438f96e66927c8c5b24114b5d0fef0f2e8dd0576b290d0fc9b4147")
+    version("09.02.08.01", sha256="38e397c789b566328c5fb05353a2d4da71d13f9c36c7d131e13eeb0c3f270046")
     version("09.02.05", sha256="cf8aa4e78162cea4621b858d0603d244e2efe3a030a0fac0977fcb4fad8afdad")
     version("09.02.03", sha256="8269156d71f25b46c419c1b82f9527957b9a23419865db02bd6f478eabc2ec3d")
     version("09.02.02", sha256="38f5c75fc7b83899cf8b7c7026ed0a339d8d640f9a2a4bf6618c5b1e3a928c72")
@@ -54,11 +48,7 @@ class Lareventdisplay(CMakePackage):
     version("09.01.20", sha256="b6b8cc0299ae92f2ef7483a52437748b277c3b507a729183e299ef2932a9b5d6")
     version("09.01.19", sha256="1e75ec62ea1c657a724b09a002369d87d8be45cffe5367767240980418ddd4fe")
     version("09.01.18", sha256="a790330b9f05320d69f619bd6bb8251f69f9d21c811647e57f3754d16c1dea3b")
-    version(
-        "mwm1",
-        tag="mwm1",
-        git="https://github.com/marcmengel/lareventdisplay.git",
-    )
+    version("mwm1", tag="mwm1", git="https://github.com/marcmengel/lareventdisplay.git",)
     version("develop", branch="develop", get_full_repo=True)
 
     def url_for_version(self, version):
@@ -71,11 +61,7 @@ class Lareventdisplay(CMakePackage):
                 lambda v: (v.dotted, self.url_for_version(v)),
                 [
                     Version(d["name"][1:])
-                    for d in sjson.load(
-                        spack.util.web.read_from_url(
-                            self.list_url, accept_content_type="application/json"
-                        )[2]
-                    )
+                    for d in sjson.load(spack.util.web.read_from_url(self.list_url, accept_content_type="application/json")[2])
                     if d["name"].startswith("v") and not d["name"].endswith(")")
                 ],
             )
@@ -108,7 +94,11 @@ class Lareventdisplay(CMakePackage):
         spack_env.prepend_path("CET_PLUGIN_PATH", os.path.join(self.build_directory, "lib"))
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             spack_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         # Set path to find fhicl files
@@ -123,7 +113,11 @@ class Lareventdisplay(CMakePackage):
         run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             run_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)

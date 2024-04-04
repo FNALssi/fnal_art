@@ -33,31 +33,19 @@ class Larcorealg(CMakePackage):
     url = "https://github.com/LArSoft/larcorealg/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/larcorealg/tags"
 
-    version(
-        "09.30.00.rc1", sha256="6c8be493c1ef8ba349cafefc6304a3c850fef47a87dc593b73662db4da4afc61"
-    )
-    version(
-        "09.30.00.rc0", sha256="9633e3b03c2e411894141d14d8423f0813f114926e4840df18046bd668967a52"
-    )
+    version("09.30.00.rc1", sha256="6c8be493c1ef8ba349cafefc6304a3c850fef47a87dc593b73662db4da4afc61")
+    version("09.30.00.rc0", sha256="9633e3b03c2e411894141d14d8423f0813f114926e4840df18046bd668967a52")
     version("09.12.01", sha256="d85881b207008f6efb980899789757a30acbf4236965ce1a6fe941c7806f82e0")
     version("09.12.00", sha256="026ceeb0d0b776baac13184c8e1310edaa4e99cdc53bdbe37c0011f5b8d07496")
-    version(
-        "09.11.00.rc0", sha256="0e8d83ea7a6e9386e3e67410e68801d122a3da18715bb83f48c327a36110fca4"
-    )
+    version("09.11.00.rc0", sha256="0e8d83ea7a6e9386e3e67410e68801d122a3da18715bb83f48c327a36110fca4")
     version("09.04.00", sha256="7da808226873972bf97ca9bb3413e2fcbb1d6cf5765f218a4c04a94c236e8462")
     version("09.03.01", sha256="7280de6bc7949d6c2db1315b8700e518cff11f1527758996b22cb22f6ea7f7fb")
     version("09.03.00", sha256="343e1b833561912e743c867ccc7699c6fdd2c56d6da78cc5368291662f533d86")
-    version(
-        "09.02.01.01", sha256="e17829922747b30a989f97dad123330f34a9b28322159632401144d5591a0044"
-    )
+    version("09.02.01.01", sha256="e17829922747b30a989f97dad123330f34a9b28322159632401144d5591a0044")
     version("09.02.01", sha256="1644c62a87442fb9fde3b6d5528348992d05024f5a6a615a678a85b923b23581")
     version("09.02.00", sha256="73e369e48aaa56a2b4ab1582fa9f900a23db486031d75477bc6d0fecf8bbefef")
-    version(
-        "09.01.02.03", sha256="843673c9a9be9520d35c9d640ed390dd6fe6ef34761d04aa6517443550c5c1db"
-    )
-    version(
-        "09.01.02.02", sha256="f880856eddf4d629af4c4a3009a1ad832d29933beba9f7c093b9a51cd4134c0c"
-    )
+    version("09.01.02.03", sha256="843673c9a9be9520d35c9d640ed390dd6fe6ef34761d04aa6517443550c5c1db")
+    version("09.01.02.02", sha256="f880856eddf4d629af4c4a3009a1ad832d29933beba9f7c093b9a51cd4134c0c")
     version("mwm1", tag="mwm1", git="https://github.com/marcmengel/larcorealg.git")
     version("develop", branch="develop", get_full_repo=True)
 
@@ -71,11 +59,7 @@ class Larcorealg(CMakePackage):
                 lambda v: (v.dotted, self.url_for_version(v)),
                 [
                     Version(d["name"][1:])
-                    for d in sjson.load(
-                        spack.util.web.read_from_url(
-                            self.list_url, accept_content_type="application/json"
-                        )[2]
-                    )
+                    for d in sjson.load(spack.util.web.read_from_url(self.list_url, accept_content_type="application/json")[2])
                     if d["name"].startswith("v") and not d["name"].endswith(")")
                 ],
             )
@@ -109,7 +93,11 @@ class Larcorealg(CMakePackage):
         spack_env.prepend_path("CET_PLUGIN_PATH", os.path.join(self.build_directory, "lib"))
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             spack_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         # Perl modules.
@@ -127,7 +115,11 @@ class Larcorealg(CMakePackage):
         run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             run_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
@@ -146,4 +138,3 @@ class Larcorealg(CMakePackage):
         spack_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
         spack_env.append_path("FHICL_FILE_PATH", "{0}/fcl".format(self.prefix))
         spack_env.append_path("FW_SEARCH_PATH", "{0}/gdml".format(self.prefix))
-

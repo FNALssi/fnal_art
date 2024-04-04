@@ -78,9 +78,7 @@ class Art(CMakePackage):
         return url.format(version.underscored)
 
     def cmake_args(self):
-        return preset_args(self.stage.source_path) + [
-            self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")
-        ]
+        return preset_args(self.stage.source_path) + [self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")]
 
     def setup_build_environment(self, env):
         prefix = self.build_directory
@@ -108,4 +106,3 @@ class Art(CMakePackage):
         env.prepend_path("CET_PLUGIN_PATH", prefix.lib)
         # Perl modules.
         env.prepend_path("PERL5LIB", os.path.join(prefix, "perllib"))
-

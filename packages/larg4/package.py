@@ -33,21 +33,17 @@ class Larg4(CMakePackage):
     url = "https://github.com/LArSoft/larg4/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/larg4/tags"
 
-    version(
-        "09.30.00.rc1", sha256="d16f63e88177ea7f1c48b4e6fc306ffbb0d6880ac23f411036d78e985eafc8d9"
-    )
+    version("09.30.00.rc1", sha256="d16f63e88177ea7f1c48b4e6fc306ffbb0d6880ac23f411036d78e985eafc8d9")
     version("09.16.07", sha256="79d26dd47873bfea349d485241583743d83b7d0452e6f362a48c44b9d726c90f")
     version("09.16.04", sha256="8344d183ca35e5c2f50986b4228d7c569269373dca0994beab137ec9c831cdf0")
     version("09.16.01", sha256="e17520b7074a3d2ab064c40ef654a694d04770741d2c406e336fa7b5ae987f30")
-    version(
-        "09.06.02.01", sha256="bf7cc46e222dc095bd9b980bc1987236e6e35dd4d0453c8258705ba02facbc9f"
-    )
+    version("09.06.02.01", sha256="bf7cc46e222dc095bd9b980bc1987236e6e35dd4d0453c8258705ba02facbc9f")
     version("09.06.02", sha256="761e25df6c38ff2efb020b4079ce019cf43489c2977260fe71d3404cba2b7f0e")
     version("09.06.00", sha256="26213c7cafa20ee890af3abdf607df7bc0adf40b94e19bebfaed71366d1cb442")
     version("09.05.03", sha256="cbda8de6caf2bb49947b9d6a224ebcb43752054178adf973bbadbe10c16021f6")
     version("09.05.02", sha256="e3aa24be58ef507cd89951c8d426214b3f18c4ad5238621302d49ed66127eb53")
     version("09.05.01", sha256="dad253c845f50409661122d338c87d80141d82f0267d1b7a84d58ec484e74124")
-    version("09.05.00", sha256="7266d68c62d0980e3d1219d7dd4c9a335f46c178f7b65c1859d8d295741aa673")
+    version("09.05.00", sha256="7266d68c62d0980e3d1219d7dd4c9a335f46c178f7b65c1859d8d295741aa673",)
     version("09.04.00", sha256="47775a943ce76d5152f222e01e39f202bcbe0e7d4f23dafac989e32a114a1c42")
     version("09.03.15", sha256="d67038d53ae1a899ea36986c0b4095b5ec986580ecac151672c74403ddde3f48")
     version("09.03.14", sha256="c6b6e06ea6affd2c49b8501bc90e6ae765bc47ef948f34334e401dca752ecc0d")
@@ -65,11 +61,7 @@ class Larg4(CMakePackage):
                 lambda v: (v.dotted, self.url_for_version(v)),
                 [
                     Version(d["name"][1:])
-                    for d in sjson.load(
-                        spack.util.web.read_from_url(
-                            self.list_url, accept_content_type="application/json"
-                        )[2]
-                    )
+                    for d in sjson.load(spack.util.web.read_from_url(self.list_url, accept_content_type="application/json")[2])
                     if d["name"].startswith("v") and not d["name"].endswith(")")
                 ],
             )
@@ -114,7 +106,11 @@ class Larg4(CMakePackage):
         spack_env.prepend_path("CET_PLUGIN_PATH", os.path.join(self.build_directory, "lib"))
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             spack_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         # Perl modules.
@@ -127,7 +123,11 @@ class Larg4(CMakePackage):
         run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             run_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
@@ -148,4 +148,3 @@ class Larg4(CMakePackage):
         spack_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
         spack_env.append_path("FHICL_FILE_PATH", "{0}/fcl".format(self.prefix))
         spack_env.append_path("FW_SEARCH_PATH", "{0}/gdml".format(self.prefix))
-

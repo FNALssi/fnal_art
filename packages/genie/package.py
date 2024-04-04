@@ -21,9 +21,7 @@ class Genie(AutotoolsPackage):
     url = "https://github.com/GENIE-MC/Generator/archive/R-3_00_06.tar.gz"
 
     def url_for_version(self, version):
-        return "https://github.com/GENIE-MC/Generator/archive/R-{0}.tar.gz".format(
-            version.underscored
-        )
+        return "https://github.com/GENIE-MC/Generator/archive/R-{0}.tar.gz".format(version.underscored)
 
     version("3.04.00", sha256="72cf8a119cc59d03763b11afad1a82c0974a06677bf1c154b7c2a90d9f1529c1")
     version("3.00.06", sha256="ab56ea85d0c1d09029254365bfe75a1427effa717389753b9e0c1b6c2eaa5eaf")
@@ -56,7 +54,6 @@ class Genie(AutotoolsPackage):
         when="@3.04.00:",
     )
 
-
     variant(
         "cxxstd",
         default="17",
@@ -65,9 +62,9 @@ class Genie(AutotoolsPackage):
         description="Use the specified C++ standard when building.",
     )
 
-    variant("lhapdf", default=True) 
+    variant("lhapdf", default=True)
 
-    depends_on("lhapdf" , when="+lhapdf")
+    depends_on("lhapdf", when="+lhapdf")
 
     depends_on("root+pythia6")
     depends_on("pythia6+root")
@@ -86,14 +83,12 @@ class Genie(AutotoolsPackage):
 
     @when("os=almalinux9")
     def patch(self):
-        filter_file(r'-lnsl','','src/make/Make.include')
+        filter_file(r"-lnsl", "", "src/make/Make.include")
 
     @property
     def build_targets(self):
         cxxstd = self.spec.variants["cxxstd"].value
-        cxxstdflag = (
-            "" if cxxstd == "default" else getattr(self.compiler, "cxx{0}_flag".format(cxxstd))
-        )
+        cxxstdflag = "" if cxxstd == "default" else getattr(self.compiler, "cxx{0}_flag".format(cxxstd))
         args = [
             "GOPT_WITH_CXX_USERDEF_FLAGS=-g -fno-omit-frame-pointer {0}".format(cxxstdflag),
             "all",
@@ -145,22 +140,14 @@ class Genie(AutotoolsPackage):
     @run_before("configure")
     def add_to_configure_env(self):
         inspect.getmodule(self).configure.add_default_env("GENIE", self.stage.source_path)
-        inspect.getmodule(self).configure.add_default_env(
-            "GENIE_REWEIGHT", "{0}/Reweight".format(self.stage.source_path)
-        )
-        inspect.getmodule(self).configure.add_default_env(
-            "LD_LIBRARY_PATH", "{0}/lib".format(self.stage.source_path)
-        )
+        inspect.getmodule(self).configure.add_default_env("GENIE_REWEIGHT", "{0}/Reweight".format(self.stage.source_path))
+        inspect.getmodule(self).configure.add_default_env("LD_LIBRARY_PATH", "{0}/lib".format(self.stage.source_path))
 
     @run_before("build")
     def add_to_make_env(self):
         inspect.getmodule(self).make.add_default_env("GENIE", self.stage.source_path)
-        inspect.getmodule(self).make.add_default_env(
-            "GENIE_REWEIGHT", "{0}/Reweight".format(self.stage.source_path)
-        )
-        inspect.getmodule(self).make.add_default_env(
-            "LD_LIBRARY_PATH", "{0}/lib".format(self.stage.source_path)
-        )
+        inspect.getmodule(self).make.add_default_env("GENIE_REWEIGHT", "{0}/Reweight".format(self.stage.source_path))
+        inspect.getmodule(self).make.add_default_env("LD_LIBRARY_PATH", "{0}/lib".format(self.stage.source_path))
 
     def build(self, spec, prefix):
         with working_dir(self.build_directory):
@@ -196,7 +183,11 @@ class Genie(AutotoolsPackage):
         spack_env.set("GENIE_VERSION", "v{0}".format(self.version.underscored))
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             spack_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
 
@@ -206,7 +197,11 @@ class Genie(AutotoolsPackage):
         run_env.set("GENIE_VERSION", "v{0}".format(self.version.underscored))
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             run_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
@@ -219,7 +214,6 @@ class Genie(AutotoolsPackage):
         spack_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
         spack_env.append_path("ROOT_INCLUDE_PATH", "{0}/GENIE".format(self.prefix.include))
         spack_env.append_path("LD_LIBRARY_PATH", self.prefix.lib)
-
 
     @run_after("install")
     def version_file(self):

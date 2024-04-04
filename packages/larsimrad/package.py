@@ -36,16 +36,10 @@ class Larsimrad(CMakePackage):
     version("09.08.10", sha256="48be617a621fc1f6ff93a09ce1f8f75199fbc15db103d3aa6627818f59d71b34")
     version("09.08.07", sha256="95a4056e7617911f225581206bc4315044902bd9f679bc40fe61c80c7dafd8f6")
     version("09.08.04", sha256="b20cfda1210fb2b33c6e206f8c0da4a352a4f4bd35a0b8d76e5f19759a7e414a")
-    version(
-        "09.03.07.02", sha256="c3969b6b7c8c4087d7b539a1778d1ab3456920df131d652b4441d5a83a557b3b"
-    )
-    version(
-        "09.03.07.01", sha256="5d7fbff1dac128e44a4b8cd88d9099a2bb5c54b50e951b5aff9ddbe294af3024"
-    )
+    version("09.03.07.02", sha256="c3969b6b7c8c4087d7b539a1778d1ab3456920df131d652b4441d5a83a557b3b")
+    version("09.03.07.01", sha256="5d7fbff1dac128e44a4b8cd88d9099a2bb5c54b50e951b5aff9ddbe294af3024")
     version("09.03.04", sha256="74c8041fbef672eeb95941b5c785c087f1af3e834947a6ec63208302e850b712")
-    version(
-        "09.01.09.01", sha256="5881b66ed27237560bbc8f4a422e6c9146fcb717fa84aaea07cc17f7fbf1a0b5"
-    )
+    version("09.01.09.01", sha256="5881b66ed27237560bbc8f4a422e6c9146fcb717fa84aaea07cc17f7fbf1a0b5")
     version("09.01.09", sha256="15bd7dbae42c7e7d2600202057433903c05b77b6fe046a618b1645a2ff6a7920")
     version("09.01.08", sha256="d23cb4fcff66deb82776d186298fd7201580e4a49eb7106a4c66096aeccc153b")
     version("09.01.07", sha256="1278f313ff6a9dc640cbe1b73984d178925e93ab1f55ce3826f2f5da216c60ae")
@@ -54,9 +48,7 @@ class Larsimrad(CMakePackage):
     version("09.01.04", sha256="5367e74c6d76fb4149083fc54238d12a0c0632b532499b004e6840619e575a0f")
     version("09.01.03", sha256="7536f5e4f49c2ec3b82bfe2cb89a76a707cce00f9e09e82ca6bcc6d7157e7516")
     version("09.01.02", sha256="7c47e4483f24b2c857b8597f93516da62bd20c3150f941892c69dda2a3e4ef1e")
-    version(
-        "mwm1", tag="mwm1", git="https://github.com/marcmengel/larsimrad.git", get_full_repo=True
-    )
+    version("mwm1", tag="mwm1", git="https://github.com/marcmengel/larsimrad.git", get_full_repo=True)
     version("develop", branch="develop", get_full_repo=True)
 
     def url_for_version(self, version):
@@ -69,11 +61,7 @@ class Larsimrad(CMakePackage):
                 lambda v: (v.dotted, self.url_for_version(v)),
                 [
                     Version(d["name"][1:])
-                    for d in sjson.load(
-                        spack.util.web.read_from_url(
-                            self.list_url, accept_content_type="application/json"
-                        )[2]
-                    )
+                    for d in sjson.load(spack.util.web.read_from_url(self.list_url, accept_content_type="application/json")[2])
                     if d["name"].startswith("v") and not d["name"].endswith(")")
                 ],
             )
@@ -112,7 +100,11 @@ class Larsimrad(CMakePackage):
         spack_env.prepend_path("CET_PLUGIN_PATH", os.path.join(self.build_directory, "lib"))
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             spack_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         # Perl modules.
@@ -123,7 +115,11 @@ class Larsimrad(CMakePackage):
         run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             run_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
@@ -138,4 +134,3 @@ class Larsimrad(CMakePackage):
         spack_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
         spack_env.append_path("FHICL_FILE_PATH", "{0}/fcl".format(self.prefix))
         spack_env.append_path("FW_SEARCH_PATH", "{0}/gdml".format(self.prefix))
-

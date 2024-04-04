@@ -36,15 +36,9 @@ class Larsim(CMakePackage):
     version("09.38.06", sha256="be8cc87ea901a5efdcfb91bb9810eee94a0cf860316174ab6ab1cf20c147883b")
     version("09.38.03", sha256="e16fd69ed9acc368563334efbc986d73fb7a085c8201670822d97a314566f52b")
     version("09.38.00", sha256="7f68cacf3cc838f4d5e94f8cc9a59f678fea202694f5c837295d5682e09bd5aa")
-    version(
-        "09.30.00.rc1", sha256="8371ab32c43b702337d7022fee255eb2a86164a7ee8edc91781f4b0494890142"
-    )
-    version(
-        "09.19.01.02", sha256="d87742ee6711ad5cdd1ff02421797eb97b92fdfb335532acbab6fca788ab6b68"
-    )
-    version(
-        "09.19.01.01", sha256="820397f8aa313f7cd4be341a4a021706ee97aa9b2024d8e29d4db6f8e2f9022d"
-    )
+    version("09.30.00.rc1", sha256="8371ab32c43b702337d7022fee255eb2a86164a7ee8edc91781f4b0494890142")
+    version("09.19.01.02", sha256="d87742ee6711ad5cdd1ff02421797eb97b92fdfb335532acbab6fca788ab6b68")
+    version("09.19.01.01", sha256="820397f8aa313f7cd4be341a4a021706ee97aa9b2024d8e29d4db6f8e2f9022d")
     version("09.18.00", sha256="3dd73c86c5c736838d7e54c39743d341e17413a1713b4214363c8d36d1c04032")
     version("09.17.00", sha256="a82180a4d6ff1a37543cc55206c8f619c322e8552e9b5370cbed28e28b0e6d89")
     version("09.16.01", sha256="7aa9adf76f98a2ffafeb3d3ab096304e4ccf25bd8f029c6d723a653e43b74923")
@@ -67,11 +61,7 @@ class Larsim(CMakePackage):
                 lambda v: (v.dotted, self.url_for_version(v)),
                 [
                     Version(d["name"][1:])
-                    for d in sjson.load(
-                        spack.util.web.read_from_url(
-                            self.list_url, accept_content_type="application/json"
-                        )[2]
-                    )
+                    for d in sjson.load(spack.util.web.read_from_url(self.list_url, accept_content_type="application/json")[2])
                     if d["name"].startswith("v") and not d["name"].endswith(")")
                 ],
             )
@@ -109,7 +99,9 @@ class Larsim(CMakePackage):
 
     def patch(self):
         filter_file(
-            r"find_package\(nug4 ", "find_package(nufinder)\nfind_package(nug4 ", "CMakeLists.txt"
+            r"find_package\(nug4 ",
+            "find_package(nufinder)\nfind_package(nug4 ",
+            "CMakeLists.txt",
         )
         filter_file(r"math_tr1", "", "CMakeLists.txt")
         filter_file(r"Boost::math_tr1", "", "larsim/LegacyLArG4/CMakeLists.txt")
@@ -124,7 +116,8 @@ class Larsim(CMakePackage):
             self.define("GENIE_VERSION", "v" + self.spec["genie"].version.underscored),
             self.define("LARSOFT_DATA_DIR", "v" + self.spec["larsoft-data"].prefix),
             self.define(
-                "LARSOFT_DATA_VERSION", "v" + self.spec["larsoft-data"].version.underscored
+                "LARSOFT_DATA_VERSION",
+                "v" + self.spec["larsoft-data"].version.underscored,
             ),
             self.define("IGNORE_ABSOLUTE_TRANSITIVE_DEPENDENCIES", True),
             # The following lines should be removed once the larsim/CMakePresets.json file is fixed
@@ -147,7 +140,11 @@ class Larsim(CMakePackage):
         spack_env.prepend_path("CET_PLUGIN_PATH", os.path.join(self.build_directory, "lib"))
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             spack_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         # Perl modules.
@@ -173,7 +170,11 @@ class Larsim(CMakePackage):
         run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             run_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
@@ -193,4 +194,3 @@ class Larsim(CMakePackage):
         spack_env.append_path("FHICL_FILE_PATH", "{0}/fcl".format(self.prefix))
         spack_env.append_path("FW_SEARCH_PATH", "{0}/gdml".format(self.prefix))
         spack_env.append_path("FW_SEARCH_PATH", "{0}/fw".format(self.prefix))
-

@@ -37,7 +37,7 @@ class Nuevdb(CMakePackage):
     version("1.08.00", sha256="3357833402e4717aee8f562a6ea59eb47f1be6372215a049e354f9eeaa903ac9")
     version("1.07.03", sha256="264e74ada3a6f7561f9278d18a9b02bd1e397c1bbafb1c0ee1e363a091136389")
     version("1.07.02", sha256="8d429ca966d481f7ad46b18c5fdb77b67cfb949ac709f5cb9a733995835387d9")
-    version("1.07.01", sha256="32d32c340a055242ed214098296c6bea0b87beb7ba0356fcc52fc72673000cef")
+    version("1.07.01", sha256="32d32c340a055242ed214098296c6bea0b87beb7ba0356fcc52fc72673000cef") 
     version("1.06.00", sha256="5a9dc5dd235ed4a16f26ebf09070d806f132bb22c6750a019c6ca7a3797d5d51")
     version("1.05.06", sha256="76050a5dea93202b39ce81e09a4b66411ad845340bef935fe50d6d54e1a90126")
     version("1.05.05", sha256="e5bbd1c523f8befcb63b4a6a529e6eed592519ddefd31a2504ffd25e312e1115")
@@ -54,11 +54,7 @@ class Nuevdb(CMakePackage):
                 lambda v: (v.dotted, self.url_for_version(v)),
                 [
                     Version(d["name"][1:])
-                    for d in sjson.load(
-                        spack.util.web.read_from_url(
-                            self.list_url, accept_content_type="application/json"
-                        )[2]
-                    )
+                    for d in sjson.load(spack.util.web.read_from_url(self.list_url, accept_content_type="application/json")[2])
                     if d["name"].startswith("v")
                 ],
             )
@@ -101,7 +97,11 @@ class Nuevdb(CMakePackage):
         spack_env.prepend_path("CET_PLUGIN_PATH", os.path.join(self.build_directory, "lib"))
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             spack_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         # Cleaup.
@@ -114,11 +114,14 @@ class Nuevdb(CMakePackage):
         run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             run_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
         run_env.append_path("FHICL_FILE_PATH", self.prefix.fcl)
         # Cleaup.
         sanitize_environments(run_env)
-

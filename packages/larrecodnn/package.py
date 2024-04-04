@@ -33,19 +33,12 @@ class Larrecodnn(CMakePackage):
     url = "https://github.com/LArSoft/larrecodnn/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/larrecodnn/tags"
 
-
-    version(
-        "09.30.00.rc1", sha256="c69b810f4a7027268d60f52e73da67f797491a8a0d20b80db5c9cdfe615a2e4f"
-    )
+    version("09.30.00.rc1", sha256="c69b810f4a7027268d60f52e73da67f797491a8a0d20b80db5c9cdfe615a2e4f")
     version("09.21.12", sha256="ef1c843b2de317bf6a91aa75fd3737f7fb15f6294e81b44a8f88c94261abbf0e")
     version("09.21.09", sha256="5be674584e3cbb3835a75991786afa26603d8bece1d8e2131f8433274de14a50")
     version("09.21.06", sha256="c454cabc5ed191fadb16d9b9837297f653db2affb4d7cb89677a25d6e981cd61")
-    version(
-        "09.09.09.02", sha256="e820f2c50899979584456bfbfcab9abe27a022bd3ad50c9436167373bda9e9af"
-    )
-    version(
-        "09.09.09.01", sha256="6fcb6e8dc331d3b0885f66b17f1147b852347b594f20435b9061bca0af8d7e65"
-    )
+    version("09.09.09.02", sha256="e820f2c50899979584456bfbfcab9abe27a022bd3ad50c9436167373bda9e9af")
+    version("09.09.09.01", sha256="6fcb6e8dc331d3b0885f66b17f1147b852347b594f20435b9061bca0af8d7e65")
     version("09.09.06", sha256="776c70ee0368c6d02d61382a5663494ac365eb8a595671a5efaff172aeb369da")
     version("09.09.03", sha256="c86c64e78c64fa2081f1299d0f09d3bcccafb944e34ec9c894f5e3568a8ef683")
     version("09.09.02", sha256="2de30ff1fbb6d3f67a366ff3a98a875c537d762442d64e6cef142f1d5a35e002")
@@ -55,9 +48,7 @@ class Larrecodnn(CMakePackage):
     version("09.08.06", sha256="5f71b2025b235eb0c5887c097714851fd4108eb129f037e32c80622220c425de")
     version("09.08.05", sha256="52330db26ddfd361776fc6a3b3350c3c9bffbf1f95bc180f66b666d7176997b1")
     version("09.08.04", sha256="d167889d60dd197ff1d725f6a3806409954eb43bf881203e7a9eccc58f45032a")
-    version(
-        "mwm1", tag="mwm1", git="https://github.com/marcmengel/larrecodnn.git", get_full_repo=True
-    )
+    version("mwm1", tag="mwm1", git="https://github.com/marcmengel/larrecodnn.git", get_full_repo=True)
     version("develop", branch="develop", get_full_repo=True)
 
     def url_for_version(self, version):
@@ -70,11 +61,7 @@ class Larrecodnn(CMakePackage):
                 lambda v: (v.dotted, self.url_for_version(v)),
                 [
                     Version(d["name"][1:])
-                    for d in sjson.load(
-                        spack.util.web.read_from_url(
-                            self.list_url, accept_content_type="application/json"
-                        )[2]
-                    )
+                    for d in sjson.load(spack.util.web.read_from_url(self.list_url, accept_content_type="application/json")[2])
                     if d["name"].startswith("v") and not d["name"].endswith(")")
                 ],
             )
@@ -133,8 +120,7 @@ class Larrecodnn(CMakePackage):
             str(
                 join_path(
                     self.spec["py-tensorflow"].prefix.lib,
-                    "python%s/site-packages/tensorflow/include"
-                    % self.spec["python"].version.up_to(2),
+                    "python%s/site-packages/tensorflow/include" % self.spec["python"].version.up_to(2),
                 )
             ),
         )
@@ -144,7 +130,11 @@ class Larrecodnn(CMakePackage):
         spack_env.prepend_path("CET_PLUGIN_PATH", os.path.join(self.build_directory, "lib"))
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             spack_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         # Perl modules.
@@ -161,7 +151,11 @@ class Larrecodnn(CMakePackage):
         run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             run_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)

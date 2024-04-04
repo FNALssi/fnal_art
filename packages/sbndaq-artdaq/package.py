@@ -6,10 +6,12 @@
 import spack.util.spack_json as sjson
 from spack.package import *
 
+
 def sanitize_environments(env, *vars):
     for var in vars:
         env.prune_duplicate_paths(var)
         env.deprioritize_system_paths(var)
+
 
 class SbndaqArtdaq(CMakePackage):
     """Readout software for the SBN experiments"""
@@ -18,7 +20,6 @@ class SbndaqArtdaq(CMakePackage):
     url = "https://github.com/SBNSoftware/sbndaq-artdaq"
     git_base = "https://github.com/SBNSoftware/sbndaq-artdaq.git"
     list_url = "https://api.github.com/repos/SBNSoftware/sbndaq-artdaq/tags"
-
 
     version("develop", git=git_base, branch="develop", get_full_repo=True)
     version("1.08.01", sha256="8c636599ef5d4e02771a82e3e19c65676665df5f789b8bee60a83d4b42779d29")
@@ -33,8 +34,12 @@ class SbndaqArtdaq(CMakePackage):
         multi=False,
         description="Use the specified C++ standard when building.",
     )
-    
-    variant("icarus", default=False, description="Build ICARUS-specific parts of the package")
+
+    variant(
+        "icarus",
+        default=False,
+        description="Build ICARUS-specific parts of the package",
+    )
     variant("sbnd", default=False, description="Build SBND-specific parts of the package")
 
     depends_on("artdaq")
@@ -45,12 +50,12 @@ class SbndaqArtdaq(CMakePackage):
     depends_on("caencomm")
     depends_on("caendigitizer")
     depends_on("libpqxx")
-    depends_on("artdaq-epics-plugin") # For FindEPICS.cmake
+    depends_on("artdaq-epics-plugin")  # For FindEPICS.cmake
     depends_on("epics-base")
     depends_on("cppzmq")
     depends_on("jsoncpp")
     depends_on("wibtools", when="+sbnd")
-    #depends_on("windriver", when="+sbnd")
+    # depends_on("windriver", when="+sbnd")
     depends_on("redis")
     depends_on("cetmodules", type="build")
 
@@ -64,22 +69,18 @@ class SbndaqArtdaq(CMakePackage):
                 lambda v: (v.dotted, self.url_for_version(v)),
                 [
                     Version(d["name"][1:])
-                    for d in sjson.load(
-                        spack.util.web.read_from_url(
-                            self.list_url, accept_content_type="application/json"
-                        )[2]
-                    )
+                    for d in sjson.load(spack.util.web.read_from_url(self.list_url, accept_content_type="application/json")[2])
                     if d["name"].startswith("v")
                 ],
             )
         )
-    
+
     def cmake_args(self):
         args = [
             "-DCMAKE_CXX_STANDARD={0}".format(self.spec.variants["cxxstd"].value),
             "-DICARUS_BUILD={0}".format("TRUE" if "+icarus" in self.spec else "FALSE"),
             "-DSBND_BUILD={0}".format("TRUE" if "+sbnd" in self.spec else "FALSE"),
-            "-DSPACK_BUILD=1"
+            "-DSPACK_BUILD=1",
         ]
         return args
 
@@ -91,4 +92,3 @@ class SbndaqArtdaq(CMakePackage):
         env.prepend_path("FHICL_FILE_PATH", prefix + "/fcl")
         # Cleaup.
         sanitize_environments(env, "CET_PLUGIN_PATH", "FHICL_FILE_PATH")
-

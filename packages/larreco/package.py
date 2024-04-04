@@ -36,20 +36,10 @@ class Larreco(CMakePackage):
     version("09.23.01", sha256="168dcf19c40295cc98b6549866520da78c2a1fbaf91680b41a3255793f87e232")
     version("09.22.03", sha256="6e7c0e11bd70fb47f4f0f39e211a60dcf3c4d888415eb2cf7a48070b43aa1a7b")
     version("09.22.00", sha256="b7389f283b1ba23571022af44f3d62006d5b5e0c0f3d3b9f653e2d983c1d8541")
-    version(
-        "09.07.08.02", sha256="eba7aba2443f4c9efdb0f071db9ca6ffb7f6e0630283f235759c51586e33c449"
-    )
-    version(
-        "09.07.08.vec01",
-        branch="larvecutils-v09_37_01_01",
-        git="https://github.com/cerati/larreco.git",
-    )
-    version(
-        "09.30.00.rc1", sha256="3c3c52247075dd8f9c002517168159d7ac2c7319ca246d729a677a91d39149d8"
-    )
-    version(
-        "09.07.08.01", sha256="6406a601f3f00ba1626f9f6c5ebbddf8aa6759e95da5b4d409db3131b031445a"
-    )
+    version("09.07.08.02", sha256="eba7aba2443f4c9efdb0f071db9ca6ffb7f6e0630283f235759c51586e33c449")
+    version("09.07.08.vec01", branch="larvecutils-v09_37_01_01", git="https://github.com/cerati/larreco.git")
+    version("09.30.00.rc1", sha256="3c3c52247075dd8f9c002517168159d7ac2c7319ca246d729a677a91d39149d8")
+    version("09.07.08.01", sha256="6406a601f3f00ba1626f9f6c5ebbddf8aa6759e95da5b4d409db3131b031445a")
     version("09.07.05", sha256="991a058854c730d1bcbd7056652669f5c24d37faaa879e85e0befd5f65ff7aa3")
     version("09.07.03", sha256="03921a26a025361ecda0015c0cb54eb003cf34847fef46beb15a4b60e5e971d6")
     version("09.07.02", sha256="26f215907727ff0e8567b39fcac65169b5f06948397d775009a39c0c30ed3469")
@@ -58,9 +48,7 @@ class Larreco(CMakePackage):
     version("09.06.17", sha256="018feacc42ba65116e3a5cf97fca91d35588b86b369b499e3b1074c46c728063")
     version("09.06.16", sha256="d616e607cca3949fe92fdb10d2552b43177b56e4281ed0b365e26f051c9a34bb")
     version("09.06.15", sha256="0008866cf4b342f5002abd736773aee3c314b1077b0f035a7c564e0e069a102d")
-    version(
-        "mwm1", tag="mwm1", git="https://github.com/marcmengel/larreco.git", get_full_repo=True
-    )
+    version("mwm1", tag="mwm1", git="https://github.com/marcmengel/larreco.git", get_full_repo=True)
     version("develop", branch="develop", get_full_repo=True)
 
     def url_for_version(self, version):
@@ -73,11 +61,7 @@ class Larreco(CMakePackage):
                 lambda v: (v.dotted, self.url_for_version(v)),
                 [
                     Version(d["name"][1:])
-                    for d in sjson.load(
-                        spack.util.web.read_from_url(
-                            self.list_url, accept_content_type="application/json"
-                        )[2]
-                    )
+                    for d in sjson.load(spack.util.web.read_from_url(self.list_url, accept_content_type="application/json")[2])
                     if d["name"].startswith("v") and not d["name"].endswith(")")
                 ],
             )
@@ -130,7 +114,11 @@ class Larreco(CMakePackage):
         spack_env.prepend_path("CET_PLUGIN_PATH", os.path.join(self.build_directory, "lib"))
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             spack_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         # Perl modules.
@@ -148,7 +136,11 @@ class Larreco(CMakePackage):
         run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             run_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
@@ -169,4 +161,3 @@ class Larreco(CMakePackage):
         spack_env.append_path("FHICL_FILE_PATH", "{0}/fcl".format(self.prefix))
         spack_env.append_path("FW_SEARCH_PATH", "{0}/fw".format(self.prefix))
         sanitize_environments(spack_env)
-

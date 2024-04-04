@@ -33,9 +33,7 @@ class Larevt(CMakePackage):
     url = "https://github.com/LArSoft/larevt/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/larevt/tags"
 
-    version(
-        "09.30.00.rc1", sha256="0bb9897c953a9bb69e2c1bd5be4c8c7586d577b0fb572e6cc1cdc5c0e337637f"
-    )
+    version("09.30.00.rc1", sha256="0bb9897c953a9bb69e2c1bd5be4c8c7586d577b0fb572e6cc1cdc5c0e337637f")
     version("09.09.07", sha256="e579056bcb7cdfc8ec44cc73fdbd2ef5ab4d30442733b03e97482637687dbc29")
     version("09.09.04", sha256="5c12e59d01b29f93e09fb31b70956792dbc0cc1b956f90ec7687415f30298276")
     version("09.09.01", sha256="a2e44a299d9a962241f1bdb9c77dccd46ef852f005e149a8300bdb56e7030496")
@@ -46,9 +44,7 @@ class Larevt(CMakePackage):
     version("09.03.00", sha256="17c0dcb65f76f24f442c4cc887746a20e07c3b118ff7d95cb5271b1f0d8e12e2")
     version("09.02.12", sha256="7dc8b575b6b54904def93d691bbe3f512a260376956ea68e3131bf8d4ca46cef")
     version("09.02.11", sha256="e2a805dcdc93d3db14101de7013eba79883aefa984c46e76bfcfdda209f2264d")
-    version(
-        "09.02.10.01", sha256="ff987151307ea375bffbc3f18a69b05fdf168b26b0272c0777ed13e0a67f52a2"
-    )
+    version("09.02.10.01", sha256="ff987151307ea375bffbc3f18a69b05fdf168b26b0272c0777ed13e0a67f52a2")
     version("09.02.10", sha256="5afa7063640f2722d22cb9140f2b335043d5bb6d5ecf6e1fd3559b9d2c206b57")
     version("09.02.09", sha256="5f71d0182038e9cc096977047abf411819b0c47d5f4110fb66a2856d47ee7489")
     version("mwm1", tag="mwm1", git="https://github.com/marcmengel/larevt.git", get_full_repo=True)
@@ -64,11 +60,7 @@ class Larevt(CMakePackage):
                 lambda v: (v.dotted, self.url_for_version(v)),
                 [
                     Version(d["name"][1:])
-                    for d in sjson.load(
-                        spack.util.web.read_from_url(
-                            self.list_url, accept_content_type="application/json"
-                        )[2]
-                    )
+                    for d in sjson.load(spack.util.web.read_from_url(self.list_url, accept_content_type="application/json")[2])
                     if d["name"].startswith("v") and not d["name"].endswith(")")
                 ],
             )
@@ -104,7 +96,11 @@ class Larevt(CMakePackage):
         spack_env.prepend_path("CET_PLUGIN_PATH", os.path.join(self.build_directory, "lib"))
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             spack_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         # Perl modules.
@@ -121,7 +117,11 @@ class Larevt(CMakePackage):
         run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             run_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
@@ -139,4 +139,3 @@ class Larevt(CMakePackage):
         spack_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
         spack_env.append_path("FHICL_FILE_PATH", "{0}/fcl".format(self.prefix))
         spack_env.append_path("FW_SEARCH_PATH", "{0}/gdml".format(self.prefix))
-

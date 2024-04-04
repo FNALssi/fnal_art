@@ -36,9 +36,7 @@ class Larana(CMakePackage):
     version("09.14.11", sha256="fbcdf7a2bcef81fb31a10b87b86d8f3af2b1de7dbde192e4a6caf2d2e6fe00bf")
     version("09.14.08", sha256="61fa67c3764f37112af55fff17ab3e573a9ae4b068b3c8e437aca184741d14a3")
     version("09.14.05", sha256="f67962e535fd68e5d3b69fa875edbcf0248a021d161136eaee409fed0e4104a2")
-    version(
-        "09.03.09.01", sha256="162712cd2506c443799b5e055a63370977ce9384d7a88925f0fda030362b95bf"
-    )
+    version("09.03.09.01", sha256="162712cd2506c443799b5e055a63370977ce9384d7a88925f0fda030362b95bf")
     version("09.03.06", sha256="e0eca0c9cdce510ec552151c5ced3e5821f97b479b632995ea43950e9a58eefc")
     version("09.03.05", sha256="017796fe891f12d1caaa17a12d753f47b263c0bdc8b44c14934b0d5d70ab82bd")
     version("09.03.04", sha256="8464e9e96f9dc3822bdd00e0bbad78004799bfab2c6ba066fe6a1770443a8fc0")
@@ -63,11 +61,7 @@ class Larana(CMakePackage):
                 lambda v: (v.dotted, self.url_for_version(v)),
                 [
                     Version(d["name"][1:])
-                    for d in sjson.load(
-                        spack.util.web.read_from_url(
-                            self.list_url, accept_content_type="application/json"
-                        )[2]
-                    )
+                    for d in sjson.load(spack.util.web.read_from_url(self.list_url, accept_content_type="application/json")[2])
                     if d["name"].startswith("v") and not d["name"].endswith(")")
                 ],
             )
@@ -98,7 +92,11 @@ class Larana(CMakePackage):
         spack_env.prepend_path("CET_PLUGIN_PATH", os.path.join(self.build_directory, "lib"))
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             spack_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         # Perl modules.
@@ -112,7 +110,11 @@ class Larana(CMakePackage):
         run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             run_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
@@ -132,7 +134,6 @@ class Larana(CMakePackage):
         spack_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
         spack_env.append_path("FHICL_FILE_PATH", "{0}/fcl".format(self.prefix))
         spack_env.append_path("FW_SEARCH_PATH", "{0}/gdml".format(self.prefix))
-
 
     def flag_handler(self, name, flags):
         if name == "cxxflags" and self.spec.compiler.name == "gcc":

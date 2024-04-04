@@ -12,16 +12,8 @@ class Pdfsets(Package):
     homepage = "https://genie.hepforge.org"
     url = "https://github.com/GENIE-MC/Generator/archive/R-2_8_6.tar.gz"
 
-    version(
-        "5.9.1",
-        url="https://github.com/GENIE-MC/Generator/archive/R-2_8_6.tar.gz",
-        sha256="310dc8e0d17a65e6b9773e398250703a3a6f94ceafe94f599ae0f7b3fecf7e6c",
-    )
-    version(
-        "2.8.6",
-        url="https://github.com/GENIE-MC/Generator/archive/R-2_8_6.tar.gz",
-        sha256="310dc8e0d17a65e6b9773e398250703a3a6f94ceafe94f599ae0f7b3fecf7e6c",
-    )
+    version("5.9.1", url="https://github.com/GENIE-MC/Generator/archive/R-2_8_6.tar.gz", sha256="310dc8e0d17a65e6b9773e398250703a3a6f94ceafe94f599ae0f7b3fecf7e6c")
+    version("2.8.6", url="https://github.com/GENIE-MC/Generator/archive/R-2_8_6.tar.gz", sha256="310dc8e0d17a65e6b9773e398250703a3a6f94ceafe94f599ae0f7b3fecf7e6c")
 
     resource(
         name="CT10.LHgrid",

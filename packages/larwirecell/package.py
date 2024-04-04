@@ -33,9 +33,7 @@ class Larwirecell(CMakePackage):
     url = "https://github.com/LArSoft/larwirecell/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/larwirecell/tags"
 
-    version(
-        "09.30.00.rc1", sha256="2d2fdffbda8cb5a16f35b68bc422b6fbebe70af6ac601762f257e4fef0cbf30d"
-    )
+    version("09.30.00.rc1", sha256="2d2fdffbda8cb5a16f35b68bc422b6fbebe70af6ac601762f257e4fef0cbf30d")
     version("09.16.07", sha256="6475f020603f9f2758ef43064ba815cc79d28069b6c25f0d6e36a742335c7425")
     version("09.16.03", sha256="111585550fadeae3d3b8524989a7372e4a99bd96e91e8153301d6ae3f6c73da5")
     version("09.15.00", sha256="b59469c27e62cbb194cc670a057f4708fe7572df92d2deb6679715c533612c40")
@@ -46,14 +44,10 @@ class Larwirecell(CMakePackage):
     version("09.04.00", sha256="e2cd7a63b8db90ac16308bf0fe018945a06993394898316ab25cf62968649746")
     version("09.03.01", sha256="d4aa46289fefe0e9c96bfda9d228ebd009b3718d6231a0a745495ba86dbfa1bb")
     version("09.03.00", sha256="2a0c6bd82d16c17a15bc976edd7972a94125c3c25d018b5c24e63b9b8e079bd0")
-    version(
-        "09.02.13.01", sha256="0db9cfba036367c1ac1648f865f2ce75535a2d5cbeca5341aa7d81c96077ca4f"
-    )
+    version("09.02.13.01", sha256="0db9cfba036367c1ac1648f865f2ce75535a2d5cbeca5341aa7d81c96077ca4f")
     version("09.02.13", sha256="3bb40ffaedaceb9ebaff9ff90c71aed022455564fccc1156cb51df15a1890fa9")
     version("09.02.12", sha256="8c0ebd57bf5d99b74c67d4e4ae22369a52319ed54087c3292a8e419b1d93c873")
-    version(
-        "mwm1", tag="mwm1", git="https://github.com/marcmengel/larwirecell.git", get_full_repo=True
-    )
+    version("mwm1", tag="mwm1", git="https://github.com/marcmengel/larwirecell.git", get_full_repo=True)
     version("develop", branch="develop", get_full_repo=True)
 
     def url_for_version(self, version):
@@ -66,11 +60,7 @@ class Larwirecell(CMakePackage):
                 lambda v: (v.dotted, self.url_for_version(v)),
                 [
                     Version(d["name"][1:])
-                    for d in sjson.load(
-                        spack.util.web.read_from_url(
-                            self.list_url, accept_content_type="application/json"
-                        )[2]
-                    )
+                    for d in sjson.load(spack.util.web.read_from_url(self.list_url, accept_content_type="application/json")[2])
                     if d["name"].startswith("v") and not d["name"].endswith(")")
                 ],
             )
@@ -131,7 +121,11 @@ class Larwirecell(CMakePackage):
         spack_env.prepend_path("CET_PLUGIN_PATH", os.path.join(self.build_directory, "lib"))
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             spack_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         # Perl modules.
@@ -148,7 +142,11 @@ class Larwirecell(CMakePackage):
         run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             run_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
@@ -156,4 +154,3 @@ class Larwirecell(CMakePackage):
         run_env.prepend_path("FHICL_FILE_PATH", os.path.join(self.prefix, "fcl"))
         # Cleaup.
         sanitize_environments(run_env)
-
