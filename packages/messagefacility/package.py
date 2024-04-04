@@ -86,6 +86,7 @@ class Messagefacility(CMakePackage):
 
     def setup_run_environment(self, env):
         prefix = self.prefix
+        env.prepend_path("PATH", prefix.bin)
         # Ensure we can find plugin libraries.
         env.prepend_path("CET_PLUGIN_PATH", prefix.lib)
         # Perl modules.
@@ -102,9 +103,3 @@ class Messagefacility(CMakePackage):
         # Cleaup.
         sanitize_environments(env, "CET_PLUGIN_PATH", "PERL5LIB")
 
-    def setup_run_environment(self, env):
-        prefix = self.prefix
-        # Ensure we can find plugin libraries.
-        env.prepend_path("CET_PLUGIN_PATH", prefix.lib)
-        # Perl modules.
-        env.prepend_path("PERL5LIB", os.path.join(prefix, "perllib"))

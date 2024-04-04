@@ -93,15 +93,6 @@ class Art(CMakePackage):
         # Cleaup.
         sanitize_environments(env, "PATH", "CET_PLUGIN_PATH", "PERL5LIB")
 
-    def setup_run_environment(self, env):
-        prefix = self.prefix
-        # Ensure we can find plugin libraries.
-        env.prepend_path("CET_PLUGIN_PATH", prefix.lib)
-        # Perl modules.
-        env.prepend_path("PERL5LIB", os.path.join(prefix, "perllib"))
-        # Cleaup.
-        sanitize_environments(env, "CET_PLUGIN_PATH", "PERL5LIB")
-
     def setup_dependent_build_environment(self, env, dependent_spec):
         prefix = self.prefix
         # Ensure we can find plugin libraries.
@@ -117,3 +108,4 @@ class Art(CMakePackage):
         env.prepend_path("CET_PLUGIN_PATH", prefix.lib)
         # Perl modules.
         env.prepend_path("PERL5LIB", os.path.join(prefix, "perllib"))
+

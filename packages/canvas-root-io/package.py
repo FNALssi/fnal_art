@@ -96,6 +96,7 @@ class CanvasRootIo(CMakePackage):
         ):
             env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         env.prepend_path("ROOT_INCLUDE_PATH", prefix.include)
+        run_env.append_path("CET_PLUGIN_PATH", self.prefix.lib)
         # Cleanup.
         sanitize_environments(env, "CET_PLUGIN_PATH", "ROOT_INCLUDE_PATH")
 
@@ -118,6 +119,3 @@ class CanvasRootIo(CMakePackage):
         ):
             env.prepend_path("ROOT_INCLUDE_PATH", str(dependent_spec[d.name].prefix.include))
 
-    def setup_run_environment(self, run_env):
-        run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
-        run_env.append_path("CET_PLUGIN_PATH", self.prefix.lib)

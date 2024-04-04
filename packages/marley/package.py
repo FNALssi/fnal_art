@@ -43,7 +43,7 @@ class Marley(Package):
         args = [self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")]
         return args
 
-    def setup_run_environment(self, spack_env):
+    def setup_build_environment(self, spack_env):
         spack_env.append_flags("CPPFLAGS", "-I../include")
         cxxstd_flag = "cxx{0}_flag".format(self.spec.variants["cxxstd"].value)
         spack_env.append_flags("CXXFLAGS", getattr(self.compiler, cxxstd_flag))

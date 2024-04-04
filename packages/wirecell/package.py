@@ -126,6 +126,7 @@ class Wirecell(Package):
         sanitize_environments(spack_env)
 
     def setup_run_environment(self, run_env):
+        run_env.prepend_path("PATH", self.prefix.bin)
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
             root=False, cover="nodes", order="post", deptype=("link"), direction="children"
@@ -139,9 +140,6 @@ class Wirecell(Package):
         spack_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
         # Cleanup.
         sanitize_environments(spack_env)
-
-    def setup_run_environment(self, run_env):
-        run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
 
     def flag_handler(self, name, flags):
         if name == "cxxflags" and self.spec.compiler.name == "gcc":

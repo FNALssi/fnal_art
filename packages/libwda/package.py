@@ -67,5 +67,3 @@ class Libwda(MakefilePackage):
         spack_env.set("LIBWDA_LIB", self.prefix.lib)
         spack_env.set("LIBWDA_INC", self.prefix.include)
 
-    def setup_run_environment(self, run_env):
-        run_env.set("LIBWDA_DIR", self.prefix)

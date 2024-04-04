@@ -49,5 +49,3 @@ class LarsoftData(Package):
     def setup_dependent_build_environment(self, spack_env, dep_spec):
         self._add_paths_to_environment(spack_env)
 
-    def setup_run_environment(self, run_env):
-        self._add_paths_to_environment(run_env)

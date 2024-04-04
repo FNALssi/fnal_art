@@ -171,6 +171,8 @@ class Icarusalg(CMakePackage):
         sanitize_environments(spack_env)
 
     def setup_run_environment(self, run_env):
+        # Binaries.
+        run_env.prepend_path("PATH", self.prefix.bin)
         run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
@@ -180,6 +182,8 @@ class Icarusalg(CMakePackage):
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
         # Perl modules.
         run_env.prepend_path("PERL5LIB", os.path.join(self.prefix, "perllib"))
+        #
+        run_env.append_path("FW_SEARCH_PATH", "{0}/gdml".format(self.prefix))
         # Cleaup.
         sanitize_environments(run_env)
 
@@ -197,14 +201,3 @@ class Icarusalg(CMakePackage):
         # Cleanup.
         sanitize_environments(spack_env)
 
-    def setup_run_environment(self, run_env):
-        # Binaries.
-        run_env.prepend_path("PATH", self.prefix.bin)
-        # Ensure we can find plugin libraries.
-        run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
-        # Ensure Root can find headers for autoparsing.
-        run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
-        # Perl modules.
-        run_env.prepend_path("PERL5LIB", os.path.join(self.prefix, "perllib"))
-        #
-        run_env.append_path("FW_SEARCH_PATH", "{0}/gdml".format(self.prefix))

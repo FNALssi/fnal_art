@@ -201,6 +201,7 @@ class Genie(AutotoolsPackage):
             spack_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
 
     def setup_run_environment(self, run_env):
+        run_env.prepend_path("PATH", self.prefix.bin)
         run_env.set("GENIE", self.prefix)
         run_env.set("GENIE_VERSION", "v{0}".format(self.version.underscored))
         # Ensure Root can find headers for autoparsing.
@@ -208,6 +209,8 @@ class Genie(AutotoolsPackage):
             root=False, cover="nodes", order="post", deptype=("link"), direction="children"
         ):
             run_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
+        run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
+        run_env.append_path("ROOT_INCLUDE_PATH", "{0}/GENIE".format(self.prefix.include))
 
     def setup_dependent_build_environment(self, spack_env, dspec):
         spack_env.set("GENIE", self.prefix)
@@ -217,12 +220,6 @@ class Genie(AutotoolsPackage):
         spack_env.append_path("ROOT_INCLUDE_PATH", "{0}/GENIE".format(self.prefix.include))
         spack_env.append_path("LD_LIBRARY_PATH", self.prefix.lib)
 
-    def setup_run_environment(self, run_env):
-        run_env.set("GENIE", self.prefix)
-        run_env.set("GENIE_VERSION", "v{0}".format(self.version.underscored))
-        run_env.prepend_path("PATH", self.prefix.bin)
-        run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
-        run_env.append_path("ROOT_INCLUDE_PATH", "{0}/GENIE".format(self.prefix.include))
 
     @run_after("install")
     def version_file(self):
