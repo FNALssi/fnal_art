@@ -5,12 +5,10 @@
 
 import os
 import sys
-
 from pathlib import Path
 
 sys.path.append(str(Path(__file__).parents[2] / "lib"))
 from utilities import *
-
 
 from spack.package import *
 
@@ -23,6 +21,9 @@ class CanvasRootIo(CMakePackage):
     url = "https://github.com/art-framework-suite/canvas-root-io/archive/refs/tags/v1_13_01.tar.gz"
 
     version("develop", branch="develop", get_full_repo=True)
+
+    version("1.13.06", sha256="a0b7fdbc0f8f52b39a289f97c1354e304794beae87e8128099ffada5460ef72f")
+    version("1.13.05", sha256="34c8b31cd6e769a1fc0afb3758071827202f11bcc218f37bbac6071a9a55fecf")
     version("1.13.03", sha256="4ef6333ac780591821364d51ef926b512a1e806b1b39f1ba8dacc97f9a0e20a7")
     version("1.13.01", sha256="44795decae980c7f7a90dde69c886b7f01b150caef7ec8f88622740fdcb87549")
     version("1.12.03", sha256="53919330ebc85fb19fb4ab42a4be588cf12e866118339ccd408af0722eebdb5b")
@@ -76,8 +77,6 @@ class CanvasRootIo(CMakePackage):
         prefix = self.build_directory
         # Binaries.
         env.prepend_path("PATH", os.path.join(prefix, "bin"))
-        # Ensure we can find plugin libraries.
-        env.prepend_path("CET_PLUGIN_PATH", os.path.join(prefix, "lib"))
         # Set LD_LIBRARY_PATH so CheckClassVersion.py can find cppyy lib
         env.prepend_path("LD_LIBRARY_PATH", join_path(self.spec["root"].prefix.lib))
         # Ensure Root can find headers for autoparsing.
@@ -86,46 +85,33 @@ class CanvasRootIo(CMakePackage):
         ):
             env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         # Cleanup.
-        sanitize_environments(
-            env, "PATH", "CET_PLUGIN_PATH", "LD_LIBRARY_PATH", "ROOT_INCLUDE_PATH"
-        )
+        sanitize_environments(env, "PATH", "LD_LIBRARY_PATH", "ROOT_INCLUDE_PATH")
 
     def setup_run_environment(self, env):
         prefix = self.prefix
-        # Ensure we can find plugin libraries.
-        env.prepend_path("CET_PLUGIN_PATH", prefix.lib)
+        # Set LD_LIBRARY_PATH so that dictionaries are available downstream
+        env.prepend_path("LD_LIBRARY_PATH", prefix.lib)
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
             root=False, cover="nodes", order="post", deptype=("link"), direction="children"
         ):
             env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         env.prepend_path("ROOT_INCLUDE_PATH", prefix.include)
+
         # Cleanup.
         sanitize_environments(env, "CET_PLUGIN_PATH", "ROOT_INCLUDE_PATH")
 
     def setup_dependent_build_environment(self, env, dependent_spec):
         prefix = self.prefix
-        # Ensure we can find plugin libraries.
-        env.prepend_path("CET_PLUGIN_PATH", prefix.lib)
         # Set LD_LIBRARY_PATH so CheckClassVersion.py can find cppyy lib
         env.prepend_path("LD_LIBRARY_PATH", join_path(self.spec["root"].prefix.lib))
         # Ensure Root can find headers for autoparsing.
         for d in dependent_spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
-        ):
-            env.prepend_path("ROOT_INCLUDE_PATH", str(dependent_spec[d.name].prefix.include))
-        # Cleanup.
-        sanitize_environments(env, "CET_PLUGIN_PATH", "LD_LIBRARY_PATH", "ROOT_INCLUDE_PATH")
-
-    def setup_dependent_run_environment(self, env, dependent_spec):
-        prefix = self.prefix
-        # Ensure we can find plugin libraries.
-        env.prepend_path("CET_PLUGIN_PATH", prefix.lib)
-        # Set LD_LIBRARY_PATH so CheckClassVersion.py can find cppyy lib
-        env.prepend_path("LD_LIBRARY_PATH", join_path(self.spec["root"].prefix.lib))
-        # Ensure Root can find headers for autoparsing.
-        for d in dependent_spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             env.prepend_path("ROOT_INCLUDE_PATH", str(dependent_spec[d.name].prefix.include))
         # Cleanup.

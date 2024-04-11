@@ -46,14 +46,19 @@ class Cetlib(CMakePackage):
     depends_on("cetlib-except")
     depends_on("hep-concurrency", when="@3.18.01:", type=("build", "test"))
     depends_on("hep-concurrency", when="@:3.18.00")
-    depends_on("openssl")
+    with when("@3.14.00:"):
+        if sys.platform != "darwin":
+            depends_on("openssl")
+    depends_on("openssl", when="@:3.13")
     depends_on("perl", type=("build", "run"))
     depends_on("sqlite@3.8.2:")
-    depends_on("catch2@3:", when="@3.17:", type=("build", "test"))
-    depends_on("catch2@2.3.0:", when="@:3.16.99", type=("build", "test"))
-    depends_on("catch2", type=("build", "test"))
+    depends_on("catch2@3.3.0:", when="@3.17:", type=("build", "test"))
+    depends_on("catch2@2.3.0:2", when="@:3.16", type=("build", "test"))
     depends_on("cetmodules", type="build")
     conflicts("cetmodules@:3.21.00", when="catch2@3:")
+    # TBB is an indirect dependency (from hep-concurrency) required
+    # explicitly for unknown reasons.
+    depends_on("tbb", type=("build", "test"))
 
     if "SPACK_CMAKE_GENERATOR" in os.environ:
         generator = os.environ["SPACK_CMAKE_GENERATOR"]
@@ -81,6 +86,7 @@ class Cetlib(CMakePackage):
         sanitize_environments(env, "PATH", "CET_PLUGIN_PATH", "PERL5LIB")
 
     def setup_run_environment(self, env):
+        env.prepend_path("PATH", self.prefix.bin)
         prefix = self.prefix
         # Perl modules.
         env.prepend_path("PERL5LIB", os.path.join(prefix, "perllib"))
@@ -88,13 +94,6 @@ class Cetlib(CMakePackage):
         sanitize_environments(env, "PERL5LIB")
 
     def setup_dependent_build_environment(self, env, dependent_spec):
-        prefix = self.prefix
-        # Perl modules.
-        env.prepend_path("PERL5LIB", os.path.join(prefix, "perllib"))
-        # Cleanup.
-        sanitize_environments(env, "PERL5LIB")
-
-    def setup_dependent_run_environment(self, env, dependent_spec):
         prefix = self.prefix
         # Perl modules.
         env.prepend_path("PERL5LIB", os.path.join(prefix, "perllib"))

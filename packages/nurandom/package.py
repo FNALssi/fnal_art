@@ -29,7 +29,7 @@ class Nurandom(CMakePackage):
     """Random number generator interfaces to art."""
 
     homepage = "https://cdcvs.fnal.gov/redmine/projects/nurandom"
-    git_base = "https://github.com/NuSoftHEP/nurandom.git"
+    git = "https://github.com/NuSoftHEP/nurandom.git"
     url = "https://github.com/NuSoftHEP/nurandom/archive/refs/tags/v1_07_06.tar.gz"
     list_url = "https://api.github.com/repos/NuSoftHEP/nurandom/tags"
 
@@ -37,13 +37,8 @@ class Nurandom(CMakePackage):
     version("1.10.01", sha256="6f491b2b71f009f6e42caa259672763c4344cdfc0dffedaaa48cee7e58298ec7")
     version("1.08.00", sha256="f7ffa502bf2088ac1a9b974e6c57b8cc6d0ba07730174ea0f45b89810bc04411")
     version("1.07.06", sha256="85a6b595bd1b6b2873ebc726e0d4031570dc12897632cdb7d2a8fb5c16954cb5")
-    version("mwm1", tag="mwm1", git=git_base, get_full_repo=True)
-    version(
-        "develop",
-        commit="feb2c214ffec9dd2e9a1b3c7e02f2315f3ec9666",
-        git=git_base,
-        get_full_repo=True,
-    )
+    version("mwm1", tag="mwm1", get_full_repo=True)
+    version("develop", branch="develop", get_full_repo=True)
 
     def url_for_version(self, version):
         url = "https://github.com/NuSoftHEP/{0}/archive/v{1}.tar.gz"
@@ -111,12 +106,17 @@ class Nurandom(CMakePackage):
         run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             run_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
         # Perl modules.
         run_env.prepend_path("PERL5LIB", os.path.join(self.prefix, "perllib"))
+        run_env.prepend_path("FHICL_FILE_PATH", self.prefix.fcl)
         # Cleaup.
         sanitize_environments(run_env)
 
@@ -131,15 +131,3 @@ class Nurandom(CMakePackage):
         spack_env.prepend_path("PERL5LIB", os.path.join(self.prefix, "perllib"))
         # Cleanup.
         sanitize_environments(spack_env)
-
-    def setup_dependent_run_environment(self, run_env, dependent_spec):
-        # Binaries.
-        run_env.prepend_path("PATH", self.prefix.bin)
-        # Ensure we can find plugin libraries.
-        run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
-        # Ensure Root can find headers for autoparsing.
-        run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
-        # Perl modules.
-        run_env.prepend_path("PERL5LIB", os.path.join(self.prefix, "perllib"))
-        # Cleanup.
-        sanitize_environments(run_env)

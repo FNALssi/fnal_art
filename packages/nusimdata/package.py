@@ -29,7 +29,7 @@ class Nusimdata(CMakePackage):
     """Nusimdata"""
 
     homepage = "https://cdcvs.fnal.gov/redmine/projects/nusimdata"
-    git_base = "https://github.com/NuSoftHEP/nusimdata.git"
+    git = "https://github.com/NuSoftHEP/nusimdata.git"
     url = "https://github.com/NuSoftHEP/nusimdata/archive/refs/tags/v1_24_05.tar.gz"
     list_url = "https://api.github.com/repos/NuSoftHEP/nusimdata/tags"
 
@@ -38,13 +38,8 @@ class Nusimdata(CMakePackage):
     version("1.25.00", sha256="5fdc12bce3db71e030c976cc970eccc58df9bf88558bb0ea4dd870d333b6ef10")
     version("1.24.06", sha256="6eba7f761f491de5d026e76e1b0bbd2d68dc3c2101643a0ef67002416ca1eec4")
     version("1.24.05", sha256="f9a3df9bd7241aa63b68d940fcd0ecdede92a5626d450994fb731aa9db294893")
-    version("MVP1a", git=git_base, branch="feature/MVP1a", get_full_repo=True)
-    version(
-        "develop",
-        git=git_base,
-        commit="f10a9c1463544d050eb8f606bb7e8330b8f7be12",
-        get_full_repo=True,
-    )
+    version("MVP1a", branch="feature/MVP1a", get_full_repo=True)
+    version("develop", branch="develop", get_full_repo=True)
 
     patch("cetmodules2.patch", when="@develop")
     patch("v1_24_05.patch", when="@1.24.05")
@@ -111,12 +106,14 @@ class Nusimdata(CMakePackage):
         run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             run_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
-        # Perl modules.
-        run_env.prepend_path("PERL5LIB", os.path.join(self.prefix, "perllib"))
         # Cleaup.
         sanitize_environments(run_env)
 
@@ -131,18 +128,6 @@ class Nusimdata(CMakePackage):
         spack_env.prepend_path("PERL5LIB", os.path.join(self.prefix, "perllib"))
         # Cleanup.
         sanitize_environments(spack_env)
-
-    def setup_dependent_run_environment(self, run_env, dependent_spec):
-        # Binaries.
-        run_env.prepend_path("PATH", self.prefix.bin)
-        # Ensure we can find plugin libraries.
-        run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
-        # Ensure Root can find headers for autoparsing.
-        run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
-        # Perl modules.
-        run_env.prepend_path("PERL5LIB", os.path.join(self.prefix, "perllib"))
-        # Cleanup.
-        sanitize_environments(run_env)
 
     # install_fhicl() is callled but there are no fcl files to install
     # however nusimdataConfig.cmake does a set and check on nusimdata_fcl_dir

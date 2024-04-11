@@ -34,7 +34,7 @@ class Larana(CMakePackage):
     list_url = "https://api.github.com/repos/LArSoft/larana/tags"
 
     version("09.14.11", sha256="fbcdf7a2bcef81fb31a10b87b86d8f3af2b1de7dbde192e4a6caf2d2e6fe00bf")
-    version("09.14.08", sha256="61fa67c3764f37112af55fff17ab3e573a9ae4b068b3c8e437aca184741d14a3") # FIX ME
+    version("09.14.08", sha256="61fa67c3764f37112af55fff17ab3e573a9ae4b068b3c8e437aca184741d14a3")
     version("09.14.05", sha256="f67962e535fd68e5d3b69fa875edbcf0248a021d161136eaee409fed0e4104a2")
     version(
         "09.03.09.01", sha256="162712cd2506c443799b5e055a63370977ce9384d7a88925f0fda030362b95bf"
@@ -88,10 +88,7 @@ class Larana(CMakePackage):
     depends_on("cetmodules", type="build")
 
     def cmake_args(self):
-        args = [
-           "-DCMAKE_CXX_STANDARD={0}".format(self.spec.variants["cxxstd"].value),
-           "-Dlarana_FW_DIR=fw",
-        ]
+        args = [self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")]
         return args
 
     def setup_build_environment(self, spack_env):
@@ -101,7 +98,11 @@ class Larana(CMakePackage):
         spack_env.prepend_path("CET_PLUGIN_PATH", os.path.join(self.build_directory, "lib"))
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             spack_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         # Perl modules.
@@ -110,16 +111,23 @@ class Larana(CMakePackage):
         sanitize_environments(spack_env)
 
     def setup_run_environment(self, run_env):
+        run_env.prepend_path("PATH", self.prefix.bin)
         # Ensure we can find plugin libraries.
         run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             run_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
         # Perl modules.
         run_env.prepend_path("PERL5LIB", os.path.join(self.prefix, "perllib"))
+        run_env.append_path("FHICL_FILE_PATH", "{0}/fcl".format(self.prefix))
+        run_env.append_path("FW_SEARCH_PATH", "{0}/gdml".format(self.prefix))
         # Cleaup.
         sanitize_environments(run_env)
 
@@ -130,16 +138,8 @@ class Larana(CMakePackage):
         spack_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
         spack_env.prepend_path("PATH", self.prefix.bin)
         spack_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
-        spack_env.append_path("FHICL_FILE_PATH", "{0}/job".format(self.prefix))
+        spack_env.append_path("FHICL_FILE_PATH", "{0}/fcl".format(self.prefix))
         spack_env.append_path("FW_SEARCH_PATH", "{0}/gdml".format(self.prefix))
-
-    def setup_dependent_run_environment(self, run_env, dspec):
-        # Ensure we can find plugin libraries.
-        run_env.prepend_path("CET_PLUGIN_PATH", self.prefix.lib)
-        run_env.prepend_path("PATH", self.prefix.bin)
-        run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
-        run_env.append_path("FHICL_FILE_PATH", "{0}/job".format(self.prefix))
-        run_env.append_path("FW_SEARCH_PATH", "{0}/gdml".format(self.prefix))
 
     def flag_handler(self, name, flags):
         if name == "cxxflags" and self.spec.compiler.name == "gcc":

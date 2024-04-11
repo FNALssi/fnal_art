@@ -19,17 +19,36 @@ class Geant4reweight(CMakePackage):
     # maintainers("github_user1", "github_user2")
 
     # FIXME: Add the SPDX identifier of the project's license below.
-    # See https://spdx.org/licenses/ for a list. Upon manually verifying
-    # the license, set checked_by to your Github username.
-    license("UNKNOWN", checked_by="github_user1")
+
+
+    # See https://spdx.org/licenses/ for a list.
+    license("UNKNOWN")
 
     version("1.16.05", branch="nova_v01_16_br")
+    version("01_20_00", sha256="f8d30f2a1426ee9e100694d4d19d58a7b98af93c8e71ff0a52cb0a1e7a6d3d96")
 
-    depends_on("cetlib")
-    depends_on("fhicl-cpp")
-    depends_on("geant4")
-    depends_on("root")
+    variant(
+        "cxxstd",
+        default="17",
+        values=("14", "17", "20"),
+        multi=False,
+        description="Use the specified C++ standard when building.",
+    )
 
-    depends_on("cetmodules", type="build")
+    # FIXME: Add dependencies if required.
+    # depends_on("cetlib")
+    # depends_on("fhicl-cpp")
+    # depends_on("geant4")
+    # depends_on("root")
+    depends_on("nug4")
+    depends_on("cetmodules")
+    depends_on("cmake")
 
     patch("patch.p")
+
+    def cmake_args(self):
+        # Set CMake args.
+        args = [
+            "-DCMAKE_CXX_STANDARD={0}".format(self.spec.variants["cxxstd"].value),
+        ]
+        return args

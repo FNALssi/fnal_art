@@ -26,12 +26,13 @@ def sanitize_environments(*args):
 class Wirecell(Package):
     """Wire Cell Toolkit provides simulation, signal processing and reconstruction for LArTPC
     Borrowed from
-    https://github.com/WireCell/wire-cell-spack/blob/master/repo/packages/wirecell-toolkit/package.py"""
+    https://github.com/WireCell/wire-cell-spack/blob/master/repo/packages/wirecell-toolkit/package.py
+    """
 
     homepage = "https://wirecell.github.io"
     url = "https://github.com/WireCell/wire-cell-toolkit/archive/refs/tags/0.13.0.tar.gz"
 
-    version("0.24.3", sha256="040d819a3a81b953a42c8b4bb898acf6978cee45beea0361a2f3cdb602a6028c") # FIX ME
+    version("0.24.3", sha256="040d819a3a81b953a42c8b4bb898acf6978cee45beea0361a2f3cdb602a6028c")
     version("0.24.1", sha256="0467a4dff51abac3661aa99c5f3cc5de1ba1607a7f357631a2fbf7dcdf01c8a9")
     version("0.17.0", sha256="f2807adb83c8c6960ccefe8002bd015d646a96ad181d2092848d2461b3b81eea")
     version("0.16.0", sha256="af04affc1642c6ea534c479f0e1701e74b43674c2ebc025a117849ac0aba9cee")
@@ -65,25 +66,22 @@ class Wirecell(Package):
     depends_on("root@6:")
 
     # match what is listed in wire-cell-build/wscript
-    depends_on("boost +system+filesystem+graph+thread+program_options+iostreams")
-
+    depends_on("boost +system+filesystem+graph+thread+program_options+iostreams+stacktrace")
 
     patch("setprecisionfix.patch", when="@0.14.0")
     patch("boost_spline.patch", when="@0.14.0")
 
     def patch(self):
-        with(when("@:0.24.3 %gcc@13:")):
+        with when("@:0.24.3 %gcc@13:"):
             filter_file(
-                '#include <typeinfo>',
-                '#include <typeinfo>\n#include<cstdint>',
-                'util/inc/WireCellUtil/Dtype.h',
+                "#include <typeinfo>",
+                "#include <typeinfo>\n#include<cstdint>",
+                "util/inc/WireCellUtil/Dtype.h",
             )
 
     def install(self, spec, prefix):
         cxxstd = self.spec.variants["cxxstd"].value
-        cxxstdflag = (
-            "" if cxxstd == "default" else getattr(self.compiler, "cxx{0}_flag".format(cxxstd))
-        )
+        cxxstdflag = "" if cxxstd == "default" else getattr(self.compiler, "cxx{0}_flag".format(cxxstd))
 
         cfg = "wcb"
         cfg += " --prefix=%s" % prefix
@@ -104,7 +102,7 @@ class Wirecell(Package):
             cfg += " --build-debug=" + cxxstdflag
 
         cfg += " configure"
-        python = which('python')
+        python = which("python")
         python(*cfg.split())
         filter_file(r"-std=c\+\+11", cxxstdflag, "build/c4che/_cache.py")
         python("wcb", "-vv")
@@ -113,22 +111,29 @@ class Wirecell(Package):
 
     def setup_build_environment(self, spack_env):
         cxxstd = self.spec.variants["cxxstd"].value
-        cxxstdflag = (
-            "" if cxxstd == "default" else getattr(self.compiler, "cxx{0}_flag".format(cxxstd))
-        )
+        cxxstdflag = "" if cxxstd == "default" else getattr(self.compiler, "cxx{0}_flag".format(cxxstd))
         spack_env.append_flags("CXXFLAGS", cxxstdflag)
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             spack_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         # Cleanup.
         sanitize_environments(spack_env)
 
     def setup_run_environment(self, run_env):
+        run_env.prepend_path("PATH", self.prefix.bin)
         # Ensure Root can find headers for autoparsing.
         for d in self.spec.traverse(
-            root=False, cover="nodes", order="post", deptype=("link"), direction="children"
+            root=False,
+            cover="nodes",
+            order="post",
+            deptype=("link"),
+            direction="children",
         ):
             run_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
@@ -139,11 +144,6 @@ class Wirecell(Package):
         spack_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
         # Cleanup.
         sanitize_environments(spack_env)
-
-    def setup_dependent_run_environment(self, run_env, dependent_spec):
-        run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
-        # Cleanup.
-        sanitize_environments(run_env)
 
     def flag_handler(self, name, flags):
         if name == "cxxflags" and self.spec.compiler.name == "gcc":

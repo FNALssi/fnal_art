@@ -5,7 +5,6 @@
 
 import os
 import sys
-
 from pathlib import Path
 
 sys.path.append(str(Path(__file__).parents[2] / "lib"))
@@ -23,6 +22,7 @@ class Art(CMakePackage):
     git = "https://github.com/art-framework-suite/art.git"
     url = "https://github.com/art-framework-suite/art/archive/refs/tags/v3_13_01.tar.gz"
 
+    version("3.14.04", sha256="2b930299e1f3fe52544fe0a8f7beaba614c1aea56efe832fffb7117f497e110c")
     version("3.14.03", sha256="c16b8b69a540fe00090e56ff6911c356615dd2c82179d57373024bcb01984434")
     version("3.14.02", sha256="8cc7340a1a92ee22ddeacc3b1ad8a0688561d4fb2a790f42be791534bce8ea2e")
     version("3.14.01", sha256="29489e0dc7abf2756c9081569a54dbb49c8cbb472c651e343d6ce2d49fc1cac2")
@@ -50,7 +50,7 @@ class Art(CMakePackage):
     conflicts("cxxstd=17", when="@develop")
 
     depends_on("boost+date_time+graph+program_options+regex")
-    depends_on("boost+filesystem+json+test+thread", type=("build"))
+    depends_on("boost@1.75: +filesystem+json+test+thread", type=("build"))
     depends_on("boost+graph+test", type=("test"))
     depends_on("canvas")
     depends_on("catch2@2.3.0", type=("build", "test"), when="@:3.11.99")
@@ -93,15 +93,6 @@ class Art(CMakePackage):
         # Cleaup.
         sanitize_environments(env, "PATH", "CET_PLUGIN_PATH", "PERL5LIB")
 
-    def setup_run_environment(self, env):
-        prefix = self.prefix
-        # Ensure we can find plugin libraries.
-        env.prepend_path("CET_PLUGIN_PATH", prefix.lib)
-        # Perl modules.
-        env.prepend_path("PERL5LIB", os.path.join(prefix, "perllib"))
-        # Cleaup.
-        sanitize_environments(env, "CET_PLUGIN_PATH", "PERL5LIB")
-
     def setup_dependent_build_environment(self, env, dependent_spec):
         prefix = self.prefix
         # Ensure we can find plugin libraries.
@@ -111,11 +102,9 @@ class Art(CMakePackage):
         # Cleaup.
         sanitize_environments(env, "CET_PLUGIN_PATH", "PERL5LIB")
 
-    def setup_dependent_run_environment(self, env, dependent_spec):
+    def setup_run_environment(self, env):
         prefix = self.prefix
         # Ensure we can find plugin libraries.
         env.prepend_path("CET_PLUGIN_PATH", prefix.lib)
         # Perl modules.
         env.prepend_path("PERL5LIB", os.path.join(prefix, "perllib"))
-        # Cleaup.
-        sanitize_environments(env, "CET_PLUGIN_PATH", "PERL5LIB")
