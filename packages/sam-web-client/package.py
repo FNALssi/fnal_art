@@ -3,7 +3,6 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
-import os
 from spack.package import *
 
 
@@ -23,7 +22,7 @@ class SamWebClient(Package):
     extends("python")
 
     def install(self, spec, prefix):
-        samweb_client_path = os.path.join(python_platlib, "samweb_client")
+        samweb_client_path = join_path(python_platlib, "samweb_client")
         mkdirp(prefix.bin, samweb_client_path)
    
         install("bin/*", prefix.bin)
