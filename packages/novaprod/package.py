@@ -14,7 +14,8 @@ class Novaprod(Package):
 
     maintainers("vhewes")
 
-    version("6.98", tag="novaproduction-v06.98")
+    version("develop", branch="main")
+    version("7.02", tag="novaproduction-v07.02")
 
     depends_on("py-future")
     depends_on("sam-web-client")
@@ -23,15 +24,18 @@ class Novaprod(Package):
 
     def install(self, spec, prefix):
         mkdirp(prefix.bin, python_platlib)
-        install("NovaGridUtils/bin/submit_cafana.py", prefix.bin)
-        install("NovaGridUtils/bin/submit_nova_art.py", prefix.bin)
+
+        # binaries
         install("NovaGridUtils/bin/recommended_sites.py", prefix.bin)
+        install("NovaGridUtils/bin/setup_fnal_security", prefix.bin)
+        install("NovaGridUtils/bin/submit_cafana.py", prefix.bin)
         install("NovaGridUtils/bin/cafe_grid_script.sh", prefix.bin)
+        install("NovaGridUtils/bin/sl7-nova", prefix.bin)
 
         # python libraries
         install("NovaGridUtils/lib/python/NovaGridUtils.py", python_platlib)
-        install("novaproduction/lib/python/fake_sam.py", python_platlib)
 
     def setup_run_environment(self, env):
         env.set("GROUP", "nova")
-        env.set("NOVAGRIDUTILS_DIR", self.prefix)
+        env.set("IFDH_DEBUG", "0")
+        env.set("SAM_STATION", "nova")
