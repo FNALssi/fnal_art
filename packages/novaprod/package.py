@@ -37,5 +37,6 @@ class Novaprod(Package):
 
     def setup_run_environment(self, env):
         env.set("GROUP", "nova")
+        env.set("NOVAGRIDUTILS_DIR", self.prefix)
         env.set("IFDH_DEBUG", "0")
         env.set("SAM_STATION", "nova")
