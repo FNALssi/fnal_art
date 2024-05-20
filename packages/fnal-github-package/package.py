@@ -122,7 +122,7 @@ class FnalGithubPackage(Package):
         return f"{self.git}/archive/refs/tags/{version_str}.tar.gz"
 
     @property
-    @cache_property
+    @cache_property()
     def _version_patterns(self):
         self.version_patterns.sort(key=dotted_version_str)
         result = []
