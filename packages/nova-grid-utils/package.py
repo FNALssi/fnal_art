@@ -29,6 +29,7 @@ class NovaGridUtils(Package):
         # binaries
         install("NovaGridUtils/bin/setup_fnal_security", prefix.bin)
         install("NovaGridUtils/bin/testrel_tarball", prefix.bin)
+        install("NovaGridUtils/bin/cache_state.py", prefix.bin)
         install("NovaGridUtils/bin/sl7-nova", prefix.bin)
         install("NovaGridUtils/bin/submit_cafana.py", prefix.bin)
         install("NovaGridUtils/bin/cafe_grid_script.sh", prefix.bin)
@@ -41,6 +42,8 @@ class NovaGridUtils(Package):
         install("NovaGridUtils/lib/python/NovaGridUtils.py", python_platlib)
         install("NovaGridUtils/bin/recommended_sites.py", python_platlib)
         install("novaproduction/lib/python/fake_sam.py", python_platlib)
+        install("novaproduction/lib/python/progbar.py", python_platlib)
+        install("novaproduction/lib/python/redirect_allout.py", python_platlib)
 
     def setup_run_environment(self, env):
         """set up novagridutils run environment"""
