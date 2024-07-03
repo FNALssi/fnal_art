@@ -75,6 +75,8 @@ class Pandora(CMakePackage):
     def patch_pandora(self):
         patch = which("patch") 
         make = which("make")
+        if self.spec.variants['generator'].value == 'ninja':
+            make = which("ninja")
         pdir = os.path.dirname(__file__)
 
         with when("@03.16.00"):

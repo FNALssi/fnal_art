@@ -33,6 +33,7 @@ class Larsimdnn(CMakePackage):
     url = "https://github.com/LArSoft/larsimdnn/archive/v01_02_03.tar.gz"
     list_url = "https://api.github.com/repos/LArSoft/larsimdnn/tags"
 
+    version("09.05.10", sha256="245b7a56cb1cefca75be0ca84ee993a6a6390623223bd2b76e155ae0347be6e8")
     version(
         "mwm1", tag="mwm1", git="https://github.com/marcmengel/larsimdnn.git", get_full_repo=True
     )
@@ -76,7 +77,12 @@ class Larsimdnn(CMakePackage):
     depends_on("nug4")
     depends_on("nugen")
     depends_on("nurandom")
+    depends_on("artg4tk")
+    depends_on("larsim")
+    depends_on("ppfx")
     depends_on("cetmodules", type="build")
+    depends_on("larfinder", type="build")
+    depends_on("nufinder", type="build")
 
     def cmake_args(self):
         args = [
