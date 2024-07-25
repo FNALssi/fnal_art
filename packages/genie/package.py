@@ -96,7 +96,6 @@ class Genie(AutotoolsPackage):
             "--enable-event-server",
             "--enable-nucleon-decay",
             "--enable-nnbar-oscillation",
-            "--enable-vle-extension",
             "--with-pythia6-lib={0}".format(self.spec["pythia6"].prefix.lib),
             "--with-libxml2-inc={0}/libxml2".format(self.spec["libxml2"].prefix.include),
             "--with-libxml2-lib={0}".format(self.spec["libxml2"].prefix.lib),
