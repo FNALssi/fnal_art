@@ -88,18 +88,6 @@ class Genie(AutotoolsPackage):
     def patch(self):
         filter_file(r'-lnsl','','src/make/Make.include')
 
-    @property
-    def build_targets(self):
-        cxxstd = self.spec.variants["cxxstd"].value
-        cxxstdflag = (
-            "" if cxxstd == "default" else getattr(self.compiler, "cxx{0}_flag".format(cxxstd))
-        )
-        args = [
-            "GOPT_WITH_CXX_USERDEF_FLAGS=-g -fno-omit-frame-pointer {0}".format(cxxstdflag),
-            "all",
-        ]
-        return args
-
     def configure_args(self):
         args = [
             "--enable-rwght",
@@ -164,9 +152,9 @@ class Genie(AutotoolsPackage):
 
     def build(self, spec, prefix):
         with working_dir(self.build_directory):
-            make(*self.build_targets)
+            make()
         with working_dir("{0}/Reweight".format(self.stage.source_path)):
-            make(*self.build_targets)
+            make()
 
     def install(self, spec, prefix):
         mkdirp(prefix.bin)
@@ -203,6 +191,13 @@ class Genie(AutotoolsPackage):
             direction="children",
         ):
             spack_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
+
+        # set compiler flags
+        cxxstd = self.spec.variants["cxxstd"].value
+        cxxstdflag = (
+            "" if cxxstd == "default" else getattr(self.compiler, "cxx{0}_flag".format(cxxstd))
+        )
+        spack_env.set("CXXFLAGS", f"-g -fno-omit-frame-pointer {cxxstdflag}")
 
     def setup_run_environment(self, run_env):
         run_env.prepend_path("PATH", self.prefix.bin)
