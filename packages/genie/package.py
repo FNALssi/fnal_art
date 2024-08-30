@@ -191,12 +191,12 @@ class Genie(AutotoolsPackage):
         ):
             spack_env.prepend_path("ROOT_INCLUDE_PATH", str(self.spec[d.name].prefix.include))
 
-        # set compiler flags
-        cxxstd = self.spec.variants["cxxstd"].value
-        cxxstdflag = (
-            "" if cxxstd == "default" else getattr(self.compiler, "cxx{0}_flag".format(cxxstd))
-        )
-        spack_env.set("CXXFLAGS", f"-g -fno-omit-frame-pointer {cxxstdflag}")
+    def flag_handler(self, name, flags):
+        if name == "cxxflags":
+            cxxstd = self.spec.variants["cxxstd"].value
+            if cxxstd != "default":
+                flags.append(getattr(self.compiler, f"cxx{cxxstd}_flag"))
+        return (flags, None, None)
 
     def setup_run_environment(self, run_env):
         run_env.prepend_path("PATH", self.prefix.bin)
