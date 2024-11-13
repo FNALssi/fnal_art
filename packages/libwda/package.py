@@ -33,14 +33,25 @@ class Libwda(MakefilePackage):
     depends_on("openssl")
     depends_on("pcre")
 
+    variant("frontier", description="include frontier-client interface")
+
+    depends_on("frontier-client", when="+frontier")
+
     patch("version.patch", level=1)
 
     @property
     def build_targets(self):
         tlist = [
             "LIBWDA_VERSION=v{0}".format(self.version.underscored),
-            "LDFLAGS=-lcrypto", # rather than bigger Makefile patch
         ]
+        if self.spec.satisfies("+frontier")
+            tlist.append("CFLAGS=-DFRONTIER")
+            tlist.append("LDFLAGS=-lcrypto -lfrontier_client -L{0}".format(
+               self.spec["frontier-client"].prefix.lib
+            ))
+        else:
+            tlist.append("LDFLAGS=-lcrypto")
+
         return tlist
 
     @property
