@@ -21,6 +21,8 @@ class Meld(CMakePackage, FnalGithubPackage):
 
     cxxstd_variant("20", "23", default="20", sticky=True)
 
+    depends_on("cmake", type="build")
+
     depends_on("boost@1.75.0: +json+program_options+stacktrace")
     depends_on("fmt@:9")
     depends_on("jsonnet")
