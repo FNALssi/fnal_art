@@ -133,7 +133,8 @@ class MuseExternals(BundlePackage):
         depends_on("trace@v3_17_09", type=("build", "run"))
         depends_on("vecgeom", type=("build", "run"))
         depends_on("xerces-c@3.2.3", type=("build", "run"))
-        depends_on("fftw-api ^fftw")
+        depends_on("fftw-api", type=("build", "run"))
+        depends_on("fftw", type=("build", "run"))
 
     def setup_run_environment(self, env):
 
