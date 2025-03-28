@@ -57,7 +57,7 @@ class ArtSuite(BundlePackage):
         depends_on("pythia6@6.4.28")
         depends_on("python@3.9.15")
         depends_on("range-v3@0.12.0")
-        depends_on("root@6.30.06 cxxstd=20", when="+root")
+        depends_on("root@6.30.06 +http+mlp+root7+spectrum+tmva+tmva-sofie cxxstd=20", when="+root") # Enable features used by Mu2e
         depends_on("sqlite@3.40.1")
         depends_on("tbb@2021.9.0")
         depends_on("xrootd@5.5.5")
