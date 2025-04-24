@@ -3,32 +3,16 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
-# ----------------------------------------------------------------------------
-# If you submit this package back to Spack as a pull request,
-# please first remove this boilerplate and all FIXME comments.
-#
-# This is a template package file for Spack.  We've put "FIXME"
-# next to all the things you'll want to change. Once you've handled
-# them, you can save this file and test your package like this:
-#
-#     spack install castxml
-#
-# You can edit this file again by typing:
-#
-#     spack edit castxml
-#
-# See the Spack documentation for more information on packaging.
-# ----------------------------------------------------------------------------
-
 from spack.package import *
 
 
 class Castxml(CMakePackage):
-    """FIXME: Put a proper description of your package here."""
+    """A C-family abstract syntax tree XML output tool."""
 
     homepage = "https://github.com/CastXML/CastXML"
     url = "https://github.com/CastXML/CastXML/archive/v0.2.0.tar.gz"
 
+    version("0.6.11", sha256="fc5b49f802b67f98ecea10564bc171c660020836a48cecefc416681a2d2e1d3d")
     version("0.5.1", sha256="a7b40b1530585672f9cf5d7a6b6dd29f20c06cd5edf34ef34c89a184a4d1a006")
     version("0.3.6", sha256="e51a26704864c89036a0a69d9f29c2a522a9fa09c1009e8b8169a26480bb2993")
     version("0.3.5", sha256="397044081363da0f3e50aff995f71b68aedd194d034caa50869224a4e6784c3b")
@@ -40,12 +24,6 @@ class Castxml(CMakePackage):
     version("0.2.1", sha256="1f01149af1c58e59500e24cade8033e98a16001aa6a0f666643bbc9e303a82b0")
     version("0.2.0", sha256="626c395d0d3c777b5a1582cdfc4d33d142acfb12204ebe251535209126705ec1")
 
-    # FIXME: Add dependencies if required.
-    depends_on('llvm@15.0.7')
+    depends_on("cxx", type="build")
 
-    def cmake_args(self):
-        # FIXME: Add arguments other than
-        # FIXME: CMAKE_INSTALL_PREFIX and CMAKE_BUILD_TYPE
-        # FIXME: If not needed delete this function
-        args = []
-        return args
+    depends_on("llvm")
