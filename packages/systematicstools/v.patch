@@ -1,0 +1,12 @@
+diff --git a/systematicstools/utility/FHiCLSystParamHeaderUtility.hh b/systematicstools/utility/FHiCLSystParamHeaderUtility.hh
+index 4c99918..6f7bcde 100644
+--- a/systematicstools/utility/FHiCLSystParamHeaderUtility.hh
++++ b/systematicstools/utility/FHiCLSystParamHeaderUtility.hh
+@@ -3,6 +3,7 @@
+ 
+ #include "systematicstools/utility/exceptions.hh"
+ 
++#include <cstdint>
+ #include <string>
+ 
+ namespace fhicl {

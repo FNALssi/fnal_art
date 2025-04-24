@@ -28,7 +28,7 @@ class Systematicstools(CMakePackage):
 
     # FIXME: Add a proper url for your package's homepage here.
     homepage = "https://www.example.com"
-    url = "https://github.com/LArSoft/systematicstools/archive/refs/tags/v01_04_02.tar.gz"
+    url = "https://github.com/LArSoft/systematicstools/archive/v01_04_02.tar.gz"
 
     # FIXME: Add a list of GitHub accounts to
     # notify when the package is updated.
@@ -40,14 +40,24 @@ class Systematicstools(CMakePackage):
 
     version("01_04_02", sha256="0e14b9736b31b7911307e8703d0f386f2a1fb5c1dcaa69a8d7ce9916afb974cd")
 
+    variant(
+        "cxxstd",
+        default="17",
+        values=("17", "20", "23"),
+        multi=False,
+        sticky=True,
+        description="C++ standard",
+    )
+
+    # include cstdint
+    patch("v.patch")
+
     # FIXME: Add dependencies if required.
     depends_on("art-root-io")
     depends_on("cetmodules", type="build")
     depends_on("cmake", type="build")
 
     def cmake_args(self):
-        # FIXME: Add arguments other than
-        # FIXME: CMAKE_INSTALL_PREFIX and CMAKE_BUILD_TYPE
-        # FIXME: If not needed delete this function
-        args = []
-        return args
+        return [
+            self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd"),
+        ]
