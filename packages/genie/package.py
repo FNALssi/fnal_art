@@ -25,6 +25,7 @@ class Genie(AutotoolsPackage):
             version.underscored
         )
 
+    version("3.06.00", sha256="4c82c555b8dfcaba1cc8fd41e06e194897c30607aa17e277eb7c862fb88b825d")
     version("3.04.02", sha256="c5935aea86d2ba9897ab55bb581622c561575957d19e572691d3bc0833ed9512", preferred=True)
     version("3.04.00", sha256="72cf8a119cc59d03763b11afad1a82c0974a06677bf1c154b7c2a90d9f1529c1")
     version("3.00.06", sha256="ab56ea85d0c1d09029254365bfe75a1427effa717389753b9e0c1b6c2eaa5eaf")
