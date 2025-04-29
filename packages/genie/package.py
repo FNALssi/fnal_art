@@ -86,7 +86,6 @@ class Genie(AutotoolsPackage):
     patch("patch/genie-r30006.patch", when="@3.00.06")
 
     patch("patch/sles-cnl.patch", when="platform=cray")
-    patch("patch/root_subdir.patch")
 
     patch("patch/GENIE-Generator.patch", when="@3.04.00")
     patch("patch/GENIE-Reweight.patch", when="@3.04.02", level=0)
@@ -94,6 +93,9 @@ class Genie(AutotoolsPackage):
     # @when("os=almalinux9") patch should be applied on polaris too
     def patch(self):
         filter_file(r'-lnsl','','src/make/Make.include')
+        filter_file(r"\$mathmore_lib = \"\$ROOTSYS/lib/libMathMore.so\"",
+                    "$mathmore_lib = \"$ROOTSYS/lib/root/libMathMore.so\"",
+                    "configure")
 
     def configure_args(self):
         args = [
