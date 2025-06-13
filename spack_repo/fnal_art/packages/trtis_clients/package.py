@@ -7,9 +7,9 @@ from spack_repo.builtin.build_systems.cmake import CMakePackage
 from spack.package import *
 
 try:
-    from spack.build_systems.cmake import CMakeBuilder as builder
+    from spack_repo.builtin.build_systems.cmake import CMakeBuilder as builder
 except ImportError:
-    from spack.build_systems.cmake import CMakePackage as builder
+    from spack_repo.builtin.build_systems.cmake import CMakePackage as builder
 
 
 # decorator to try a method twice...
