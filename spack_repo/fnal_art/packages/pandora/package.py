@@ -14,9 +14,11 @@ class Pandora(CMakePackage):
     """PandoraPFA Multi-algorithm pattern recognition"""
 
     homepage = "https://github.com/PandoraPFA"
-    url = "https://github.com/PandoraPFA/PandoraPFA/archive/refs/tags/v03-16-00.tar.gz"
+    git = "https://github.com/PandoraPFA/PandoraPFA.git"
+    url = "https://github.com/PandoraPFA/PandoraPFA/archive/refs/tags/v04-15-02.tar.gz"
+    list_url = "https://github.com/PandoraPFA/PandoraPFA/tags?after=v03-19-04"
 
-    version("03-16-00", sha256="a681ee24076c0cf1bb490929217abbcbcbeb2c442ae2e0d8037edfe8fbb38dd0")
+    version("03.16.00", sha256="a681ee24076c0cf1bb490929217abbcbcbeb2c442ae2e0d8037edfe8fbb38dd0")
 
     variant(
         "cxxstd",
@@ -39,6 +41,9 @@ class Pandora(CMakePackage):
 
     depends_on("eigen")
 
+    def url_for_version(self, version):
+        url = "https://github.com/PandoraPFA/PandoraPFA/archive/refs/tags/v{1}.tar.gz"
+        return url.format(self.name, version.underscored)
 
     def patch(self):
         # Build larpandoracontent as part of pandora
