@@ -14,19 +14,9 @@ class Pandora(CMakePackage):
     """PandoraPFA Multi-algorithm pattern recognition"""
 
     homepage = "https://github.com/PandoraPFA"
+        url = "https://github.com/PandoraPFA/PandoraPFA/archive/refs/tags/v03-16-00.tar.gz"
 
-    version(
-        "03.11.01",
-        git="https://github.com/PandoraPFA/PandoraPFA",
-        tag="v03-11-01",
-        get_full_repo=True,
-    )
-    version(
-        "03.16.00",
-        git="https://github.com/PandoraPFA/PandoraPFA",
-        tag="v03-16-00",
-        get_full_repo=True,
-    )
+    version("03-16-00", sha256="a681ee24076c0cf1bb490929217abbcbcbeb2c442ae2e0d8037edfe8fbb38dd0")
 
     variant(
         "cxxstd",
