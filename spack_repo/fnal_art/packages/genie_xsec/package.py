@@ -15,9 +15,6 @@ class GenieXsec(Package):
     version("3.04.00", sha256="fb4dc9badd1771c92fabbf818b33544006e8b60c7fb0f33d5288a66d93bd19ea", 
              url="https://scisoft.fnal.gov/scisoft/packages/genie_xsec/v3_04_00/genie_xsec-3.04.00-noarch-G1810a0211a-k250-e1000.tar.bz2")
 
-    version("2.12.10", "2cae8b754a9f824ddd27964d11732941fd88f52f0880d7f685017caba7fea6b7", 
-             expand=False, url="file://" + os.path.dirname(__file__) + "/../../config/junk.xml")
-
     # tune_name values are designed to line up with the ups setup command
     # when setting the environment variable, we change to match typical
     # genie tune format

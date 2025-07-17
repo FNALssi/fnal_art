@@ -14,9 +14,9 @@ class GeniePhyopt(Package):
     """Phyopt files used by genie."""
 
     homepage = "https://www.example.com"
-    url = "file://" + os.path.dirname(__file__) + "/../../config/junk.xml"
+    url = "https://scisoft.fnal.gov/scisoft/packages/genie_phyopt/v3_04_00/genie_phyopt-3.04.00-noarch-dkcharm.tar.bz2"
     version(
-        "2.12.10", "2cae8b754a9f824ddd27964d11732941fd88f52f0880d7f685017caba7fea6b7", expand=False
+        "3.04.00", sha256="c4a5360e379d371df2b2e845aee673b984a2f0f6ba62dae682f8cb0223e84a0f", expand=False
     )
 
     variant(
@@ -27,19 +27,19 @@ class GeniePhyopt(Package):
         description="Name of genie phyopt to use.",
     )
 
-    baseurl = "https://scisoft.fnal.gov/scisoft/packages/genie_phyopt/v2_12_10/genie_phyopt-2.12.10-noarch-"
+    baseurl = "https://scisoft.fnal.gov/scisoft/packages/genie_phyopt/v3_04_00/genie_phyopt-3.04.00-noarch-"
     resource(
         name="dkcharm",
         when="phyopt_name=dkcharm",
         url=baseurl + "dkcharm.tar.bz2",
-        sha256="5764cc6e7fc23f721177761526b75725b73970cd941064c23563d9ccaa3de0dc",
+        sha256="c4a5360e379d371df2b2e845aee673b984a2f0f6ba62dae682f8cb0223e84a0f",
     )
 
     resource(
         name="dkcharmtau",
         when="phyopt_name=dkcharmtau",
         url=baseurl + "dkcharmtau.tar.bz2",
-        sha256="ff0ecafd9a9455e8c20963c608c666f7229324c3f43e69fa58902584de08532a",
+        sha256="e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     )
 
     def install(self, spec, prefix):
