@@ -31,14 +31,14 @@ class GeniePhyopt(Package):
     resource(
         name="dkcharm",
         when="phyopt_name=dkcharm",
-        url=baseurl + "dkcharm.tar.bz2",
+        url="https://scisoft.fnal.gov/scisoft/packages/genie_phyopt/v3_04_00/genie_phyopt-3.04.00-noarch-dkcharm.tar.bz2",
         sha256="c4a5360e379d371df2b2e845aee673b984a2f0f6ba62dae682f8cb0223e84a0f",
     )
 
     resource(
         name="dkcharmtau",
         when="phyopt_name=dkcharmtau",
-        url=baseurl + "dkcharmtau.tar.bz2",
+        url="https://scisoft.fnal.gov/scisoft/packages/genie_phyopt/v3_04_00/genie_phyopt-3.04.00-noarch-dkcharmtau.tar.bz2",
         sha256="e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     )
 
