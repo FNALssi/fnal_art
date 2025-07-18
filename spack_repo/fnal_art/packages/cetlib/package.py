@@ -16,7 +16,7 @@ class Cetlib(CMakePackage, FnalGithubPackage):
     """A utility library for the art suite."""
 
     homepage = "https://art.fnal.gov/"
-    repo = "art-framework-suite/cetlib"
+    git = "https://github.com/art-framework-suite/cetlib"
 
     version_patterns = ["v3_13_04"]
 

@@ -14,7 +14,7 @@ class CetlibExcept(CMakePackage, FnalGithubPackage):
     """Exception libraries for the art suite."""
 
     homepage = "https://art.fnal.gov/"
-    repo = "art-framework-suite/cetlib-except"
+    git = "https://github.com/art-framework-suite/cetlib-except"
 
     version_patterns = ["v1_07_04"]
 

@@ -15,7 +15,7 @@ class CanvasRootIo(CMakePackage, FnalGithubPackage):
     """A Root I/O library for the art suite."""
 
     homepage = "https://art.fnal.gov/"
-    repo = "art-framework-suite/canvas-root-io"
+    git = "https://github.com/art-framework-suite/canvas-root-io"
 
     version_patterns = ["v1_09_04"]
 

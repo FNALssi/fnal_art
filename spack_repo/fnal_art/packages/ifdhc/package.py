@@ -5,7 +5,7 @@
 
 import os
 
-import llnl.util.tty as tty
+import spack.llnl.util.tty as tty
 
 from spack_repo.builtin.build_systems.makefile import MakefilePackage
 from spack.package import *

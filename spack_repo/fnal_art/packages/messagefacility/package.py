@@ -16,7 +16,7 @@ class Messagefacility(CMakePackage, FnalGithubPackage):
     """A configurable message logging facility for the art suite."""
 
     homepage = "https://art.fnal.gov/"
-    repo = "art-framework-suite/messagefacility"
+    git = "https://github.com/art-framework-suite/messagefacility"
 
     version_patterns = ["v2_08_00"]
 

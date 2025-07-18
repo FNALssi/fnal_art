@@ -17,7 +17,7 @@ class Art(CMakePackage, FnalGithubPackage):
     """
 
     homepage = "https://art.fnal.gov/"
-    repo = "art-framework-suite/art"
+    git = "https://github.com/art-framework-suite/art"
 
     version_patterns = ["v3_04_00"]
 

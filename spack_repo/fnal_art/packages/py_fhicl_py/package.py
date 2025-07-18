@@ -11,7 +11,7 @@ class PyFhiclPy(CMakePackage, FnalGithubPackage):
     """Python bindings for the FHiCL configuration language."""
 
     homepage = "https://art.fnal.gov/"
-    repo = "art-framework-suite/fhicl-py"
+    git = "https://github.com/art-framework-suite/fhicl-py"
 
     version_patterns = ["v4_04_04"]
 

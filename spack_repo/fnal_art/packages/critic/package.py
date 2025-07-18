@@ -5,7 +5,7 @@
 
 import os
 
-import llnl.util.tty as tty
+import spack.llnl.util.tty as tty
 
 from spack_repo.builtin.build_systems.cmake import CMakePackage
 from spack.package import *
@@ -34,7 +34,7 @@ class Critic(CMakePackage, FnalGithubPackage):
     """
 
     homepage = "https://art.fnal.gov/"
-    repo = "art-framework-suite/critic"
+    git = "https://github.com/art-framework-suite/critic"
 
     version_patterns = ["v2_12_02"]
 
