@@ -29,7 +29,16 @@ class Castxml(CMakePackage):
 
     homepage = "https://github.com/CastXML/CastXML"
     url = "https://github.com/CastXML/CastXML/archive/v0.2.0.tar.gz"
-
+    version("0.6.11", sha256="fc5b49f802b67f98ecea10564bc171c660020836a48cecefc416681a2d2e1d3d")
+    version("0.6.10", sha256="d8498b39b4cf3d57671254056013de177f47fc7a2683f1a53049ab854d85ad55")
+    version("0.6.9", sha256="aef0655824a88ba0eeb970d29b9b28f0a47b6bfd17bcf5d8a73060572045fa4e")
+    version("0.6.8", sha256="b517a9d18ddb7f71b3b053af61fc393dd81f17911e6c6d53a85f3f523ba8ad64")
+    version("0.6.7", sha256="faba45ec7e657dc44de39e5640c25354bbe33eaf5d46d65b1094b05586140304")
+    version("0.6.6", sha256="f36ad7bee85a78c57e97311bae3828a70dd02422a2a81ff89e6f62273c682416")
+    version("0.6.5", sha256="fea4754bdb1fb4496fec12352e2bd07854843aa757e85d0553f224ff0111c482")
+    version("0.6.4", sha256="86d02c7ed743122ce8c6d888c643da92fb7515da04577a933d33180fb7731872")
+    version("0.6.3", sha256="057485afdc8ca0536841cc7b4178a3792ed4dc107be24547dc75b80efc807166")
+    version("0.6.2", sha256="9bb108de1b3348a257be5b08a9f8418f89fdcd4af2e6ee271d68b0203ac75d5e")
     version("0.5.1", sha256="a7b40b1530585672f9cf5d7a6b6dd29f20c06cd5edf34ef34c89a184a4d1a006")
     version("0.3.6", sha256="e51a26704864c89036a0a69d9f29c2a522a9fa09c1009e8b8169a26480bb2993")
     version("0.3.5", sha256="397044081363da0f3e50aff995f71b68aedd194d034caa50869224a4e6784c3b")
@@ -45,7 +54,7 @@ class Castxml(CMakePackage):
     depends_on("cxx", type="build")
 
     # FIXME: Add dependencies if required.
-    depends_on('llvm@15.0.7')
+    depends_on('llvm')
 
     def cmake_args(self):
         # FIXME: Add arguments other than
