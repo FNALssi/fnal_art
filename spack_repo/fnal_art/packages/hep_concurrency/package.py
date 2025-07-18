@@ -14,7 +14,7 @@ class HepConcurrency(CMakePackage, FnalGithubPackage):
     """A concurrency library for the art suite."""
 
     homepage = "https://art.fnal.gov/"
-    repo = "art-framework-suite/hep-concurrency"
+    git = "https://github.com/art-framework-suite/hep-concurrency"
 
     version_patterns = ["v1_07_04"]
 

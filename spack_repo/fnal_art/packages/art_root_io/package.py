@@ -15,7 +15,7 @@ class ArtRootIo(CMakePackage, FnalGithubPackage):
     """Root-based input/output for the art suite."""
 
     homepage = "https://art.fnal.gov/"
-    repo = "art-framework-suite/art-root-io"
+    git = "https://github.com/art-framework-suite/art-root-io"
 
     version_patterns = ["v1_08_03"]
 

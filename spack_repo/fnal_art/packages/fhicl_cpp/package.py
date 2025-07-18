@@ -16,7 +16,7 @@ class FhiclCpp(CMakePackage, FnalGithubPackage):
     """
 
     homepage = "https://art.fnal.gov/"
-    repo = "art-framework-suite/fhicl-cpp"
+    git = "https://github.com/art-framework-suite/fhicl-cpp"
 
     version_patterns = ["v4_15_03"]
 

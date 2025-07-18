@@ -34,7 +34,7 @@ class Critic(CMakePackage, FnalGithubPackage):
     """
 
     homepage = "https://art.fnal.gov/"
-    repo = "art-framework-suite/critic"
+    git = "https://github.com/art-framework-suite/critic"
 
     version_patterns = ["v2_12_02"]
 

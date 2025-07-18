@@ -14,7 +14,7 @@ class Canvas(CMakePackage, FnalGithubPackage):
     """The underpinnings for the art suite."""
 
     homepage = "https://art.fnal.gov/"
-    repo = "art-framework-suite/canvas"
+    git = "https://github.com/art-framework-suite/canvas"
 
     version_patterns = ["v3_12_04"]
 
