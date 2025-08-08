@@ -3,55 +3,45 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
-# ----------------------------------------------------------------------------
-# If you submit this package back to Spack as a pull request,
-# please first remove this boilerplate and all FIXME comments.
-#
-# This is a template package file for Spack.  We've put "FIXME"
-# next to all the things you'll want to change. Once you've handled
-# them, you can save this file and test your package like this:
-#
-#     spack install systematicstools
-#
-# You can edit this file again by typing:
-#
-#     spack edit systematicstools
-#
-# See the Spack documentation for more information on packaging.
-# ----------------------------------------------------------------------------
-
 from spack_repo.builtin.build_systems.cmake import CMakePackage
 from spack.package import *
 
 
 class Systematicstools(CMakePackage):
-    """FIXME: Put a proper description of your package here."""
+    """Framework for writing, using and interpreting experimental systematic uncertainties."""
 
-    # FIXME: Add a proper url for your package's homepage here.
-    homepage = "https://www.example.com"
-    url = "https://github.com/LArSoft/systematicstools/archive/refs/tags/v01_04_02.tar.gz"
+    homepage = "https://github.com/LArSoft/systematicstools"
+    url = "https://github.com/LArSoft/systematicstools/archive/v01_04_02.tar.gz"
+
+    def url_for_version(self, version):
+        return f"https://github.com/LArSoft/systematicstools/archive/v{version.underscored}.tar.gz"
 
     # FIXME: Add a list of GitHub accounts to
     # notify when the package is updated.
     # maintainers("github_user1", "github_user2")
 
-    # FIXME: Add the SPDX identifier of the project's license below.
-    # See https://spdx.org/licenses/ for a list.
-    license("UNKNOWN")
+    version("01.04.02", sha256="0e14b9736b31b7911307e8703d0f386f2a1fb5c1dcaa69a8d7ce9916afb974cd")
 
-    version("01_04_02", sha256="0e14b9736b31b7911307e8703d0f386f2a1fb5c1dcaa69a8d7ce9916afb974cd")
+    variant(
+        "cxxstd",
+        default="17",
+        values=("17", "20", "23"),
+        multi=False,
+        sticky=True,
+        description="C++ standard",
+    )
+
+    # include cstdint
+    patch("01_04_02.patch", when="@=01.04.02",
+          sha256="170e1254063f4ced77dd760555696a7aa721fd2b6b4a0e324ac58f379abd7691")
 
     depends_on("c", type="build")
     depends_on("cxx", type="build")
-
-    # FIXME: Add dependencies if required.
-    depends_on("art-root-io")
     depends_on("cetmodules", type="build")
-    depends_on("cmake", type="build")
+
+    depends_on("art-root-io")
 
     def cmake_args(self):
-        # FIXME: Add arguments other than
-        # FIXME: CMAKE_INSTALL_PREFIX and CMAKE_BUILD_TYPE
-        # FIXME: If not needed delete this function
-        args = []
-        return args
+        return [
+            self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd"),
+        ]
