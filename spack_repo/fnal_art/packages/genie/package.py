@@ -26,7 +26,8 @@ class Genie(AutotoolsPackage):
             version.underscored
         )
 
-    version("3.04.02", sha256="c5935aea86d2ba9897ab55bb581622c561575957d19e572691d3bc0833ed9512", preferred=True)
+    version("3.06.02", sha256="5770346d888bbac7a80872e7aa01953437ab867e335e39cc7412c9b83a0b4e2a")
+    version("3.04.02", sha256="c5935aea86d2ba9897ab55bb581622c561575957d19e572691d3bc0833ed9512")
     version("3.04.00", sha256="72cf8a119cc59d03763b11afad1a82c0974a06677bf1c154b7c2a90d9f1529c1")
     version("3.00.06", sha256="ab56ea85d0c1d09029254365bfe75a1427effa717389753b9e0c1b6c2eaa5eaf")
     version("3.00.04", sha256="53f034618fef9f7f0e17d1c4ed72743e4bba590e824b795177a1a8a8486c861e")
@@ -34,7 +35,7 @@ class Genie(AutotoolsPackage):
     version("3.0.0b4", sha256="41100dd5141a7e2c934faaaf22f244deda08ab7f03745976dfed0f31e751e24e")
     version("3.00.00", sha256="3953c7d9f1f832dd32dfbc0b9260be59431206c204aec6ab0aa68c01176f2ae6")
 
-    # parallel = False
+    parallel = False
 
     resource(
         name="reweight",
@@ -55,7 +56,15 @@ class Genie(AutotoolsPackage):
         url="https://github.com/GENIE-MC/Reweight/archive/R-1_02_02.tar.gz",
         sha256="741b323381079d0764b14095b12a16049930cbdfac182110fdda3c3263fb37b3",
         placement="Reweight",
-        when="@3.04.00:",
+        when="@3.04",
+    )
+
+    resource(
+        name="reweight",
+        url="https://github.com/GENIE-MC/Reweight/archive/R-1_04_02.tar.gz",
+        sha256="d0d0ebcbb47936bd1b5f3efa07782589208e830ed019922a3daee267d781fa6a",
+        placement="Reweight",
+        when="@3.06:",
     )
 
 
@@ -90,7 +99,7 @@ class Genie(AutotoolsPackage):
     patch("patch/genie-r30006.patch", when="@3.00.06")
 
     patch("patch/sles-cnl.patch", when="platform=cray")
-    patch("patch/root_subdir.patch")
+    patch("patch/root_subdir.patch", when="@:3.04")
 
     patch("patch/GENIE-Generator.patch", when="@3.04.00")
     patch("patch/GENIE-Reweight.patch", when="@3.04.02", level=0)
