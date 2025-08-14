@@ -36,7 +36,7 @@ class CanvasRootIo(CMakePackage, FnalGithubPackage):
     patch("test_build.patch", when="@:1.11.00")
     patch("https://github.com/art-framework-suite/canvas-root-io/commit/5d7c0bf55d54e907bd4be16d250da597aed595a5.patch",
           sha256="bbb18b97a0d93bd3c8243172aab9ff4958fe9ab1d22e263c1fda19eebf827b47",
-          when="%root@6.26:")
+          when="%root@6.36:")
 
     requires("%gcc@:12", when="@:1.09")
 
