@@ -11,6 +11,7 @@ class Nucondb(MakefilePackage):
     """Data handling client code for intensity frontier experiments"""
 
     homepage = "https://github.com/fnal-fife/nucondb"
+    git = "https://github.com/fnal-fife/nucondb"
     git_base = "https://github.com/fnal-fife/nucondb.git"
     url = "https://github.com/fnal-fife/nucondb/archive/refs/tags/v2_6_14.tar.gz"
     list_url = "https://github.com/fnal-fife/nucondb/tags"
