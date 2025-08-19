@@ -130,6 +130,7 @@ class Genie(AutotoolsPackage):
                 [
                     "--with-pythia6-lib={0}".format(self.spec["pythia6"].prefix.lib),
                 ]
+            )
         if self.spec.satisfies("^lhapdf@6:"):
             args.extend(
                 [
