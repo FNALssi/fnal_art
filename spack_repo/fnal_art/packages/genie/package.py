@@ -119,13 +119,17 @@ class Genie(AutotoolsPackage):
             "--enable-event-server",
             "--enable-nucleon-decay",
             "--enable-nnbar-oscillation",
-            "--with-pythia6-lib={0}".format(self.spec["pythia6"].prefix.lib),
             "--with-libxml2-inc={0}/libxml2".format(self.spec["libxml2"].prefix.include),
             "--with-libxml2-lib={0}".format(self.spec["libxml2"].prefix.lib),
             "--with-log4cpp-inc={0}".format(self.spec["log4cpp"].prefix.include),
             "--with-log4cpp-lib={0}".format(self.spec["log4cpp"].prefix),
             "--with-optimiz-level=O3",
         ]
+        if self.spec.satisfies("+pythia6"):
+            args.extend(
+                [
+                    "--with-pythia6-lib={0}".format(self.spec["pythia6"].prefix.lib),
+                ]
         if self.spec.satisfies("^lhapdf@6:"):
             args.extend(
                 [
