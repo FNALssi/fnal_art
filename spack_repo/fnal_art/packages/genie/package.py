@@ -129,6 +129,13 @@ class Genie(AutotoolsPackage):
             args.extend(
                 [
                     "--with-pythia6-lib={0}".format(self.spec["pythia6"].prefix.lib),
+                    "--enable-pythia6"
+                ]
+            )
+        if self.spec.satisfies("~pythia6"):
+            args.extend(
+                [
+                    "--disable-pythia6"
                 ]
             )
         if self.spec.satisfies("^lhapdf@6:"):
