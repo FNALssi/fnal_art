@@ -1,5 +1,5 @@
 --- src/make/Make.std-package-targets	2025-07-01 09:31:59.000000000 -0500
-+++ src/make/Make.std-package-targets.bak	2025-08-28 16:17:34.992240839 -0500
++++ src/make/Make.std-package-targets	2025-08-28 16:17:34.992240839 -0500
 @@ -58,12 +58,13 @@
          # set include path to those
          # lots of possible include paths to try to catch all cases of in situ, installed
