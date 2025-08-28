@@ -121,7 +121,7 @@ class Genie(AutotoolsPackage):
             "--with-libxml2-inc={0}/libxml2".format(self.spec["libxml2"].prefix.include),
             "--with-libxml2-lib={0}".format(self.spec["libxml2"].prefix.lib),
             "--with-log4cpp-inc={0}".format(self.spec["log4cpp"].prefix.include),
-            "--with-log4cpp-lib={0}".format(self.spec["log4cpp"].prefix),
+            "--with-log4cpp-lib={0}".format(self.spec["log4cpp"].prefix.lib),
             "--with-optimiz-level=O3",
         ]
         if self.spec.satisfies("^lhapdf@6:"):
