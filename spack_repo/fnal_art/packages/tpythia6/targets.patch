@@ -1,5 +1,5 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 5fa0507..2261f5b 100644
+index 5fa0507..43676fa 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -11,14 +11,18 @@ src/TPythia6Decayer.cxx
@@ -20,5 +20,5 @@ index 5fa0507..2261f5b 100644
  
  ROOT_GENERATE_DICTIONARY(EGPythia6_dict inc/TMCParticle.h inc/TPythia6.h inc/TPythia6Decayer.h inc/TPythia6Calls.h MODULE EGPythia6 LINKDEF inc/LinkDef.h)
 +install(TARGETS ${LIBRARY_NAME})
-+install(FILES inc/TPythia6.h DESTINATION include)
++install(FILES inc/TPythia6.h inc/TPythia6Calls.h inc/TPythia6Decayer.h inc/TMCParticle.h DESTINATION include)
 +install(FILES ${CMAKE_CURRENT_BINARY_DIR}/lib${LIBRARY_NAME}.rootmap DESTINATION lib) 
