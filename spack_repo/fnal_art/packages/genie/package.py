@@ -162,6 +162,9 @@ class Genie(AutotoolsPackage):
 
     @run_before("build")
     def add_to_make_env(self):
+        inspect.getmodule(self).make.add_default_env(
+            "TPYTHIA6_INC", self.spec["tpythia6"].prefix.include
+        )
         inspect.getmodule(self).make.add_default_env("GENIE", self.stage.source_path)
         inspect.getmodule(self).make.add_default_env(
             "GENIE_REWEIGHT", "{0}/Reweight".format(self.stage.source_path)
