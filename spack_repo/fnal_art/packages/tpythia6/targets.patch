@@ -1,0 +1,24 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 5fa0507..2261f5b 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -11,14 +11,18 @@ src/TPythia6Decayer.cxx
+ )
+ 
+ find_package(ROOT)
++find_package(Pythia6)
+ 
+ Set(LIBRARY_NAME EGPythia6)
+ 
+ add_library(${LIBRARY_NAME} SHARED ${SRCS})
+ target_include_directories(${LIBRARY_NAME} PUBLIC inc/)
+-target_link_libraries(${LIBRARY_NAME} ${PYTHIA6_ROOT}/lib/libpythia6.so ${PYTHIA6_ROOT}/lib/libPythia6.so)
++target_link_libraries(${LIBRARY_NAME} Pythia6::Pythia6 )
+ target_link_libraries(${LIBRARY_NAME} ${ROOT_LIBRARIES})
+ target_link_libraries(${LIBRARY_NAME})
+ target_include_directories(${LIBRARY_NAME} PUBLIC ${ROOT_INCLUDE_DIRS})
+ 
+ ROOT_GENERATE_DICTIONARY(EGPythia6_dict inc/TMCParticle.h inc/TPythia6.h inc/TPythia6Decayer.h inc/TPythia6Calls.h MODULE EGPythia6 LINKDEF inc/LinkDef.h)
++install(TARGETS ${LIBRARY_NAME})
++install(FILES inc/TPythia6.h DESTINATION include)
++install(FILES ${CMAKE_CURRENT_BINARY_DIR}/lib${LIBRARY_NAME}.rootmap DESTINATION lib) 
