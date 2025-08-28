@@ -89,7 +89,6 @@ class Genie(AutotoolsPackage):
     depends_on("root cxxstd=17", when="cxxstd=17")
     depends_on("root cxxstd=17", when="cxxstd=default")
     depends_on("root cxxstd=20", when="cxxstd=20")
-
     depends_on("tpythia6")
     depends_on("pythia6+root")
     depends_on("libxml2")
@@ -104,6 +103,8 @@ class Genie(AutotoolsPackage):
 
     patch("patch/GENIE-Generator.patch", when="@3.04.00")
     patch("patch/GENIE-Reweight.patch", when="@3.04.02", level=0)
+
+    patch("patch/tpythia6.patch", when="@3.06.02:")
 
     # @when("os=almalinux9") patch should be applied on polaris too
     def patch(self):
