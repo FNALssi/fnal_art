@@ -26,7 +26,7 @@ class Tpythia6(CMakePackage, FnalGithubPackage):
     depends_on("cxx", type="build")
     depends_on("nufinder", type="build")
     depends_on("root")
-    depends_on("pythia6")
+    depends_on("pythia6+root")
 
     def cmake_args(self):
         args = [
