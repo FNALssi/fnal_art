@@ -12,7 +12,7 @@ class Tpythia6(CMakePackage, FnalGithubPackage):
 
     homepage = "https://github.com/ShipSoft/TPythia6"
     url = "https://github.com/ShipSoft/TPythia6"
-
+    git="https://github.com/ShipSoft/TPythia6.git"
     maintainers("gartung")
 
     license("LGPL2_1", checked_by="gartung")
