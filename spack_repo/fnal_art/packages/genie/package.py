@@ -35,6 +35,8 @@ class Genie(AutotoolsPackage):
     version("3.0.0b4", sha256="41100dd5141a7e2c934faaaf22f244deda08ab7f03745976dfed0f31e751e24e")
     version("3.00.00", sha256="3953c7d9f1f832dd32dfbc0b9260be59431206c204aec6ab0aa68c01176f2ae6")
 
+    parallel = False
+
     resource(
         name="reweight",
         url="https://github.com/GENIE-MC/Reweight/archive/R-1_00_02.tar.gz",
