@@ -102,7 +102,7 @@ class Genie(AutotoolsPackage):
     patch("patch/GENIE-Generator.patch", when="@3.04.00")
     patch("patch/GENIE-Reweight.patch", when="@3.04.02", level=0)
 
-    patch("patch/tpythia6.patch", when="@3.06.02:")
+    patch("patch/tpythia6.patch", when="@3.06.02:", level=0)
 
     # @when("os=almalinux9") patch should be applied on polaris too
     def patch(self):
