@@ -225,6 +225,8 @@ class Genie(AutotoolsPackage):
             cxxstd = self.spec.variants["cxxstd"].value
             if cxxstd != "default":
                 flags.append(getattr(self.compiler, f"cxx{cxxstd}_flag"))
+            if cxxstd == "20":
+                flags.append("-Wno-error")
         return (flags, None, None)
 
     def setup_run_environment(self, run_env):
