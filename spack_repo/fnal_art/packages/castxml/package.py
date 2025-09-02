@@ -53,12 +53,19 @@ class Castxml(CMakePackage):
     depends_on("c", type="build")
     depends_on("cxx", type="build")
 
-    # FIXME: Add dependencies if required.
     depends_on('llvm')
+    depends_on('z3')
+
+    def patch(self):
+        filter_file(
+            'find_package\(Clang QUIET\)',
+            'find_package(Z3 REQUIRED)\nfind_package(Clang QUIET)',
+            'CMakeLists.txt'
+            )
 
     def cmake_args(self):
-        # FIXME: Add arguments other than
-        # FIXME: CMAKE_INSTALL_PREFIX and CMAKE_BUILD_TYPE
-        # FIXME: If not needed delete this function
-        args = []
+        args = [
+            'Clang_DIR=%s' % self.spec['llvm'].prefix.lib.cmake.clang,
+            'LLVM_DIR=%s' %   self.spec['llvm'].prefix.lib.cmake.llvm,
+            ]
         return args
