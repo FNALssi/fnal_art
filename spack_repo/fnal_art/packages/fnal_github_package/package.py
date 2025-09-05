@@ -128,7 +128,10 @@ class FnalGithubPackage(Package):
         return f"{self.git}/tags"
 
     def _url_for_tag(self, version_str):
-        return f"{self.git}/archive/refs/tags/{version_str}.tar.gz"
+        git =  self.git.replace(".git","")
+        if self.git.find("DUNE") > 0:
+            version_str = "v"+str(version_str)
+        return f"{git}/archive/refs/tags/{version_str}.tar.gz"
 
     @property
     @cache_property
