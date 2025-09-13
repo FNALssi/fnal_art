@@ -16,7 +16,8 @@ class GeniePhyopt(Package):
     homepage = "https://www.example.com"
     url = "https://scisoft.fnal.gov/scisoft/packages/genie_phyopt/v3_04_00/genie_phyopt-3.04.00-noarch-dkcharm.tar.bz2"
     version(
-        "3.04.00", sha256="c4a5360e379d371df2b2e845aee673b984a2f0f6ba62dae682f8cb0223e84a0f", expand=False
+        "3.04.00", sha256="c4a5360e379d371df2b2e845aee673b984a2f0f6ba62dae682f8cb0223e84a0f", expand=False,
+        url = "https://scisoft.fnal.gov/scisoft/packages/genie_phyopt/v3_04_00/genie_phyopt-3.04.00-noarch-dkcharm.tar.bz2"
     )
 
     variant(
