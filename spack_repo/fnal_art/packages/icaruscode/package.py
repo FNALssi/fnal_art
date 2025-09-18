@@ -166,8 +166,10 @@ class Icaruscode(CMakePackage):
 
     @property
     def cmake_prefix_paths(self):
-        return "{0}/lib/python{1}/site-packages/torch".format(
+        return [self.prefix,
+                "{0}/lib/python{1}/site-packages/torch".format(
                 self.spec["py-torch"].prefix, self.spec["python"].version.up_to(2))
+                ]
 
     def setup_build_environment(self, spack_env):
         spack_env.set("CETBUILDTOOLS_VERSION", self.spec["cetmodules"].version)
