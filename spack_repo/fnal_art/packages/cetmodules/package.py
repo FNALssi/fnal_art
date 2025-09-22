@@ -22,6 +22,8 @@ class Cetmodules(CMakePackage):
 
     version("develop", branch="develop", get_full_repo=True)
 
+    version("4.01.01", sha256="3e72cb7a3e8742269547e140016c4867786b2d9a4216007e0db7faef1af93a73")
+    version("4.01.00", sha256="0b9eda8a0becdfa2306d770b6bf0498fcde5e62b581959463f5205aaea9201d6")
     version("4.00.00", sha256="46a305c1036d3227c71f98cab2f32b3e28bfa076173ac8b37f82136a94033d37")
     version("3.27.03", sha256="30553c68dd1aa3a48901082217c4306e62bdca2ac25a00445d89125e9894b162")
     version("3.27.02", sha256="b6d902b283ef1d7a7ad46da1356826427a1957228ffe8cb7d7fb063ce7ca6d30")
@@ -56,6 +58,7 @@ class Cetmodules(CMakePackage):
     depends_on("cmake@3.20:", when="@3.03.00:", type=("build", "run"))
     depends_on("cmake@3.21:", when="@3.22.02:", type=("build", "run"))
     depends_on("cmake@3.22:", when="@3.23.00:", type=("build", "run"))
+    depends_on("cmake@3.24:", when="@4.00.00:", type=("build", "run"))
 
     with when("+versioned-docs") or when("+docs"):
         depends_on("git@2.22:", type="build")
