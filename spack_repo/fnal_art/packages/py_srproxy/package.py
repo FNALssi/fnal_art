@@ -5,7 +5,7 @@
 
 from spack_repo.builtin.build_systems.generic import Package
 from spack.package import *
-
+import os, stat
 
 class PySrproxy(Package):
     """FIXME: Put a proper description of your package here."""
@@ -13,7 +13,7 @@ class PySrproxy(Package):
     homepage = "https://github.com/cafana/SRProxy/"
     url = "https://github.com/cafana/SRProxy/archive/v00.44.tar.gz"
 
-#    version("00.45", sha256="be614ac5637796f0a16f3480caacfd647abcfa8992a47556f63a5aefe4f2f85e")
+    version("00.45", sha256="be614ac5637796f0a16f3480caacfd647abcfa8992a47556f63a5aefe4f2f85e")
     version("00.44", sha256="8bdefc5031033c847f2300aebd853b4ee71811fd63d4d360e85e58d41f956381")
     version("00.43", sha256="c64d6b567e3f49e52528bbd741fd849fd37a350cf1d8d59720c21af3646beade")
     version("00.35", sha256="dc78f8fe8b188728c361d8d02ce5aada9ddaf0b89713bd56feb83a1135cf2b37")
@@ -35,3 +35,11 @@ class PySrproxy(Package):
 
     def setup_dependent_build_env(self, spack_env, dspec):
         spack_env.set("SRPROXY_DIR", self.prefix)
+
+    @run_after('install')
+    def set_execute_premissions(self):
+        entry=join_path(self.prefix.bin, "gen_srproxy")
+        mode = os.stat(entry,st_mode)
+        if os.path.isfile(entry):
+            perms = mode | (stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
+            os.chmod(entry, perms)
