@@ -39,7 +39,7 @@ class PySrproxy(Package):
     @run_after('install')
     def set_execute_premissions(self):
         entry=join_path(self.prefix.bin, "gen_srproxy")
-        mode = os.stat(entry,st_mode)
+        mode = os.stat(entry).st_mode
         if os.path.isfile(entry):
             perms = mode | (stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
             os.chmod(entry, perms)
