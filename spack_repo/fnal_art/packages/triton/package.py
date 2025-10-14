@@ -6,7 +6,7 @@
 
 import os
 
-from spack_repo.builtin.build_systems.cmake import CMakePackage
+from spack_repo.builtin.build_systems.cmake import CMakePackage, generator
 from spack.package import *
 
 
@@ -21,6 +21,8 @@ class Triton(CMakePackage):
     version( "23.09", sha256="33ece9b6a0ee3c6b198afde5e955ec53bb5c2c30eafbb80f9bd940619f14307b")
 
     variant("cuda", default=False)
+
+    generator("make")
 
     depends_on("c", type="build")
     depends_on("cxx", type="build")
