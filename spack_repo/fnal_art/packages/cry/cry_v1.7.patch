@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Fermilab Redmine</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Redmine" />
+<meta name="keywords" content="issue,bug,tracker" />
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="FIXyy8cwHXUxrr+BazLrvvTfGaYpslsCwcsOX1YpY6bcrLCHZq3d9B3XzCDvqJCo7p79fBiYp/nsKJBJ4Ubhlw==" />
+<link rel='shortcut icon' href='/redmine/favicon.ico?1751922303' />
+<link rel="stylesheet" media="all" href="/redmine/stylesheets/jquery/jquery-ui-1.13.2.css?1751922303" />
+<link rel="stylesheet" media="all" href="/redmine/stylesheets/tribute-5.1.3.css?1751922303" />
+<link rel="stylesheet" media="all" href="/redmine/stylesheets/application.css?1751922303" />
+<link rel="stylesheet" media="all" href="/redmine/stylesheets/responsive.css?1751922303" />
+
+<script src="/redmine/javascripts/jquery-3.6.1-ui-1.13.2-ujs-6.1.7.6.js?1751922303"></script>
+<script src="/redmine/javascripts/tribute-5.1.3.min.js?1751922303"></script>
+<script src="/redmine/javascripts/tablesort-5.2.1.min.js?1751922303"></script>
+<script src="/redmine/javascripts/tablesort-5.2.1.number.min.js?1751922303"></script>
+<script src="/redmine/javascripts/application.js?1751922303"></script>
+<script src="/redmine/javascripts/responsive.js?1751922303"></script>
+<script>
+//<![CDATA[
+$(window).on('load', function(){ warnLeavingUnsaved('The current page contains unsaved text that will be lost if you leave this page.'); });
+//]]>
+</script>
+
+<script>
+//<![CDATA[
+rm = window.rm || {};rm.AutoComplete = rm.AutoComplete || {};rm.AutoComplete.dataSources = JSON.parse('{"issues":"/redmine/issues/auto_complete?q=","wiki_pages":"/redmine/wiki_pages/auto_complete?q="}');
+//]]>
+</script>
+<script src="/redmine/plugin_assets/redmine_sortable_table/javascripts/sortable_table.js?1758124868"></script><link rel="stylesheet" media="screen" href="/redmine/plugin_assets/redmine_sortable_table/stylesheets/sortable_table.css?1758124868" />
+<!-- page specific tags -->
+</head>
+<body class="controller-account action-login avatars-off">
+
+<div id="wrapper">
+
+<div class="flyout-menu js-flyout-menu">
+
+
+
+
+    <h3>General</h3>
+    <span class="js-general-menu"></span>
+
+    <span class="js-sidebar flyout-menu__sidebar"></span>
+
+    <h3>Profile</h3>
+    <span class="js-profile-menu"></span>
+
+</div>
+
+
+<div id="top-menu">
+    <div id="account">
+        <ul><li><a class="login" href="/redmine/login">Sign in</a></li><li><a class="managed-groups" href="/redmine/show_assignees">My Groups</a></li></ul>    </div>
+    
+    </div>
+
+<div id="header">
+
+    <a href="#" class="mobile-toggle-button js-flyout-menu-toggle-button"></a>
+
+
+    <h1>Fermilab Redmine</h1>
+
+</div>
+
+<div id="main" class="nosidebar">
+    <div id="sidebar">
+        
+        
+    </div>
+
+    <div id="content">
+        
+        
+
+<div id="login-form">
+  <form onsubmit="return keepAnchorOnSignIn(this);" action="/redmine/login" accept-charset="UTF-8" name="form-de5dbb30" method="post"><input name="utf8" type="hidden" value="&#x2713;" autocomplete="off" /><input type="hidden" name="authenticity_token" value="CsBTej0z7eC4rpgzBjjr//YN5iulbYqubWupl+jp4K7C6RE2nK4tYZTX65KCopDp7EwC8ZRHdlVAiDeBX4Zinw==" autocomplete="off" />
+  <input type="hidden" name="back_url" value="/redmine/projects/build-framework/repository/cry-ssi-build/revisions/master/raw/patch/cry_v1.7.patch" autocomplete="off" />
+  
+  <label for="username">Login</label>
+  <input type="text" name="username" id="username" tabindex="1" autocomplete="username" autofocus="autofocus" />
+  
+  <label for="password">
+    Password
+    
+  </label>
+  <input type="password" name="password" id="password" tabindex="2" autocomplete="current-password" />
+  
+  
+  <input type="submit" name="login" value="Login" tabindex="5" id="login-submit" />
+</form></div>
+
+
+
+        
+        <div style="clear:both;"></div>
+    </div>
+</div>
+<div id="footer">
+    Powered by <a target="_blank" rel="noopener" href="https://www.redmine.org/">Redmine</a> &copy; 2006-2025 Jean-Philippe Lang
+</div>
+
+<div id="ajax-indicator" style="display:none;"><span>Loading...</span></div>
+<div id="ajax-modal" style="display:none;"></div>
+
+</div>
+
+</body>
+</html>
