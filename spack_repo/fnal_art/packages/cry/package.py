@@ -45,6 +45,9 @@ class Cry(MakefilePackage):
 
     patch('cry_v1.7.patch')
 
+    def patch(self):
+        filter_file('C test', 'C test LD_LIBRARY_PATH=../lib', 'Makefile')
+
     @run_before("build")
     def filter_makefile(self):
         makefile = FileFilter("Makefile.common")
