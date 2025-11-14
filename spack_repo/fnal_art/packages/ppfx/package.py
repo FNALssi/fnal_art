@@ -25,6 +25,7 @@ class Ppfx(CMakePackage):
 
     version("02.20.05", sha256="0ed800f6f358d960f5586bd2b73441660dfa266a59daaf18c2e8fbc24a13cedb")
     version("02.20.03", sha256="2a6f19f615da6d18eb48bbebdeb4785c2663e3255ffc7a8fe8f05a822c1b7c0a")
+    version("02.18.05", sha256="690c61d5e5dc2bf1d6aa2e09906704b3247f2cb12aa14a70a514d7b2197ca5d9")
     version("02.18.03", sha256="32bab85a7d98b06ecfd76fe57df28cef7fb826ab8fd89ab1bb56f34ab8260040")
     version("develop", branch="develop", get_full_repo=True)
 
