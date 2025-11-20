@@ -43,7 +43,7 @@ class Triton(CMakePackage):
     depends_on("py-setuptools", type="build")
     depends_on("py-wheel", type="build")
     depends_on("py-grpcio@1.60.1", type=("build", "run"))
-    depends_on("py-grpcio-tools@1.60.1", type=("build", "run"))
+    depends_on("py-grpcio-tools@1.60.2", type=("build", "run"))
     depends_on("py-numpy", type=("build","run"))
     depends_on("py-geventhttpclient", type=("build","run"))
     depends_on("py-python-rapidjson", type=("build","run"))
