@@ -18,7 +18,8 @@ class Triton(CMakePackage):
 
     maintainers = ["marcmengel"]
 
-    version( "23.09", sha256="33ece9b6a0ee3c6b198afde5e955ec53bb5c2c30eafbb80f9bd940619f14307b")
+    version("25.09", sha256="303740b02b5b73b07a0641845891a2f24d16856fc7335650c5777a6a7713f5b0")
+    version("23.09", sha256="33ece9b6a0ee3c6b198afde5e955ec53bb5c2c30eafbb80f9bd940619f14307b")
 
     variant("cuda", default=False)
 
