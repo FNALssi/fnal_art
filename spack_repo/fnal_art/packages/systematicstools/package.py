@@ -34,6 +34,9 @@ class Systematicstools(CMakePackage):
     # include cstdint
     patch("01_04_02.patch", when="@=01.04.02",
           sha256="170e1254063f4ced77dd760555696a7aa721fd2b6b4a0e324ac58f379abd7691")
+    patch("01_04_04.patch", when="@=01.04.04",
+          sha256="42cb526cf7da40f54277454addfc71ad4adfa9a00b44737f7c6371eceed27bba")
+
 
     depends_on("c", type="build")
     depends_on("cxx", type="build")
