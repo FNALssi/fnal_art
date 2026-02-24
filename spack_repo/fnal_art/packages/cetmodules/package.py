@@ -22,6 +22,7 @@ class Cetmodules(CMakePackage):
 
     version("develop", branch="develop", get_full_repo=True)
 
+    version("4.02.00", sha256="431940833989cbb47879fcab27e2ce1778cdeb0e95a4ab26aa20aba942de836a")
     version("4.01.01", sha256="3e72cb7a3e8742269547e140016c4867786b2d9a4216007e0db7faef1af93a73")
     version("4.01.00", sha256="0b9eda8a0becdfa2306d770b6bf0498fcde5e62b581959463f5205aaea9201d6")
     version("4.00.00", sha256="46a305c1036d3227c71f98cab2f32b3e28bfa076173ac8b37f82136a94033d37")
