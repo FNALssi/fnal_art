@@ -10,15 +10,14 @@ from spack.package import *
 class Systematicstools(CMakePackage):
     """Framework for writing, using and interpreting experimental systematic uncertainties."""
 
-    homepage = "https://github.com/LArSoft/systematicstools"
+    homepage = "https://github.com/NuSystematics/systematicstools"
     url = "https://github.com/LArSoft/systematicstools/archive/v01_04_02.tar.gz"
 
     def url_for_version(self, version):
-        return f"https://github.com/LArSoft/systematicstools/archive/v{version.underscored}.tar.gz"
+        org = "NuSystematics" if version[0] >= 2 else "LArSoft"
+        return f"https://github.com/{org}/systematicstools/archive/v{version.underscored}.tar.gz"
 
-    # FIXME: Add a list of GitHub accounts to
-    # notify when the package is updated.
-    # maintainers("github_user1", "github_user2")
+    version("02.00.03", sha256="c323bcd68d931df56d5fda97c5777277de3bfb5451de7c090207053a87ff6a53")
     version("01.04.04", sha256="7436341f63ea205d8b901b75859a26ec81f29fd272bf324c7bdcde713a3b937c")
     version("01.04.02", sha256="0e14b9736b31b7911307e8703d0f386f2a1fb5c1dcaa69a8d7ce9916afb974cd")
 
@@ -40,6 +39,9 @@ class Systematicstools(CMakePackage):
     depends_on("cetmodules", type="build")
 
     depends_on("art-root-io")
+
+    def setup_build_environment(self, env):
+        env.set("CPM_LOCAL_PACKAGES_ONLY", "1")
 
     def cmake_args(self):
         return [

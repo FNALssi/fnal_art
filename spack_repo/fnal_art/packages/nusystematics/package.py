@@ -3,41 +3,24 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
-# ----------------------------------------------------------------------------
-# If you submit this package back to Spack as a pull request,
-# please first remove this boilerplate and all FIXME comments.
-#
-# This is a template package file for Spack.  We've put "FIXME"
-# next to all the things you'll want to change. Once you've handled
-# them, you can save this file and test your package like this:
-#
-#     spack install nusystematics
-#
-# You can edit this file again by typing:
-#
-#     spack edit nusystematics
-#
-# See the Spack documentation for more information on packaging.
-# ----------------------------------------------------------------------------
-
 from spack_repo.builtin.build_systems.cmake import CMakePackage
 from spack.package import *
 
 
 class Nusystematics(CMakePackage):
-    """FIXME: Put a proper description of your package here."""
+    """Neutrino interaction systematics for GENIE3 events."""
 
-    # FIXME: Add a proper url for your package's homepage here.
-    homepage = "https://www.example.com"
-    url = "https://github.com/LArSoft/nusystematics/archive/refs/tags/1.05.07.tar.gz"
-    # FIXME: Add a list of GitHub accounts to
-    # notify when the package is updated.
-    # maintainers("github_user1", "github_user2")
+    homepage = "https://github.com/NuSystematics/nusystematics"
+    url = "https://github.com/LArSoft/nusystematics/archive/v1_05_07.tar.gz"
 
-    # FIXME: Add the SPDX identifier of the project's license below.
-    # See https://spdx.org/licenses/ for a list.
+    def url_for_version(self, version):
+        org = "NuSystematics" if version[0] >= 2 else "LArSoft"
+        return f"https://github.com/{org}/nusystematics/archive/v{version.underscored}.tar.gz"
+
     license("UNKNOWN")
-    
+
+    version("02.00.05", sha256="89cad28d6f01b248e2a9b255d4b6256de5b8cf31937c3a105a311589784c58aa")
+    version("1.06.02", sha256="13b306cef60fad91ca35bde40fdefbcb55411804864caa1b9812ec1cdffb50cc")
     version("1.05.07", sha256="69ac5967847c0c20fca98c3ef347dd1eeed4cc7c9f5f897dcb76f7c471d6051b")
 
     depends_on("c", type="build")
@@ -48,6 +31,17 @@ class Nusystematics(CMakePackage):
     depends_on("nufinder")
     depends_on("cetmodules", type="build")
     depends_on("cmake", type="build")
+    depends_on("nuhepmc-cmake-modules", type="build")
+
+    with when("@=02.00.05"):
+        depends_on("systematicstools @02.00.03")
+
+    def setup_build_environment(self, env):
+        env.set("CPM_LOCAL_PACKAGES_ONLY", "1")
+        env.set("PYTHIA6_LIB_DIR", self.spec["pythia6"].prefix.lib)
+
+    def setup_dependent_build_environment(self, env, dependent_spec):
+        env.set("PYTHIA6_LIB_DIR", self.spec["pythia6"].prefix.lib)
 
     def cmake_args(self):
         args = []
