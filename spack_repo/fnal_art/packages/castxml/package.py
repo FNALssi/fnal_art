@@ -54,7 +54,7 @@ class Castxml(CMakePackage):
     depends_on("cxx", type="build")
 
     # FIXME: Add dependencies if required.
-    depends_on('llvm')
+    depends_on('llvm@:19')
 
     def cmake_args(self):
         # FIXME: Add arguments other than
