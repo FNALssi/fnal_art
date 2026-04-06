@@ -57,7 +57,8 @@ class Artg4tk(CMakePackage):
     depends_on("art")
     depends_on("art-root-io")
     depends_on("canvas-root-io")
-    depends_on("geant4")
+    depends_on("geant4@:10.6.1", when="@:12")
+    depends_on("geant4@11.2.2:", when="@13:")
     depends_on("root")
     depends_on("boost")
 
