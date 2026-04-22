@@ -13,7 +13,7 @@ class Ppfx(CMakePackage):
 
     homepage = "https://cdcvs.fnal.gov/redmine/projects/ppfx"
     homepage_soon = "https://github.com/kordosky/ppfx"
-    git = "https://cdcvs.fnal.gov/redmine/projects/ppfx"
+    git = "https://github.com/kordosky/ppfx"
     url = "https://cdcvs.fnal.gov/cgi-bin/git_archive.cgi/cvs/projects/ppfx.v02_18_03.tbz2"
     url_soon = "https://github.com/kordosky/ppfx/archive/tag/v02.13.03.tar.gz"
 
@@ -23,11 +23,14 @@ class Ppfx(CMakePackage):
         urlf = "https://cdcvs.fnal.gov/cgi-bin/git_archive.cgi/cvs/projects/ppfx.v{0}.tbz2"
         return urlf.format(version.underscored)
 
-    version("02.20.05", sha256="0ed800f6f358d960f5586bd2b73441660dfa266a59daaf18c2e8fbc24a13cedb")
-    version("02.20.03", sha256="2a6f19f615da6d18eb48bbebdeb4785c2663e3255ffc7a8fe8f05a822c1b7c0a")
-    version("02.18.05", sha256="690c61d5e5dc2bf1d6aa2e09906704b3247f2cb12aa14a70a514d7b2197ca5d9")
-    version("02.18.03", sha256="32bab85a7d98b06ecfd76fe57df28cef7fb826ab8fd89ab1bb56f34ab8260040")
-    version("develop", branch="develop", get_full_repo=True)
+    version("02.20.05", commit="4630a3c252a0206b218d687498b603418c7ec653")
+    version("02.20.03", commit="3739caea2c299ee07b7746dcf06a7c0b042fdd63")
+    version("02.18.05", git="https://cdcvs.fnal.gov/redmine/projects/ppfx",
+                        commit="89e8ce9d4af8107a10da533fb083582103df7810")
+    version("02.18.03", git="https://cdcvs.fnal.gov/redmine/projects/ppfx",
+                        commit="08ac6744b8502fba6f09d8535c54edaa5f11f742")
+    version("develop", git="https://cdcvs.fnal.gov/redmine/projects/ppfx",
+                       branch="develop", get_full_repo=True)
 
     variant(
         "cxxstd",
