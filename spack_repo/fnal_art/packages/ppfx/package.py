@@ -13,7 +13,7 @@ class Ppfx(CMakePackage):
 
     homepage = "https://github.com/NuSoftHEP/ppfxv2"
     homepage_soon = "https://github.com/kordosky/ppfx"
-    git = "https://github.com/kordosky/ppfx"
+    git = "https://github.com/NuSoftHEP/ppfxv2"
     url = "https://github.com/NuSoftHEP/ppfxv2/archive/v02_18_03.tar.gz"
     url_soon = "https://github.com/kordosky/ppfx/archive/tag/v02.13.03.tar.gz"
 
