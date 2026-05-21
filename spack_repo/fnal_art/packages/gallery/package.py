@@ -21,6 +21,7 @@ class Gallery(CMakePackage, FnalGithubPackage):
     version_patterns = ["v1_20_02"]
 
     version("develop", branch="develop", get_full_repo=True)
+    version("1.23.01", sha256="1cb94aaac1b83691319ea794aa8a3095e400c81a65fe8120f8d419a6c9bd574f")
     version("1.23.00", sha256="610a01297a1c7b3509989084a34903714ce23cb052a71d54f9a2afff7547f2e8")
     version("1.22.06", sha256="d92203e49703e1c97acb9865e3d90c77045dbbf8f6dcedf76d1e68f9ee3bf719")
     version("1.22.05", sha256="0aaee9c0473fcc6ee2588f8a552b64616ef5c32e6ad38b48548efa00c807001b")

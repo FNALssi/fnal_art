@@ -21,6 +21,7 @@ class CanvasRootIo(CMakePackage, FnalGithubPackage):
 
     version("develop", branch="develop", get_full_repo=True)
 
+    version("1.14.01", sha256="f281679086f92cb35a259752976b7db197d696bb50f1cc62bb765561f08e0fd1")
     version("1.14.00", sha256="77ce8277704451aaa0eb003298b47accbf302a55f044fc330bf43040495684bd")
     version("1.13.06", sha256="a0b7fdbc0f8f52b39a289f97c1354e304794beae87e8128099ffada5460ef72f")
     version("1.13.05", sha256="34c8b31cd6e769a1fc0afb3758071827202f11bcc218f37bbac6071a9a55fecf")
@@ -36,7 +37,7 @@ class CanvasRootIo(CMakePackage, FnalGithubPackage):
     patch("test_build.patch", when="@:1.11.00")
     patch("https://github.com/art-framework-suite/canvas-root-io/commit/5d7c0bf55d54e907bd4be16d250da597aed595a5.patch",
           sha256="bbb18b97a0d93bd3c8243172aab9ff4958fe9ab1d22e263c1fda19eebf827b47",
-          when="@:1.14 %root@6.36:")
+          when="@:1.14.00 %root@6.36:")
 
     requires("%gcc@:12", when="@:1.09")
 
@@ -56,7 +57,8 @@ class CanvasRootIo(CMakePackage, FnalGithubPackage):
     depends_on("hep-concurrency")
     depends_on("catch2", type=("build", "test"))
     depends_on("messagefacility")
-    depends_on("root@6.30:+python", when="@1.14:")
+    depends_on("root@6.36:+python", when="@1.14.01:")
+    depends_on("root@6.30:+python", when="@1.14.00")
     depends_on("root@6.28:+python", when="@1.12:")
     depends_on("root@6.26:+python", when="@1.11:")
     depends_on("root@6.22:+python", when="@1.09:")

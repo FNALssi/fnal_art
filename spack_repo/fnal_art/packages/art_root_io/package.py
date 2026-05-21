@@ -20,6 +20,7 @@ class ArtRootIo(CMakePackage, FnalGithubPackage):
     version_patterns = ["v1_08_03"]
 
     version("develop", branch="develop", get_full_repo=True)
+    version("1.14.01", sha256="dd484acf53be03054c0b7cc715b5215d544b04fe7deb596194efcb100b1afcb6")
     version("1.14.00", sha256="c5ae18411766c088eee1643eeb8a5d85683902134529eb6d6e7540368c8e5d6e")
     version("1.13.06", sha256="4216491031b547a46ee53b85db2905f3be98b81d3bfae3d57a1830065e6c0b7a")
     version("1.13.05", sha256="b60b44776c6b9ffb4ea554b30f4c5c58e9f297ce546d5b0ac30b6c47f1e102bb")
