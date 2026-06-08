@@ -6,14 +6,9 @@
 
 import glob
 import os
-import sys
 
 from spack_repo.builtin.build_systems.makefile import MakefilePackage
 from spack.package import *
-
-libdir = "%s/var/spack/repos/fnal_art/lib" % os.environ["SPACK_ROOT"]
-if libdir not in sys.path:
-    sys.path.append(libdir)
 
 
 def patcher(x):
