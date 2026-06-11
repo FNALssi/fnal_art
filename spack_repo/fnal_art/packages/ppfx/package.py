@@ -11,23 +11,23 @@ from spack.package import *
 class Ppfx(CMakePackage):
     """Package to Predict the FluX"""
 
-    homepage = "https://cdcvs.fnal.gov/redmine/projects/ppfx"
+    homepage = "https://github.com/NuSoftHEP/ppfxv2"
     homepage_soon = "https://github.com/kordosky/ppfx"
-    git = "https://cdcvs.fnal.gov/redmine/projects/ppfx"
-    url = "https://cdcvs.fnal.gov/cgi-bin/git_archive.cgi/cvs/projects/ppfx.v02_18_03.tbz2"
+    git = "https://github.com/NuSoftHEP/ppfxv2"
+    url = "https://github.com/NuSoftHEP/ppfxv2/archive/v02_18_03.tar.gz"
     url_soon = "https://github.com/kordosky/ppfx/archive/tag/v02.13.03.tar.gz"
 
     maintainers = ["marcmengel", "kordosky"]
 
     def url_for_version(self, version):
-        urlf = "https://cdcvs.fnal.gov/cgi-bin/git_archive.cgi/cvs/projects/ppfx.v{0}.tbz2"
-        return urlf.format(version.underscored)
+        if version[0] < 3:
+            return f"https://github.com/NuSoftHEP/ppfxv2/archive/v{version.underscored}.tar.gz"
+        return f"https://github.com/kordosky/ppfx/archive/tag/v{version}.tar.gz"
 
-    version("02.20.05", sha256="0ed800f6f358d960f5586bd2b73441660dfa266a59daaf18c2e8fbc24a13cedb")
-    version("02.20.03", sha256="2a6f19f615da6d18eb48bbebdeb4785c2663e3255ffc7a8fe8f05a822c1b7c0a")
-    version("02.18.05", sha256="690c61d5e5dc2bf1d6aa2e09906704b3247f2cb12aa14a70a514d7b2197ca5d9")
-    version("02.18.03", sha256="32bab85a7d98b06ecfd76fe57df28cef7fb826ab8fd89ab1bb56f34ab8260040")
-    version("develop", branch="develop", get_full_repo=True)
+    version("02.20.05", sha256="d01a7e5cff2502700ad4adc9c9dd17d405c262a1544351fc3f3f23fcbc325ba5")
+    version("02.20.03", sha256="6639c2aef59e7e45e22bb7fce2f61fda025ce6233b829facdf49a84eede521a8")
+    version("02.18.05", sha256="182ab28fbdcd1e8a0f436fe8396273e9ce97b2100cb97cf30c4a8a5d95ccbfad")
+    version("02.18.03", sha256="e5e76a9a510abc0c3b5d517e6866e5394e8a58bee1e22a2b2a2552dbf5d2ad45")
 
     variant(
         "cxxstd",
