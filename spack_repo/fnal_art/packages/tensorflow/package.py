@@ -54,7 +54,7 @@ class Tensorflow(Package):
     def install(self, spec, prefix):
         build_script = Executable("./tensorflow/contrib/makefile/build_all_linux.sh")
         build_script.add_default_env("TENSORFLOW_FQ_DIR", "{0}".format(prefix))
-        build_script.add_default_env("TENSORFLOW_FQ_DIR", "{0}".format(spec["protobuf"].prefix))
+        build_script.add_default_env("PROTOBUF_FQ_DIR", "{0}".format(spec["protobuf"].prefix))
         build_script()
         install_script = Executable("./install_all.sh")
         install_script.add_default_env("TENSORFLOW_FQ_DIR", "{0}".format(prefix))
