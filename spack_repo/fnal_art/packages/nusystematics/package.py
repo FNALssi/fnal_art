@@ -21,6 +21,7 @@ class Nusystematics(CMakePackage):
 
     version("02.00.05", sha256="89cad28d6f01b248e2a9b255d4b6256de5b8cf31937c3a105a311589784c58aa")
     version("1.06.02", sha256="13b306cef60fad91ca35bde40fdefbcb55411804864caa1b9812ec1cdffb50cc")
+    version("1.05.14", sha256="775ee40a132f1f00bb3900f71b7ffcb1b7366e98de20e9561d28307debd2e7af")
     version("1.05.07", sha256="8d273475c43cd42cb62f5a66f6fd6bcd90c6ad3cb9b8592c0ca24982356a2db5")
 
     depends_on("c", type="build")

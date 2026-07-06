@@ -15,6 +15,7 @@ class Ifbeam(MakefilePackage):
     url = "https://github.com/fnal-fife/ifbeam/archive/refs/tags/v2_6_2.tar.gz"
     list_url = "https://github.com/fnal-fife/ifbeam/tags"
 
+    version("2.6.4", sha256="86902244b6b0fe6fffafb466e93715a1c5098caf705c30d6c1ba0d825946ab98")
     version("2.6.3", sha256="1a0d2cc50ef73d459b3d8e29e712606b9f5ef9c8e84dc06a50a809b1cc829128")
     version("2.6.2", sha256="8297ecab83e215661097f786b88d1e1f03a50299780ff5862bf674b382288325")
     version("2.6.1", sha256="1fc548013803f2cd9c9c93fb526e6efc3519634edff07a0455019d78cc96a77e")

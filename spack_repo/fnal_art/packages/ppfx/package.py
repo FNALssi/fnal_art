@@ -14,7 +14,7 @@ class Ppfx(CMakePackage):
     homepage = "https://github.com/NuSoftHEP/ppfxv2"
     homepage_soon = "https://github.com/kordosky/ppfx"
     git = "https://github.com/NuSoftHEP/ppfxv2"
-    url = "https://github.com/NuSoftHEP/ppfxv2/archive/v02_18_03.tar.gz"
+    url = "https://github.com/NuSoftHEP/ppfxv2/archive/v02_20_09.tar.gz"
     url_soon = "https://github.com/kordosky/ppfx/archive/tag/v02.13.03.tar.gz"
 
     maintainers = ["marcmengel", "kordosky"]
@@ -24,6 +24,7 @@ class Ppfx(CMakePackage):
             return f"https://github.com/NuSoftHEP/ppfxv2/archive/v{version.underscored}.tar.gz"
         return f"https://github.com/kordosky/ppfx/archive/tag/v{version}.tar.gz"
 
+    version("02.20.09", sha256="7f8ffa658c882096dd5c11920e968d9c5752420c27afef92c94d3c641d4427b1")
     version("02.20.05", sha256="d01a7e5cff2502700ad4adc9c9dd17d405c262a1544351fc3f3f23fcbc325ba5")
     version("02.20.03", sha256="6639c2aef59e7e45e22bb7fce2f61fda025ce6233b829facdf49a84eede521a8")
     version("02.18.05", sha256="182ab28fbdcd1e8a0f436fe8396273e9ce97b2100cb97cf30c4a8a5d95ccbfad")

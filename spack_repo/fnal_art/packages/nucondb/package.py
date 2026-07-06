@@ -15,7 +15,8 @@ class Nucondb(MakefilePackage):
     git_base = "https://github.com/fnal-fife/nucondb.git"
     url = "https://github.com/fnal-fife/nucondb/archive/refs/tags/v2_6_14.tar.gz"
     list_url = "https://github.com/fnal-fife/nucondb/tags"
-    
+
+    version("2_6_4", sha256="379c30299c145c43df304b5110bbd8008f0d0f38a46b0c36135a12ef3f498e56")
     version("2_6_3", sha256="0b664a07b67f72bea2d7c2648553a32e4479b6044b447b720039e64c01a9b8d7")
     version("2_6_2", sha256="3fffd0d4291c76dbba0f94c75d678057ae12d1a36983c8cccd7098158f7b6874")
     version("2_6_1", sha256="0fd793361322224c74c413dc105fb53f60488a6234c5ad4f31843e6b4462d39e")

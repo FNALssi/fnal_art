@@ -36,6 +36,9 @@ class PySrproxy(Package):
     def setup_dependent_build_env(self, spack_env, dspec):
         spack_env.set("SRPROXY_DIR", self.prefix)
 
+    def setup_dependent_run_env(self, spack_env, dspec):
+        spack_env.set("SRPROXY_INC", self.prefix.include)
+
     @run_after('install')
     def set_execute_premissions(self):
         entry=join_path(self.prefix.bin, "gen_srproxy")

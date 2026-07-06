@@ -17,6 +17,7 @@ class Libwda(MakefilePackage):
     url = "https://github.com/fnal-fife/libwda/archive/refs/tags/v2_6_14.tar.gz"
     list_url = "https://github.com/fnal-fife/libwda/tags"
 
+    version("2.30.1", sha256="227f4626fcb3385f57e88decff8753d5972d721fdc0f56d9739619634af07177")
     version("2.30.0", sha256="ace33ae85cd418d37ad882ab38a0ce76397a65ae6f9a5d229707a06e62bf5204")
     version("2.29.1", tag="v2_29_1", git=git_base, get_full_repo=True)
     version("develop", git=git_base, branch="develop", get_full_repo=True)
