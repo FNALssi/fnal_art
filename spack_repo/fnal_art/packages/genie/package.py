@@ -6,8 +6,6 @@
 import inspect
 import os
 
-from spack.llnl.util import filesystem
-
 from spack_repo.builtin.build_systems.autotools import AutotoolsPackage
 from spack.package import *
 
