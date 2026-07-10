@@ -100,6 +100,7 @@ class Triton(CMakePackage):
 
     def cmake_args(self):
         args = [
+            "-DBUILD_SHARED_LIBS=ON",
             "-DTRITON_COMMON_REPO_TAG=r{0}".format(self.spec.version),
             "-DTRITON_THIRD_PARTY_REPO_TAG=r{0}".format(self.spec.version),
             "-DTRITON_CORE_REPO_TAG=r{0}".format(self.spec.version),
