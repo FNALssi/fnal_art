@@ -49,23 +49,23 @@ class Triton(CMakePackage):
     depends_on("py-geventhttpclient", type=("build","run"))
     depends_on("py-python-rapidjson", type=("build","run"))
 
-    def patch(self):
-        # clean out all the third-party stuff...
-        filter_file( r'^ *-D[^C].*:PATH.*', '', 'CMakeLists.txt')
-        filter_file( r'^ *-DC[^M].*:PATH.*', '', 'CMakeLists.txt')
-        filter_file( r'FetchContent_MakeAvailable\(repo-third-party\)', '', 'CMakeLists.txt')
-
-        filter_file( r'DEPENDS \${_.._client_depends}', '', 'CMakeLists.txt')
-        filter_file( r'FetchContent_MakeAvailable\(googletest\)', 'find_package(googletest)', 'src/c++/CMakeLists.txt')
-
-    @run_after("install")
-    def rpath_fixup(self):
-        # for some reason one of the libraries isn't being rpathed right
-        rp = [ self.spec["abseil-cpp"].prefix.lib64, self.spec["re2"].prefix.lib64]
-        print("rpath is ", rp)
-        patchelf = which("patchelf")
-        with working_dir(self.prefix.lib64):
-            patchelf("--add-rpath", ":".join(rp), "libgrpcclient.so")
+#    def patch(self):
+#        # clean out all the third-party stuff...
+#        filter_file( r'^ *-D[^C].*:PATH.*', '', 'CMakeLists.txt')
+#        filter_file( r'^ *-DC[^M].*:PATH.*', '', 'CMakeLists.txt')
+#        filter_file( r'FetchContent_MakeAvailable\(repo-third-party\)', '', 'CMakeLists.txt')
+#
+#        filter_file( r'DEPENDS \${_.._client_depends}', '', 'CMakeLists.txt')
+#        filter_file( r'FetchContent_MakeAvailable\(googletest\)', 'find_package(googletest)', 'src/c++/CMakeLists.txt')
+#
+#    @run_after("install")
+#    def rpath_fixup(self):
+#        # for some reason one of the libraries isn't being rpathed right
+#        rp = [ self.spec["abseil-cpp"].prefix.lib64, self.spec["re2"].prefix.lib64]
+#        print("rpath is ", rp)
+#        patchelf = which("patchelf")
+#        with working_dir(self.prefix.lib64):
+#            patchelf("--add-rpath", ":".join(rp), "libgrpcclient.so")
         
     def build(self, pkg, spec):
         # this package writes a cmake_isntall.cmake that tries to put
@@ -81,11 +81,11 @@ class Triton(CMakePackage):
                 make("cc-clients")
             except:
                 pass
-            filter_file(
-                r'".*library/\.\./\.\./third-party.*"',
-                '',
-                'cc-clients/library/cmake_install.cmake'
-            )
+#            filter_file(
+#                r'".*library/\.\./\.\./third-party.*"',
+#                '',
+#                'cc-clients/library/cmake_install.cmake'
+#            )
             make("all")
 
     def install(self, pkg, spec):
