@@ -5,7 +5,10 @@
 
 import os
 
-import spack.util.tty as tty
+try:
+    import spack.llnl.util.tty as tty
+else:
+    import spack.util.tty as tty
 
 from spack_repo.builtin.build_systems.cmake import CMakePackage
 from spack.package import *
