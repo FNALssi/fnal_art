@@ -7,7 +7,7 @@ import os
 
 try:
     import spack.llnl.util.tty as tty
-else:
+except ImportError:
     import spack.util.tty as tty
 
 from spack_repo.builtin.build_systems.cmake import CMakePackage

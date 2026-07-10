@@ -11,7 +11,7 @@ from pathlib import Path
 
 try:
     import spack.llnl.util.tty as tty
-else:
+except ImportError:
     import spack.util.tty as tty
 
 import spack.util.spack_json as sjson
