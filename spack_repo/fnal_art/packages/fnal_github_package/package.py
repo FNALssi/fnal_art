@@ -9,7 +9,10 @@ import re
 from functools import wraps
 from pathlib import Path
 
-import spack.llnl.util.tty as tty
+try:
+    import spack.llnl.util.tty as tty
+except ImportError:
+    import spack.util.tty as tty
 
 import spack.util.spack_json as sjson
 import spack.util.web
