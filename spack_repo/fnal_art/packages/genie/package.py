@@ -9,7 +9,6 @@ import os
 from spack_repo.builtin.build_systems.autotools import AutotoolsPackage
 from spack.package import *
 
-
 class Genie(AutotoolsPackage):
     """GENIE is an international collaboration of scientists that plays the
     leading role in the development of comprehensive physics models for
@@ -74,7 +73,7 @@ class Genie(AutotoolsPackage):
         description="Use the specified C++ standard when building.",
     )
 
-    variant("lhapdf", default=True) 
+    variant("lhapdf", default=True, description="build with lhapdf")
 
     depends_on("c", type="build")
     depends_on("cxx", type="build")
@@ -190,17 +189,17 @@ class Genie(AutotoolsPackage):
     @run_after("install")
     def install_required_src(self):
         # Install things from the source tree that are required.
-        filesystem.install_tree(
+        install_tree(
             os.path.join(self.stage.source_path, "src", "scripts"),
             os.path.join(self.prefix, "src", "scripts"),
         )
         src_make_dir = os.path.join(self.prefix, "src", "make", "")
         config_dir = os.path.join(self.prefix, "config", "")
         data_dir = os.path.join(self.prefix, "data", "")
-        # filesystem.mkdirp(src_make_dir)
-        filesystem.install_tree(os.path.join(self.stage.source_path, "src", "make"), src_make_dir)
-        filesystem.install_tree(os.path.join(self.stage.source_path, "config"), config_dir)
-        filesystem.install_tree(os.path.join(self.stage.source_path, "data"), data_dir)
+        # mkdirp(src_make_dir)
+        install_tree(os.path.join(self.stage.source_path, "src", "make"), src_make_dir)
+        install_tree(os.path.join(self.stage.source_path, "config"), config_dir)
+        install_tree(os.path.join(self.stage.source_path, "data"), data_dir)
 
     def setup_build_environment(self, spack_env):
         spack_env.set("ROOT_INCLUDE_PATH", os.path.join(self.stage.source_path, "src"))
