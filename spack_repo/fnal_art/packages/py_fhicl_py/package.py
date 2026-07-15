@@ -25,6 +25,7 @@ class PyFhiclPy(CMakePackage, FnalGithubPackage):
     cxxstd_variant("17", "20", "23", default="20", sticky=True)
 
     extends("python")
+    depends_on("c", type="build")
     depends_on("cxx", type="build")
     depends_on("cetmodules@3.19.02:", type="build")
     depends_on("cmake@3.21:", type="build")
