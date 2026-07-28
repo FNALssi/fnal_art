@@ -35,3 +35,6 @@ class PyFhiclPy(CMakePackage, FnalGithubPackage):
     @cmake_preset
     def cmake_args(self):
         return [self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")]
+
+    def setup_run_environment(self, env):
+        env.prepend_path("PYTHONPATH", self.prefix.lib)
