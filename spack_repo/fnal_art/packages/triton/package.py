@@ -133,3 +133,6 @@ class Triton(CMakePackage):
             flags.append("-L/lib64")
         return (flags, None, None)
 
+    def setup_run_environment(self, env):
+        env.set("TRITON_DIR", self.spec.prefix.lib)
+
