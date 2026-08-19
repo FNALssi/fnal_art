@@ -54,6 +54,7 @@ class Cry(MakefilePackage):
         with open("Makefile.local", "w") as f:
             f.write("CXXFLAGS += -O3 -g -DNDEBUG -fno-omit-frame-pointer -fPIC \\\n")
             f.write("            {0}\n".format(cxxstdflag))
+        mkdirp("lib")
 
     def install(self, spec, prefix):
         with working_dir(self.build_directory):
