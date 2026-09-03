@@ -4,40 +4,24 @@
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
 from spack_repo.builtin.build_systems.cmake import CMakePackage
+from spack_repo.fnal_art.packages.fnal_github_package.package import *
 from spack.package import *
 
 
-class Artg4tk(CMakePackage):
+class Artg4tk(CMakePackage,FnalGithubPackage):
     """Artg4tk"""
 
     homepage = "https://github.com/art-framework-suite/art-g4tk/"
-    git = "https://github.com/art-framework-suite/art-g4tk.git"
-    url = "https://github.com/art-framework-suite/art-g4tk/archive/refs/tags/v11_00_01.tar.gz"
+    git = "https://github.com/art-framework-suite/art-g4tk"
+    version_patterns = ['v13_00_02']
 
-    # version('10.04.00', sha256='44a1e12425ff2ebe90f7482ad2b10cbde873477815f81707677eb2ad14d3cef4')
-    version("13.00.01", tag="v13_00_01", get_full_repo=True)
-    version("13.00.00", tag="v13_00_00", get_full_repo=True)
-    version("12.00.03", tag="v12_00_03", get_full_repo=True)
-    version("10.04.00", tag="v10_04_00", get_full_repo=True)
-    version("c06a0ed7a0", commit="c06a0ed7a0a543cba5c23fc588f7dd6dcb6609e2", get_full_repo=True)
+    version("13.01.02", sha256="72139413640db927fc7049850b04c39cd87f512c9615e4f8a17b112edaf92d7a")
+    version("13.01.01", sha256="9db3d36c55b70772510929eae8eeb66beb3e5cbf6ef57fff952169e5bd58e97c")
+    version("13.01.00", sha256="784fadde426fedc7b9e081005099f06d4ec6c659c59887c1c6c7238a6f01274f")
+    version("13.00.02", sha256="0bdba091c1b17326fc8185495572494e285a0e40bf93e3244b257d670890517a")
+    version("13.00.01", sha256="fe09f4d007c643160f996baf8c046488ff1e46f160332373130573e44b578089")
+    version("13.00.00", sha256="451cab497901836b4bbd939cafef26d45a6ff425df1cfb6dea1761385433f73d")
     version("develop", branch="develop", get_full_repo=True)
-    version("mwm1", branch="mwm1", get_full_repo=True)
-    version("MVP1a", branch="feature/Spack-MVP1a", get_full_repo=True)
-    version("11.00.01", tag="v11_00_01", get_full_repo=True)
-    version("10.02.01", tag="v10_02_01", get_full_repo=True)
-    version("10.02.01.01", tag="v10_02_01_01", get_full_repo=True)
-    version("09.04.04", tag="v09_04_04", get_full_repo=True)
-    version("09.05.00", tag="v09_05_00", get_full_repo=True)
-    version("09.05.01", tag="v09_05_01", get_full_repo=True)
-    version("09.05.02", tag="v09_05_02", get_full_repo=True)
-    version("09.06.00", tag="v09_06_00", get_full_repo=True)
-    version("09.04.04", tag="v09_04_04", get_full_repo=True)
-    version("09.05.00", tag="v09_05_00", get_full_repo=True)
-    version("09.05.01", tag="v09_05_01", get_full_repo=True)
-    version("09.05.02", tag="v09_05_02", get_full_repo=True)
-    version("09.06.00", tag="v09_06_00", get_full_repo=True)
-    version("09.07.00", tag="v09_07_00", get_full_repo=True)
-    version("09.07.01", tag="v09_07_01", get_full_repo=True)
 
     variant(
         "cxxstd",
@@ -66,10 +50,6 @@ class Artg4tk(CMakePackage):
     def cmake_args(self):
         args = [self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")]
         return args
-
-    def url_for_version(self, version):
-        url = "https://cdcvs.fnal.gov/cgi-bin/git_archive.cgi/cvs/projects/{0}.v{1}.tbz2"
-        return url.format(self.name, version.underscored)
 
     def flag_handler(self, name, flags):
         if name == "cxxflags" and self.spec.compiler.name == "gcc":
