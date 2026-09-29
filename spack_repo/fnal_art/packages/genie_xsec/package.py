@@ -91,6 +91,8 @@ class GenieXsec(Package):
 
     url = 'https://scisoft.fnal.gov/scisoft/packages/genie_xsec/v3_04_00/genie_xsec-3.04.00-noarch-AR2320i00000-k250-e1000.tar.bz2'
     for v in versions:
+        if len(versions[v] == 1:
+            default_variant = versions[v]
         if default_variant in versions[v]:
             checksum = versions[v][default_variant]
             version(v, sha256=checksum)
@@ -142,7 +144,7 @@ class GenieXsec(Package):
 
             run_env.set("GENIEXSECPATH", data_str)
             run_env.set("GENIEXSECFILE", data_str+"/gxspl-NUsmall.xml")
-            run_env.set("GXMLPATH", data_str)
+            run.env.prepend_path("GXMLPATH", data_str)
             run_env.set("GENIE_XSEC_TUNE", tune_str)
             run_env.set("GENIE_XSEC_GENLIST", "Default")
             run_env.set("GENIE_XSEC_KNOTS", "250")
