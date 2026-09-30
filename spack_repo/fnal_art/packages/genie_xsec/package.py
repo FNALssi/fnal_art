@@ -50,6 +50,19 @@ versions = {
 class GenieXsec(Package):
     """Data files used by genie."""
 
+    # Construct lists of variants
+
+    tune_names = set()
+    xsec_names = set()
+    for v in versions:
+        for var in versions[v]:
+            if v >= '3':
+                if not var in tune_names:
+                    tune_names.add(var)
+            else:
+                if not var in xsec_names:
+                    xsec_names.add(var)
+
     # tune_name values are designed to line up with the ups setup command
     # when setting the environment variable, we change to match typical
     # genie tune format
@@ -57,16 +70,7 @@ class GenieXsec(Package):
         "tune_name",
         default="AR2320i00000-k250-e1000",
         multi=False,
-        values=(
-            "AR2320i00000-k250-e1000",
-            "G1801a00000-k250-e1000",
-            "G1802a00000-k250-e1000",
-            "G1810a0211a-k250-e1000",
-            "G1810a0211b-k250-e1000",
-            "G2111a00000-k250-e1000",
-            "GDNu2001a00000-k120-e200",
-            "N1810j0211a-k250-e1000"
-        ),
+        values=tuple(tune_names),
         when="@3.0:",
         description="Name of genie xsec tune set to install.",
     )
@@ -75,14 +79,7 @@ class GenieXsec(Package):
         "xsec_name",
         default="DefaultPlusMECWithNC",
         multi=False,
-        values=(
-            "AltPion",
-            "DefaultPlusMECWithNC",
-            "DefaultPlusValenciaMEC",
-            "EffSFTEM",
-            "LocalFGNievesQEAndMEC",
-            "ValenciaQEBergerSehgalCOHRES",
-        ),
+        values=tuple(xsec_names),
         when="@:3.0",
         description="Name of genie xsec set to install.",
     )
@@ -91,8 +88,8 @@ class GenieXsec(Package):
 
     url = 'https://scisoft.fnal.gov/scisoft/packages/genie_xsec/v3_04_00/genie_xsec-3.04.00-noarch-AR2320i00000-k250-e1000.tar.bz2'
     for v in versions:
-        if len(versions[v] == 1:
-            default_variant = versions[v]
+        if len(versions[v]) == 1:
+            default_variant = list(versions[v].values())[0]
         if default_variant in versions[v]:
             checksum = versions[v][default_variant]
             version(v, sha256=checksum)
