@@ -105,6 +105,8 @@ class GenieXsec(Package):
             var = self.spec.variants['tune_name'].value
         else:
             var = self.spec.variants['xsec_name'].value
+        if type(var) == type(()) and len(var) == 1:
+            var = var[0]
         if var != default_variant:
             print(f"Selected variant {var} doesn't match default variant {default_variant}.", file=sys.stderr)
             sys.exit(1)
@@ -117,9 +119,6 @@ class GenieXsec(Package):
         print("genie-xsec install function called", file=sys.stderr)
         if(self.version >= Version("3.0")):
             val = spec.variants["tune_name"].value
-            comb_str = val.split(':')[0].split('-')[0]
-            tune_str = comb_str[:3]+"_"+comb_str[3:6]+"_"+comb_str[6:8]+"_"+comb_str[8:]
-
             install_tree(
                 "{0}/v{1}/NULL/{2}".format(self.stage.source_path, self.version.underscored,val),
                 "{0}/v{1}/NULL/{2}".format(prefix, self.version.underscored, val),
@@ -146,3 +145,5 @@ class GenieXsec(Package):
             run_env.set("GENIE_XSEC_GENLIST", "Default")
             run_env.set("GENIE_XSEC_KNOTS", "250")
             run_env.set("GENIE_XSEC_EMAX", "1000.0")
+
+            env.prune_duplicate_paths("GXMLPATH")
