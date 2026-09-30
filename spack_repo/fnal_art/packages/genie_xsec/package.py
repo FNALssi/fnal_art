@@ -10,7 +10,8 @@ from spack.package import *
 
 #default_variant = 'AR2320i00000-k250-e1000'
 #default_variant = 'G1801a00000-k250-e1000'
-default_variant = 'G1802a00000-k250-e1000'
+#default_variant = 'G1802a00000-k250-e1000'
+default_variant = 'G1810a0211a-k250-e1000'
     
 # Checksums by version and variant.
 # Checksum = versions[version][variant]
@@ -137,19 +138,25 @@ class GenieXsec(Package):
             )
 
     def setup_run_environment(self, run_env):
+        print("genie-xsec setup_run_environment called", file=sys.stderr)
         if(self.version >= Version("3.0")):
             val = self.spec['genie-xsec'].variants['tune_name'].value
+            print('tune_name = %s' % val, file=sys.stderr)
             data_str = "{0}/v{1}/NULL/{2}/data".format(self.spec['genie-xsec'].prefix, self.version.underscored, val)
+            print(f"data_str = {data_str}", file=sys.stderr)
             raw_str = self.spec['genie-xsec'].variants['tune_name'].value
+            print(f"raw_str = {raw_str}", file=sys.stderr)
             comb_str = raw_str.split(':')[0].split('-')[0]
+            print(f"comb_str = {comb_str}", file=sys.stderr)
             tune_str = comb_str[:-8]+"_"+comb_str[-8:-5]+"_"+comb_str[-5:-3]+"_"+comb_str[-3:] 
+            print(f"tune_str = {tune_str}", file=sys.stderr)
 
             run_env.set("GENIEXSECPATH", data_str)
             run_env.set("GENIEXSECFILE", data_str+"/gxspl-NUsmall.xml")
-            run.env.prepend_path("GXMLPATH", data_str)
+            run_env.prepend_path("GXMLPATH", data_str)
             run_env.set("GENIE_XSEC_TUNE", tune_str)
             run_env.set("GENIE_XSEC_GENLIST", "Default")
             run_env.set("GENIE_XSEC_KNOTS", "250")
             run_env.set("GENIE_XSEC_EMAX", "1000.0")
 
-            env.prune_duplicate_paths("GXMLPATH")
+            run_env.prune_duplicate_paths("GXMLPATH")
