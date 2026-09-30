@@ -102,9 +102,15 @@ class GenieXsec(Package):
         print(self.spec.variants, file=sys.stderr)
         var = ''
         if(self.version >= Version("3.0")):
-            var = self.spec.variants['tune_name'].value
+            if 'tune_name' in self.spec.variants:
+                var = self.spec.variants['tune_name'].value
+            else:
+                var = default_variant
         else:
-            var = self.spec.variants['xsec_name'].value
+            if 'xsec_name' in self.spec.variants:
+                var = self.spec.variants['xsec_name'].value
+            else:
+                var = default_variant
         if type(var) == type(()) and len(var) == 1:
             var = var[0]
         if var != default_variant:
