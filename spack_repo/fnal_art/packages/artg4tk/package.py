@@ -20,7 +20,7 @@ class Artg4tk(CMakePackage,FnalGithubPackage):
     version("13.01.00", sha256="784fadde426fedc7b9e081005099f06d4ec6c659c59887c1c6c7238a6f01274f")
     version("13.00.02", sha256="0bdba091c1b17326fc8185495572494e285a0e40bf93e3244b257d670890517a")
     version("13.00.01", sha256="0b3a14ff0696ffec7b7f6dd7463a62f76a4876aa69f676c753500098daf59d56")
-    version("13.00.00", sha256="451cab497901836b4bbd939cafef26d45a6ff425df1cfb6dea1761385433f73d")
+    version("13.00.00", sha256="c52d6f8d23ab8afba8ae28f89147199a0166f3661fe6a9a2a98e5b62ff3f2036")
     version("develop", branch="develop", get_full_repo=True)
 
     variant(
