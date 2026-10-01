@@ -9,13 +9,13 @@ import os, sys
 from spack_repo.builtin.build_systems.generic import Package
 from spack.package import *
 
-default_variant = 'dkcharmtau'
+default_variant = 'dkcharm'
 
 # Checksums by version and variant.
 # Checksum = versions[version][variant]
 # Variant is either tune_name or xsec_name.
 
-versions = {
+_checksums = {
     # Variant tune_name
     '3.04.00': {
         'dkcharm': 'c4a5360e379d371df2b2e845aee673b984a2f0f6ba62dae682f8cb0223e84a0f',
@@ -33,10 +33,11 @@ class GeniePhyopt(Package):
     # Construct lists of variants
 
     phyopt_names = set()
-    for v in versions:
-        for var in versions[v]:
+    for v in _checksums.keys():
+        for var in _checksums[v]:
             if not var in phyopt_names:
                 phyopt_names.add(var)
+
 
     variant(
         "phyopt_name",
@@ -46,52 +47,44 @@ class GeniePhyopt(Package):
         description="Name of genie phyopt to use.",
     )
 
-    # Declare version checksums.
+    # Declare versions and their resources with checksums.
 
-    url = "https://scisoft.fnal.gov/scisoft/packages/genie_phyopt/v3_04_00/genie_phyopt-3.04.00-noarch-dkcharm.tar.bz2"
+    for v,vars in _checksums.items():
+        for var,checksum in vars.items():
+            if var == default_variant:
+                version(
+                    v,
+                    url = 'https://scisoft.fnal.gov/scisoft/packages/genie_phyopt/v{0}/genie_phyopt-{1}-noarch-{2}.tar.bz2'.format(Version(v).underscored, v, var),
+                    sha256=checksum,
+                )
+            else:
+                resource(
+                    name=var,
+                    expand=True,
+                    when="@{0} phyopt_name={1}".format(v,var),
+                    url = 'https://scisoft.fnal.gov/scisoft/packages/genie_phyopt/v{0}/genie_phyopt-{1}-noarch-{2}.tar.bz2'.format(Version(v).underscored, v, var),
+                    sha256=checksum,
+                    )
 
-    for v in versions:
-        if len(versions[v]) == 1:
-            default_variant = list(versions[v].values())[0]
-        if default_variant in versions[v]:
-            checksum = versions[v][default_variant]
-            version(v, sha256=checksum)
 
-    def url_for_version(self, v):
-        print("genie-phyopt url_for_version called", file=sys.stderr)
-        print(f"version {v}", file=sys.stderr)
-        print(self.spec, file=sys.stderr)
-        print(self.spec.variants, file=sys.stderr)
-        var = ''
-        if 'phyopt_name' in self.spec.variants:
-            var = self.spec.variants['phyopt_name'].value
-        else:
-            var = default_variant
-        if type(var) == type(()) and len(var) == 1:
-            var = var[0]
-        if var != default_variant:
-            print(f"Selected variant {var} doesn't match default variant {default_variant}.", file=sys.stderr)
-        print(var, file=sys.stderr)
-        url = 'https://scisoft.fnal.gov/scisoft/packages/genie_phyopt/v{0}/genie_phyopt-{1}-noarch-{2}.tar.bz2'.format(v.underscored, v, var)
-        print(url, file=sys.stderr)
-        return url
+
+    def url_for_version(self, version):
+        return 'https://scisoft.fnal.gov/scisoft/packages/genie_phyopt/v{0}/genie_phyopt-{0}-noarch-{1}.tar.bz2'.format(Version(version).underscored, version, default_variant)
 
     def install(self, spec, prefix):
-        print("genie-phyopt install function called.", file=sys.stderr)
         val = spec.variants["phyopt_name"].value
+        if val == default_variant:
+            resource_path = os.path.join(self.stage.source_path,f"v{self.version.underscored}", "NULL", val)
+        else:
+            resource_path = os.path.join(self.stage.source_path, "genie_phyopt", f"v{self.version.underscored}", "NULL", val)
         install_tree(
-            "{0}/v{1}/NULL/{2}".format(
-                self.stage.source_path, self.version.underscored, val
-            ),
+            resource_path,
             "{0}/{1}".format(prefix, val),
         )
 
     def setup_run_environment(self, run_env):
-        print("genie-phyopt setup_run_environment called", file=sys.stderr)
         val = self.spec['genie-phyopt'].variants['phyopt_name'].value
-        print('phyopt_name = %s' % val, file=sys.stderr)
         data_str = "{0}/{1}".format(self.spec['genie-phyopt'].prefix, val)
-        print(f"data_str = {data_str}", file=sys.stderr)
 
         run_env.set("GENIEPHYOPTPATH", data_str)
         run_env.prepend_path("GXMLPATH", data_str)
