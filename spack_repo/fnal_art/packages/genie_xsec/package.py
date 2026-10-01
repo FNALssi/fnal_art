@@ -3,6 +3,7 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
+import resource
 import os, sys
 
 from spack_repo.builtin.build_systems.generic import Package
@@ -17,7 +18,7 @@ default_variant = 'G1810a0211a-k250-e1000'
 # Checksum = versions[version][variant]
 # Variant is either tune_name or xsec_name.
 
-versions = {
+_checksums = {
     # Variant tune_name
     '3.04.00': {
         'AR2320i00000-k250-e1000': '13cc9d740c170af9033623049162eeff0fb0b68156122d380aa3262e92e9f61f',
@@ -55,8 +56,8 @@ class GenieXsec(Package):
 
     tune_names = set()
     xsec_names = set()
-    for v in versions:
-        for var in versions[v]:
+    for v in _checksums:
+        for var in _checksums[v]:
             if v >= '3':
                 if not var in tune_names:
                     tune_names.add(var)
@@ -64,6 +65,7 @@ class GenieXsec(Package):
                 if not var in xsec_names:
                     xsec_names.add(var)
 
+    
     # tune_name values are designed to line up with the ups setup command
     # when setting the environment variable, we change to match typical
     # genie tune format
@@ -85,50 +87,49 @@ class GenieXsec(Package):
         description="Name of genie xsec set to install.",
     )
 
-    # Declare version checksums.
+    # Declare versions and their resources with checksums.
 
-    url = 'https://scisoft.fnal.gov/scisoft/packages/genie_xsec/v3_04_00/genie_xsec-3.04.00-noarch-AR2320i00000-k250-e1000.tar.bz2'
-    for v in versions:
-        if len(versions[v]) == 1:
-            default_variant = list(versions[v].values())[0]
-        if default_variant in versions[v]:
-            checksum = versions[v][default_variant]
-            version(v, sha256=checksum)
+    for v,vars in _checksums.items():
+        for var,checksum in vars.items():
+            if(Version(v) >= Version("3.0")):
+                if var == default_variant:
+                    version(
+                        v,
+                        expand=False,
+                        url = 'https://scisoft.fnal.gov/scisoft/packages/genie_xsec/v{0}/genie_xsec-{1}-noarch-{2}.tar.bz2'.format(Version(v).underscored, v, var),
+                        sha256=checksum,
+                    )
 
+                resource(
+                    name=v,
+                    placement=var,
+                    expand=True,
+                    when="@{0} tune_name={1}".format(v,var),
+                    url = 'https://scisoft.fnal.gov/scisoft/packages/genie_xsec/v{0}/genie_xsec-{1}-noarch-{2}.tar.bz2'.format(Version(v).underscored, v, var),
+                    sha256=checksum,
+                    )
+            elif(Version(v) < Version("3.0")):
+                resource(
+                    name=v,
+                    placement=var,
+                    expand=True,
+                    when="@{0} xsec_name={1}".format(v,var),
+                    url = 'https://scisoft.fnal.gov/scisoft/packages/genie_xsec/v{0}/genie_xsec-{1}-noarch-{2}.tar.bz2'.format(Version(v).underscored, v, var),
+                    sha256=checksum,
+                )
 
-    def url_for_version(self, v):
-        print("genie-xsec url_for_version called", file=sys.stderr)
-        print(f"version {v}", file=sys.stderr)
-        print(self.spec, file=sys.stderr)
-        print(self.spec.variants, file=sys.stderr)
-        var = ''
-        if(self.version >= Version("3.0")):
-            if 'tune_name' in self.spec.variants:
-                var = self.spec.variants['tune_name'].value
-            else:
-                var = default_variant
-        else:
-            if 'xsec_name' in self.spec.variants:
-                var = self.spec.variants['xsec_name'].value
-            else:
-                var = default_variant
-        if type(var) == type(()) and len(var) == 1:
-            var = var[0]
-        if var != default_variant:
-            print(f"Selected variant {var} doesn't match default variant {default_variant}.", file=sys.stderr)
-        print(var, file=sys.stderr)
-        url = 'https://scisoft.fnal.gov/scisoft/packages/genie_xsec/v{0}/genie_xsec-{1}-noarch-{2}.tar.bz2'.format(v.underscored, v, var)
-        print(url, file=sys.stderr)
-        return url
-
+    def url_for_version(self, version):
+        return 'https://scisoft.fnal.gov/scisoft/packages/genie_xsec/v{0}/genie_xsec-{1}-noarch-{2}.tar.bz2'.format(Version(version).underscored, version, default_variant)
+ 
     def install(self, spec, prefix):
-        print("genie-xsec install function called", file=sys.stderr)
         if(self.version >= Version("3.0")):
             val = spec.variants["tune_name"].value
+            resource_path = os.path.join(self.stage.source_path, val, f"v{self.version.underscored}", "NULL", val)
             install_tree(
-                "{0}/v{1}/NULL/{2}".format(self.stage.source_path, self.version.underscored,val),
+                resource_path,
                 "{0}/v{1}/NULL/{2}".format(prefix, self.version.underscored, val),
             )
+
         elif(self.version < Version("3.0")):
             val = spec.variants["xsec_name"].value
             install_tree(
@@ -137,18 +138,12 @@ class GenieXsec(Package):
             )
 
     def setup_run_environment(self, run_env):
-        print("genie-xsec setup_run_environment called", file=sys.stderr)
         if(self.version >= Version("3.0")):
             val = self.spec['genie-xsec'].variants['tune_name'].value
-            print('tune_name = %s' % val, file=sys.stderr)
             data_str = "{0}/v{1}/NULL/{2}/data".format(self.spec['genie-xsec'].prefix, self.version.underscored, val)
-            print(f"data_str = {data_str}", file=sys.stderr)
             raw_str = self.spec['genie-xsec'].variants['tune_name'].value
-            print(f"raw_str = {raw_str}", file=sys.stderr)
             comb_str = raw_str.split(':')[0].split('-')[0]
-            print(f"comb_str = {comb_str}", file=sys.stderr)
             tune_str = comb_str[:-8]+"_"+comb_str[-8:-5]+"_"+comb_str[-5:-3]+"_"+comb_str[-3:] 
-            print(f"tune_str = {tune_str}", file=sys.stderr)
 
             run_env.set("GENIEXSECPATH", data_str)
             run_env.set("GENIEXSECFILE", data_str+"/gxspl-NUsmall.xml")

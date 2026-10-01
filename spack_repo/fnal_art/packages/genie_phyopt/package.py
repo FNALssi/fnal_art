@@ -54,17 +54,17 @@ class GeniePhyopt(Package):
             if var == default_variant:
                 version(
                     v,
+                    expand=False,
                     url = 'https://scisoft.fnal.gov/scisoft/packages/genie_phyopt/v{0}/genie_phyopt-{1}-noarch-{2}.tar.bz2'.format(Version(v).underscored, v, var),
                     sha256=checksum,
                 )
-            else:
-                resource(
-                    name=var,
-                    expand=True,
-                    when="@{0} phyopt_name={1}".format(v,var),
-                    url = 'https://scisoft.fnal.gov/scisoft/packages/genie_phyopt/v{0}/genie_phyopt-{1}-noarch-{2}.tar.bz2'.format(Version(v).underscored, v, var),
-                    sha256=checksum,
-                    )
+            resource(
+                name=var,
+                expand=True,
+                when="@{0} phyopt_name={1}".format(v,var),
+                url = 'https://scisoft.fnal.gov/scisoft/packages/genie_phyopt/v{0}/genie_phyopt-{1}-noarch-{2}.tar.bz2'.format(Version(v).underscored, v, var),
+                sha256=checksum,
+                )
 
 
 
@@ -73,10 +73,7 @@ class GeniePhyopt(Package):
 
     def install(self, spec, prefix):
         val = spec.variants["phyopt_name"].value
-        if val == default_variant:
-            resource_path = os.path.join(self.stage.source_path,f"v{self.version.underscored}", "NULL", val)
-        else:
-            resource_path = os.path.join(self.stage.source_path, "genie_phyopt", f"v{self.version.underscored}", "NULL", val)
+        resource_path = os.path.join(self.stage.source_path, "genie_phyopt", f"v{self.version.underscored}", "NULL", val)
         install_tree(
             resource_path,
             "{0}/{1}".format(prefix, val),
