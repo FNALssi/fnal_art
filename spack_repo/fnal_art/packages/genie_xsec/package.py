@@ -65,7 +65,7 @@ class GenieXsec(Package):
                 if not var in xsec_names:
                     xsec_names.add(var)
 
-    
+
     # tune_name values are designed to line up with the ups setup command
     # when setting the environment variable, we change to match typical
     # genie tune format
@@ -121,7 +121,7 @@ class GenieXsec(Package):
 
     def url_for_version(self, version):
         return f'https://scisoft.fnal.gov/scisoft/packages/genie_xsec/v{version.underscored}/genie_xsec-{version}-noarch-{default_variant}.tar.bz2'
- 
+
     def install(self, spec, prefix):
         if(self.version >= Version("3.0")):
             val = spec.variants["tune_name"].value
@@ -135,7 +135,7 @@ class GenieXsec(Package):
             val = spec.variants["xsec_name"].value
             install_tree(
                 f'{self.stage.source_path}/v{self.version.underscored}/NULL/{val}',
-                f'{prefix}/{val}',
+                f'{prefix}/v{self.version.underscored}/NULL/{val}',
             )
 
     def setup_run_environment(self, run_env):
