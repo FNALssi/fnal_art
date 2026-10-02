@@ -50,26 +50,27 @@ class GeniePhyopt(Package):
     # Declare versions and their resources with checksums.
 
     for v,vars in _checksums.items():
+        v_underscored=v.replace('.', '_')
         for var,checksum in vars.items():
             if var == default_variant:
                 version(
                     v,
+                    url = f'https://scisoft.fnal.gov/scisoft/packages/genie_phyopt/v{v_underscored}/genie_phyopt-{v}-noarch-{var}.tar.bz2',
                     expand=False,
-                    url = 'https://scisoft.fnal.gov/scisoft/packages/genie_phyopt/v{0}/genie_phyopt-{1}-noarch-{2}.tar.bz2'.format(Version(v).underscored, v, var),
                     sha256=checksum,
                 )
             resource(
                 name=var,
                 expand=True,
-                when="@{0} phyopt_name={1}".format(v,var),
-                url = 'https://scisoft.fnal.gov/scisoft/packages/genie_phyopt/v{0}/genie_phyopt-{1}-noarch-{2}.tar.bz2'.format(Version(v).underscored, v, var),
+                when=f"@{v} phyopt_name={var}",
+                url = f'https://scisoft.fnal.gov/scisoft/packages/genie_phyopt/v{v_underscored}/genie_phyopt-{v}-noarch-{var}.tar.bz2',
                 sha256=checksum,
                 )
 
 
 
     def url_for_version(self, version):
-        return 'https://scisoft.fnal.gov/scisoft/packages/genie_phyopt/v{0}/genie_phyopt-{0}-noarch-{1}.tar.bz2'.format(Version(version).underscored, version, default_variant)
+        return f'https://scisoft.fnal.gov/scisoft/packages/genie_phyopt/v{version.underscored}/genie_phyopt-{version}-noarch-{default_variant}.tar.bz2'
 
     def install(self, spec, prefix):
         val = spec.variants["phyopt_name"].value

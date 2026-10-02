@@ -90,13 +90,14 @@ class GenieXsec(Package):
     # Declare versions and their resources with checksums.
 
     for v,vars in _checksums.items():
+        v_underscored = v.replace('.', '_')
         for var,checksum in vars.items():
             if(Version(v) >= Version("3.0")):
                 if var == default_variant:
                     version(
                         v,
                         expand=False,
-                        url = 'https://scisoft.fnal.gov/scisoft/packages/genie_xsec/v{0}/genie_xsec-{1}-noarch-{2}.tar.bz2'.format(Version(v).underscored, v, var),
+                        url = f'https://scisoft.fnal.gov/scisoft/packages/genie_xsec/v{v_underscored}/genie_xsec-{v}-noarch-{var}.tar.bz2',
                         sha256=checksum,
                     )
 
@@ -104,8 +105,8 @@ class GenieXsec(Package):
                     name=v,
                     placement=var,
                     expand=True,
-                    when="@{0} tune_name={1}".format(v,var),
-                    url = 'https://scisoft.fnal.gov/scisoft/packages/genie_xsec/v{0}/genie_xsec-{1}-noarch-{2}.tar.bz2'.format(Version(v).underscored, v, var),
+                    when=f"@{v} tune_name={var}",
+                    url = f'https://scisoft.fnal.gov/scisoft/packages/genie_xsec/v{v_underscored}/genie_xsec-{v}-noarch-{var}.tar.bz2',
                     sha256=checksum,
                     )
             elif(Version(v) < Version("3.0")):
@@ -113,13 +114,13 @@ class GenieXsec(Package):
                     name=v,
                     placement=var,
                     expand=True,
-                    when="@{0} xsec_name={1}".format(v,var),
-                    url = 'https://scisoft.fnal.gov/scisoft/packages/genie_xsec/v{0}/genie_xsec-{1}-noarch-{2}.tar.bz2'.format(Version(v).underscored, v, var),
+                    when= f"@{v} xsec_name={var}",
+                    url = f'https://scisoft.fnal.gov/scisoft/packages/genie_xsec/v{v_underscored}/genie_xsec-{v}-noarch-{var}.tar.bz2',
                     sha256=checksum,
                 )
 
     def url_for_version(self, version):
-        return 'https://scisoft.fnal.gov/scisoft/packages/genie_xsec/v{0}/genie_xsec-{1}-noarch-{2}.tar.bz2'.format(Version(version).underscored, version, default_variant)
+        return f'https://scisoft.fnal.gov/scisoft/packages/genie_xsec/v{version.underscored}/genie_xsec-{version}-noarch-{default_variant}.tar.bz2'
  
     def install(self, spec, prefix):
         if(self.version >= Version("3.0")):
@@ -127,20 +128,20 @@ class GenieXsec(Package):
             resource_path = os.path.join(self.stage.source_path, val, f"v{self.version.underscored}", "NULL", val)
             install_tree(
                 resource_path,
-                "{0}/v{1}/NULL/{2}".format(prefix, self.version.underscored, val),
+                f'{prefix}/v{self.version.underscored}/NULL/{val}',
             )
 
         elif(self.version < Version("3.0")):
             val = spec.variants["xsec_name"].value
             install_tree(
-                "{0}/v{1}/NULL/{2}".format(self.stage.source_path, self.version.underscored, val),
-                "{0}/{1}".format(prefix, val),
+                f'{self.stage.source_path}/v{self.version.underscored}/NULL/{val}',
+                f'{prefix}/{val}',
             )
 
     def setup_run_environment(self, run_env):
         if(self.version >= Version("3.0")):
             val = self.spec['genie-xsec'].variants['tune_name'].value
-            data_str = "{0}/v{1}/NULL/{2}/data".format(self.spec['genie-xsec'].prefix, self.version.underscored, val)
+            data_str = f"{self.spec['genie-xsec'].prefix}/v{self.version.underscored}/NULL/{val}"
             raw_str = self.spec['genie-xsec'].variants['tune_name'].value
             comb_str = raw_str.split(':')[0].split('-')[0]
             tune_str = comb_str[:-8]+"_"+comb_str[-8:-5]+"_"+comb_str[-5:-3]+"_"+comb_str[-3:] 
