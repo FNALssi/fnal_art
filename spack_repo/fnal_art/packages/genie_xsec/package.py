@@ -13,7 +13,9 @@ from spack.package import *
 #default_variant = 'G1801a00000-k250-e1000'
 #default_variant = 'G1802a00000-k250-e1000'
 default_variant = 'G1810a0211a-k250-e1000'
-    
+
+default_variant_v2="DefaultPlusMECWithNC"
+
 # Checksums by version and variant.
 # Checksum = versions[version][variant]
 # Variant is either tune_name or xsec_name.
@@ -71,7 +73,7 @@ class GenieXsec(Package):
     # genie tune format
     variant(
         "tune_name",
-        default="AR2320i00000-k250-e1000",
+        default=default_variant,
         multi=False,
         values=tuple(tune_names),
         when="@3.0:",
@@ -80,7 +82,7 @@ class GenieXsec(Package):
 
     variant(
         "xsec_name",
-        default="DefaultPlusMECWithNC",
+        default=default_variant_v2,
         multi=False,
         values=tuple(xsec_names),
         when="@:3.0",
@@ -110,6 +112,13 @@ class GenieXsec(Package):
                     sha256=checksum,
                     )
             elif(Version(v) < Version("3.0")):
+                if var == default_variant_v2:
+                    version(
+                        v,
+                        expand=False,
+                        url = f'https://scisoft.fnal.gov/scisoft/packages/genie_xsec/v{v_underscored}/genie_xsec-{v}-noarch-{var}.tar.bz2',
+                        sha256=checksum,
+                    )
                 resource(
                     name=v,
                     placement=var,
@@ -134,7 +143,7 @@ class GenieXsec(Package):
         elif(self.version < Version("3.0")):
             val = spec.variants["xsec_name"].value
             install_tree(
-                f'{self.stage.source_path}/v{self.version.underscored}/NULL/{val}',
+                f'{self.stage.source_path}/{val}/v{self.version.underscored}/NULL/{val}',
                 f'{prefix}/v{self.version.underscored}/NULL/{val}',
             )
 
