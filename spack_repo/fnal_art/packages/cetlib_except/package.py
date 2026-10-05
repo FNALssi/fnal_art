@@ -33,7 +33,7 @@ class CetlibExcept(CMakePackage, FnalGithubPackage):
     depends_on("c", when="@:1.10.00", type="build")
     depends_on("catch2@2.3.0:2", when="@:1.08", type=("build", "test"))
     depends_on("catch2@3.3.0:", when="@1.09:", type=("build", "test"))
-    depends_on("cetmodules@3.19.02:", type="build")
+    depends_on("cetmodules@3.19.02:4", type="build")
     conflicts("cetmodules@:3.21.00", when="catch2@3:")
 
     if "SPACK_CMAKE_GENERATOR" in os.environ:
