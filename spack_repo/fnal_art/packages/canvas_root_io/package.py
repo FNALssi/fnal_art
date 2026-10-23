@@ -21,6 +21,7 @@ class CanvasRootIo(CMakePackage, FnalGithubPackage):
 
     version("develop", branch="develop", get_full_repo=True)
 
+    version("1.14.02", sha256="a597097228c5767401d8fe2efb46327ccd7de8fb1137aadfafc99b4f67866ba4")
     version("1.14.01", sha256="f281679086f92cb35a259752976b7db197d696bb50f1cc62bb765561f08e0fd1")
     version("1.14.00", sha256="77ce8277704451aaa0eb003298b47accbf302a55f044fc330bf43040495684bd")
     version("1.13.06", sha256="a0b7fdbc0f8f52b39a289f97c1354e304794beae87e8128099ffada5460ef72f")

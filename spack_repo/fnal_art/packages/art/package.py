@@ -21,6 +21,7 @@ class Art(CMakePackage, FnalGithubPackage):
 
     version_patterns = ["v3_04_00"]
 
+    version("3.15.01", sha256="e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855")
     version("3.15.00", sha256="3faa8c90d85b5ac100c56584f2bf05a664ed6d5243e53df1fe9e4372d4136eed")
     version("3.14.04", sha256="2b930299e1f3fe52544fe0a8f7beaba614c1aea56efe832fffb7117f497e110c")
     version("3.14.03", sha256="c16b8b69a540fe00090e56ff6911c356615dd2c82179d57373024bcb01984434")

@@ -102,7 +102,6 @@ class GenieXsec(Package):
                         url = f'https://scisoft.fnal.gov/scisoft/packages/genie_xsec/v{v_underscored}/genie_xsec-{v}-noarch-{var}.tar.bz2',
                         sha256=checksum,
                     )
-
                 resource(
                     name=v,
                     placement=var,
