@@ -14,6 +14,7 @@ class Marley(MakefilePackage):
     homepage = "https://github.com/MARLEY-MC/marley"
     url = "https://github.com/MARLEY-MC/marley/archive/v1.2.1.tar.gz"
 
+    version("2.1.0", sha256="2d32ee1f57b41fbb480076a8a2fc6a076301f9fc5eafab4e9cfe0d57442aab54")
     version("2.0.0", sha256="db5011af0b8fe98bd54ecbbc31c52d00aacaff4ad1577c320f7569390f34cb36")
     version("1.2.1", sha256="75e8e4acbbcf7ad9de0ef629ac9e8764ebf90fda2242ff5e6e590e77f9df6972")
     version("1.2.0", sha256="8bb0a68924c8e5d7773904151e3134c6c59837723ecf4e1b586a6cb5b48b520d")
