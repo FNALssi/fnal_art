@@ -44,8 +44,9 @@ class Marley(MakefilePackage):
     patch("marley-1.2.1.patch", when="@1.2.1")
 
     def patch(self):
-        cxxstd = self.spec.variants["cxxstd"].value
-        filter_file("CXX_STD=c\+\+14", f"CXX_STD=c\+\+{cxxstd}", "build/Makefile")
+        with when('@1'):
+            cxxstd = self.spec.variants["cxxstd"].value
+            filter_file("CXX_STD=c\+\+14", f"CXX_STD=c\+\+{cxxstd}", "build/Makefile")
 
     def cmake_args(self):
         args = [self.define_from_variant("CMAKE_CXX_STANDARD", "cxxstd")]
