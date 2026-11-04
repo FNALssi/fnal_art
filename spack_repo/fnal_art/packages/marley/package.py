@@ -44,7 +44,7 @@ class Marley(MakefilePackage):
     patch("marley-1.2.1.patch", when="@1.2.1")
 
     def patch(self):
-        with when('@1'):
+        with when('@:1.2.1'):
             cxxstd = self.spec.variants["cxxstd"].value
             filter_file("CXX_STD=c\+\+14", f"CXX_STD=c\+\+{cxxstd}", "build/Makefile")
 
