@@ -66,12 +66,10 @@ class Marley(MakefilePackage, CMakePackage):
         if self.spec.satisfies("@2.0:"):
             # Vendored HepMC3 headers, needed to parse MARLEY headers in ROOT
             env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include.marley.builtin)
-        else:
-            # MARLEY 2.x locates its data relative to libMARLEY; 1.x needs this
-            data = self.prefix.share.marley.data
-            env.append_path("FW_SEARCH_PATH", data)
-            env.append_path("FW_SEARCH_PATH", data.react)
-            env.append_path("FW_SEARCH_PATH", data.structure)
+        data = self.prefix.share.marley.data
+        env.append_path("FW_SEARCH_PATH", data)
+        env.append_path("FW_SEARCH_PATH", data.react)
+        env.append_path("FW_SEARCH_PATH", data.structure)
 
 
 class CMakeBuilder(cmake.CMakeBuilder):
