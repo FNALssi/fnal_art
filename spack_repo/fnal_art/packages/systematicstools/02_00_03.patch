@@ -1,0 +1,13 @@
+diff --git a/systematicstools/utility/exceptions.hh b/systematicstools/utility/exceptions.hh
+index 7fe7782..8efc28e 100644
+--- a/systematicstools/utility/exceptions.hh
++++ b/systematicstools/utility/exceptions.hh
+@@ -4,7 +4,7 @@
+ #include <sstream>
+ #include <stdexcept>
+ #include <string>
+-
++#include <cstdint>
+ #ifndef NO_ART
+ #include "cetlib_except/exception.h"
+ 
