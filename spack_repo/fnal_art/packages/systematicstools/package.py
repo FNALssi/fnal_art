@@ -30,7 +30,7 @@ class Systematicstools(CMakePackage):
         description="C++ standard",
     )
 
-    patch(self):
+    def patch(self):
     # include cstdint
     filter_file("namespace fhicl", "#include <cstdint>\nnamespace fhicl",
                 "systematicstools/utility/FHiCLSystParamHeaderUtility.hh")
