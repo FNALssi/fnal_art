@@ -30,11 +30,10 @@ class Systematicstools(CMakePackage):
         description="C++ standard",
     )
 
+    patch(self):
     # include cstdint
-    patch("01_04_02.patch", when="@=01.04.02",
-          sha256="170e1254063f4ced77dd760555696a7aa721fd2b6b4a0e324ac58f379abd7691")
-    patch("02_00_03.patch", when="@=02.00.03",
-          sha256="87ce3b9811758e84d0e0b4076baecf8f225da7b983468493ddb6a8b95cf56762")
+    filter_file("namespace fhicl", "#include <cstdint>\nnamespace fhicl",
+                "systematicstools/utility/FHiCLSystParamHeaderUtility.hh")
 
     depends_on("c", type="build")
     depends_on("cxx", type="build")
