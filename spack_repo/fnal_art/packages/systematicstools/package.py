@@ -32,8 +32,8 @@ class Systematicstools(CMakePackage):
 
     def patch(self):
     # include cstdint
-    filter_file("namespace fhicl", "#include <cstdint>\nnamespace fhicl",
-                "systematicstools/utility/FHiCLSystParamHeaderUtility.hh")
+        filter_file("namespace fhicl", "#include <cstdint>\nnamespace fhicl",
+                    "systematicstools/utility/FHiCLSystParamHeaderUtility.hh")
 
     depends_on("c", type="build")
     depends_on("cxx", type="build")
