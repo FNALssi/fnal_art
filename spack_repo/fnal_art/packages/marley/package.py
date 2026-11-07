@@ -3,13 +3,13 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
-from spack_repo.builtin.build_systems import cmake, makefile
-from spack_repo.builtin.build_systems.cmake import CMakePackage
-from spack_repo.builtin.build_systems.makefile import MakefilePackage
+from spack_repo.builtin.build_systems.cmake import CMakeBuilder, CMakePackage
+from spack_repo.builtin.build_systems.makefile import MakefileBuilder, MakefilePackage
+
 from spack.package import *
 
 
-class Marley(MakefilePackage, CMakePackage):
+class Marley(CMakePackage, MakefilePackage):
     """A Monte Carlo event generator for tens-of-MeV neutrino-nucleus
     interactions in liquid argon"""
 
