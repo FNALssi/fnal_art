@@ -149,7 +149,7 @@ class GenieXsec(Package):
     def setup_run_environment(self, run_env):
         if(self.version >= Version("3.0")):
             val = self.spec['genie-xsec'].variants['tune_name'].value
-            data_str = f"{self.spec['genie-xsec'].prefix}/v{self.version.underscored}/NULL/{val}"
+            data_str = f"{self.spec['genie-xsec'].prefix}/v{self.version.underscored}/NULL/{val}/data"
             raw_str = self.spec['genie-xsec'].variants['tune_name'].value
             comb_str = raw_str.split(':')[0].split('-')[0]
             tune_str = comb_str[:-8]+"_"+comb_str[-8:-5]+"_"+comb_str[-5:-3]+"_"+comb_str[-3:] 
