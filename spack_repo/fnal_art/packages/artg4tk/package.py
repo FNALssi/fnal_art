@@ -37,7 +37,7 @@ class Artg4tk(CMakePackage,FnalGithubPackage):
     depends_on("c", type="build")
     depends_on("cxx", type="build")
 
-    depends_on("cetmodules", type="build")
+    depends_on("cetmodules@3", type="build")
     depends_on("cetbuildtools", type="build")
     depends_on("art")
     depends_on("art-root-io")
