@@ -58,7 +58,8 @@ class Artg4tk(CMakePackage,FnalGithubPackage):
         return (flags, None, None)
 
     def setup_build_environment(self, spack_env):
-        spack_env.set("CETBUILDTOOLS_VERSION", self.spec["cetmodules"].version)
+        spack_env.set("CETBUILDTOOLS_VERSION",
+                      str(self.spec["cetmodules"].version))
         spack_env.set("CETBUILDTOOLS_DIR", self.spec["cetmodules"].prefix)
         spack_env.set("LD_LIBRARY_PATH", self.spec["root"].prefix.lib)
 
