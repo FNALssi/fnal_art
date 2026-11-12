@@ -37,13 +37,14 @@ class Artg4tk(CMakePackage,FnalGithubPackage):
     depends_on("c", type="build")
     depends_on("cxx", type="build")
 
-    depends_on("cetmodules", type="build")
+    depends_on("cetmodules@3", type="build")
     depends_on("cetbuildtools", type="build")
     depends_on("art")
     depends_on("art-root-io")
     depends_on("canvas-root-io")
     depends_on("geant4@:10.6.1", when="@:12")
-    depends_on("geant4@11.2.2:", when="@13:")
+    depends_on("geant4@11.2.2:", when="@13:13.01.01")
+    depends_on("geant4@11.4:", when="@13.01.02:") # see e1583d6: G4HadronicParameters::Dump
     depends_on("root")
     depends_on("boost")
 
@@ -58,7 +59,8 @@ class Artg4tk(CMakePackage,FnalGithubPackage):
         return (flags, None, None)
 
     def setup_build_environment(self, spack_env):
-        spack_env.set("CETBUILDTOOLS_VERSION", self.spec["cetmodules"].version)
+        spack_env.set("CETBUILDTOOLS_VERSION",
+                      str(self.spec["cetmodules"].version))
         spack_env.set("CETBUILDTOOLS_DIR", self.spec["cetmodules"].prefix)
         spack_env.set("LD_LIBRARY_PATH", self.spec["root"].prefix.lib)
 
