@@ -21,7 +21,7 @@ class Cadmesh(CMakePackage):
     depends_on("geant4", type=("build", "run"))
     depends_on("clhep", type=("build", "run"))
     depends_on("xerces-c", type=("build", "run"))
-    depends_on("zlib", type=("build", "run"))
+    depends_on("zlib-api", type=("build", "run"))
     depends_on("expat", type=("build", "run"))
 
     # maintainers = ['marcmengel']

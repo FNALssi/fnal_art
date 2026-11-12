@@ -35,7 +35,7 @@ class Libwda(MakefilePackage):
     depends_on("cxx", type="build")
 
     depends_on("curl")
-    depends_on("zlib")
+    depends_on("zlib-api")
     depends_on("openssl")
     depends_on("pcre")
 
