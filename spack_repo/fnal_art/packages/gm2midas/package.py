@@ -60,7 +60,7 @@ class Gm2midas(MakefilePackage):
     depends_on("cxx", type="build")
 
     depends_on("root", type=("build", "run"))
-    depends_on("zlib", type=("build", "run"))
+    depends_on("zlib-api", type=("build", "run"))
     depends_on("openssl", type=("build", "run"))
     depends_on("libusb", type=("build", "run"))
 

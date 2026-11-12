@@ -43,7 +43,7 @@ class Ifdhc(MakefilePackage):
 
     depends_on("python")
     depends_on("swig", type="build", when="@:2.5.0")
-    depends_on("zlib")
+    depends_on("zlib-api")
     depends_on("uuid")
     depends_on("ifdhc-config")
 
