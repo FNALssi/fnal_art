@@ -55,6 +55,7 @@ class Nucondb(MakefilePackage):
         filter_file(
             r"catch \(WebAPIException we\)", "catch (WebAPIException &we)", "src/nucondb.cc"
         )
+        filter_file(r"\$\(OTHER_LIB\) \$<", "$< $(OTHER_LIB)", "src/Makefile")
 
     @property
     def build_targets(self):
