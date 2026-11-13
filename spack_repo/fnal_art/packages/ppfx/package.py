@@ -11,19 +11,22 @@ from spack.package import *
 class Ppfx(CMakePackage):
     """Package to Predict the FluX"""
 
-    homepage = "https://github.com/NuSoftHEP/ppfxv2"
-    homepage_soon = "https://github.com/kordosky/ppfx"
-    git = "https://github.com/NuSoftHEP/ppfxv2"
-    url = "https://github.com/NuSoftHEP/ppfxv2/archive/v02_20_09.tar.gz"
-    url_soon = "https://github.com/kordosky/ppfx/archive/tag/v02.13.03.tar.gz"
+    homepage = "https://github.com/NuFluxSoftware/ppfx"
+    git = "https://github.com/NuFluxSoftware/ppfx"
+    url = "https://github.com/NuFluxSoftware/ppfx/archive/refs/tags/02.22.00.tar.gz"
 
     maintainers = ["marcmengel", "kordosky"]
 
     def url_for_version(self, version):
-        if version[0] < 3:
-            return f"https://github.com/NuSoftHEP/ppfxv2/archive/v{version.underscored}.tar.gz"
-        return f"https://github.com/kordosky/ppfx/archive/tag/v{version}.tar.gz"
+        return f"https://github.com/NuFluxSoftware/ppfx/archive/refs/tag/{version}.tar.gz"
 
+    version("3.00.04", sha256="55961ec748ef0f7bab044529c3af93ffd9b258ca66aeb85a057cbf0039f2c1b5")
+    version("3.00.03", sha256="253c14bb89f3835d97ed7d24d575300df9f71321d9b14c19390d53432080d844")
+    version("3.00.02", sha256="de5fc1e795207c7adcf9e5cbbff8189ba6404b3d1c4045588f89b96aa35cdff1")
+    version("3.00.01", sha256="214a0aed3fba865ae586d03237f76fcba46637dcd9c568cb7f1633a7a8369ed9")
+    version("3.00.00", sha256="882eceb5e6c0979f2d65d566e7ee70d0d1dbd03234d3b566e13c87d71920543b")
+    version("02.22.00", sha256="8b452e4cbbcbcf74ff5614c3a184315b4df1570cef518be5a4f953f2a9bf74ae")
+    version("02.21.02", sha256="52d51f3634f8f66c6d84831bf6348d8f8be78563415ea904fd950d97f6fde175")
     version("02.20.09", sha256="7f8ffa658c882096dd5c11920e968d9c5752420c27afef92c94d3c641d4427b1")
     version("02.20.05", sha256="d01a7e5cff2502700ad4adc9c9dd17d405c262a1544351fc3f3f23fcbc325ba5")
     version("02.20.03", sha256="6639c2aef59e7e45e22bb7fce2f61fda025ce6233b829facdf49a84eede521a8")
