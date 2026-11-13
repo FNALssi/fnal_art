@@ -18,6 +18,9 @@ class Systematicstools(CMakePackage):
         return f"https://github.com/{org}/systematicstools/archive/v{version.underscored}.tar.gz"
 
     version("02.00.03", sha256="c323bcd68d931df56d5fda97c5777277de3bfb5451de7c090207053a87ff6a53")
+    version("01.06.00", sha256="d16803fd2c2677c554c910b0070a9061150978652639425f9b40d4a00671660e")
+    version("01.05.00", sha256="ff0f98acf799bcf03ae8995682f1638aa8b746fa521902701ead6f398215a9a8")
+    version("01.04.05", sha256="869229824248a9d714186088599223ac25ffda3b8c5b3c10f4298d02402b4783")
     version("01.04.04", sha256="7436341f63ea205d8b901b75859a26ec81f29fd272bf324c7bdcde713a3b937c")
     version("01.04.02", sha256="0e14b9736b31b7911307e8703d0f386f2a1fb5c1dcaa69a8d7ce9916afb974cd")
 
