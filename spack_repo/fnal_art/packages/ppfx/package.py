@@ -33,6 +33,11 @@ class Ppfx(CMakePackage):
     version("02.18.05", sha256="182ab28fbdcd1e8a0f436fe8396273e9ce97b2100cb97cf30c4a8a5d95ccbfad")
     version("02.18.03", sha256="e5e76a9a510abc0c3b5d517e6866e5394e8a58bee1e22a2b2a2552dbf5d2ad45")
 
+    def patch(self):
+        with when('@3:'):
+            filter_file('if\(isinf', 'if(std::isinf', 'src/TargetAttenuationReweighter.cpp')
+            filter_file('if\(isnan', 'if(std::isnan', 'src/FillIMapHists.cpp')
+
     variant(
         "cxxstd",
         default="17",
