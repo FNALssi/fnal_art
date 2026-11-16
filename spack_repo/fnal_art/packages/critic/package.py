@@ -42,6 +42,7 @@ class Critic(CMakePackage, FnalGithubPackage):
     version_patterns = ["v2_12_02"]
 
     version("develop", branch="develop", get_full_repo=True)
+    version("2.14.02", sha256="bf312b7b44a2b032abd6590f16af9f16d4b24c83d5b4fc50ec3675c057059c84")
     version("2.14.01", sha256="6d76dd471dc8da4eef7fc3b06284b416f8f9fc16e0a3af48fcb08df60aa4d06d")
     version("2.14.00", sha256="cefb90d3ab4de47a3a06fddf8f8c5fd4bf7fde62ab24b24a5bb1b97758c2e972")
     version("2.13.06", sha256="92359d75c947047a5a8753de3cbdcfa36dcf320420ed46ac3c0c39ea41cfb4a4")
@@ -56,7 +57,7 @@ class Critic(CMakePackage, FnalGithubPackage):
     conflicts("cxxstd=17", when="@2.14.00:")
 
     depends_on("cxx", type="build")
-    depends_on("c", when="@:2.14.01", type="build")
+    depends_on("c", type="build")
     depends_on("art")
     depends_on("art-root-io")
     depends_on("canvas")
