@@ -96,7 +96,6 @@ class Ppfx(CMakePackage):
         env.set("XERCES_C_INC", self.spec["xerces-c"].prefix)
 
     def setup_run_environment(self, run_env):
-        print('ppfx setup_run_environment called.', file=sys.stderr)
         run_env.set('PPFX_DIR', self.prefix)
         run_env.prepend_path("PATH", self.prefix.bin)
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
