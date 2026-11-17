@@ -47,7 +47,7 @@ class Ppfx(CMakePackage):
 
     depends_on("cetmodules", type="build")
     depends_on("cetbuildtools", type="build")
-    depends_on("doxygen", type="build", when="@:2")
+    depends_on("doxygen", type="build", when="@:02.19") # not 2.20 or newer
     depends_on("nufinder", type="build")
 
     depends_on("art")
