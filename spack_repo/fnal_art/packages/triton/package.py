@@ -31,13 +31,13 @@ class Triton(CMakePackage):
     depends_on("patchelf", type=("build"))
 
     depends_on("curl", type=("build","run"))
-    depends_on("abseil-cpp", type=("build","run"))
-    depends_on("protobuf", type=("build", "run"))
+#    depends_on("abseil-cpp", type=("build","run"))
+#    depends_on("protobuf", type=("build", "run"))
     depends_on("cuda", type=("build", "run"), when="+cuda")
-    depends_on("googletest", type=("build", "run"))
+#    depends_on("googletest", type=("build", "run"))
     depends_on("rapidjson", type=("build", "run"))
-    depends_on("grpc", type=("build", "run"))
-    depends_on("re2", type=("build", "run"))
+#    depends_on("grpc", type=("build", "run"))
+#    depends_on("re2", type=("build", "run"))
     depends_on("c-ares", type=("build", "run"))
     depends_on("openssl", type=("build", "run"))
 
