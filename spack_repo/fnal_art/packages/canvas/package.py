@@ -18,6 +18,7 @@ class Canvas(CMakePackage, FnalGithubPackage):
 
     version_patterns = ["v3_12_04"]
 
+    version("3.17.01", sha256="f4afce52988c82a256c6222f0ba99cf59d29216245a251fe2ceb93e355a9c928")
     version("3.17.00", sha256="05c08194b49e5467bffbd89dc99d2b7ec357c8ae021445b32a190509a9bb60dc")
     version("3.16.04", sha256="11278f758e40e96f1d1ffad61625e4bfc6067e0623cd191c6c8227c265e2c44f")
     version("3.16.03", sha256="150f82d37c402b4e428b040f047ef9e2b9613a8d8d8803aba03137a754bb7a47")

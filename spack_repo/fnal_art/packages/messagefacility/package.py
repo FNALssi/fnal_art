@@ -20,6 +20,7 @@ class Messagefacility(CMakePackage, FnalGithubPackage):
 
     version_patterns = ["v2_08_00"]
 
+    version("2.11.01", sha256="27c53b95b486d5417ac129607b6940c813b3ed86885b00c78405b4131507a184")
     version("2.11.00", sha256="6b3f7a8ef870bbea7e1127f4f841d1ecac4fca57509b4108cd284d6b7813d360")
     version("2.10.05", sha256="cd99c85b81f7d4d23195fb6f84d8815c73d6eedbb4c543dc10c9616a5c31368d")
     version("2.10.04", sha256="5c63a26c974c69677eeb8c927a581aa40bd7ff8f6abf6ebcdd20cc423e145df9")
