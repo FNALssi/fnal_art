@@ -52,7 +52,7 @@ class Ppfx(CMakePackage):
 
     depends_on("cetmodules", type="build")
     depends_on("cetbuildtools", type="build")
-    depends_on("doxygen", type="build")
+    depends_on("doxygen", type="build", when="@:02.19") # not 2.20 or newer
     depends_on("nufinder", type="build")
 
     depends_on("art")
@@ -101,7 +101,6 @@ class Ppfx(CMakePackage):
         env.set("XERCES_C_INC", self.spec["xerces-c"].prefix)
 
     def setup_run_environment(self, run_env):
-        print('ppfx setup_run_environment called.', file=sys.stderr)
         run_env.set('PPFX_DIR', self.prefix)
         run_env.prepend_path("PATH", self.prefix.bin)
         run_env.prepend_path("ROOT_INCLUDE_PATH", self.prefix.include)
